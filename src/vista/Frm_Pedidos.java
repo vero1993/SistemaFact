@@ -69,6 +69,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         txtDireccionDestinatario.setLineWrap(true);
         this.Limitar();
         this.btnFacturar.setEnabled(false);
+        //this.btnAbonar.setEnabled(false);
 
     }
 
