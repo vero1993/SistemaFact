@@ -67,7 +67,7 @@ public class ModeloTablaCategorias extends AbstractTableModel{
                 return "NOMBRE";
 
             case 2:
-                return "DESCRIPCION";
+                return "DESCRIPCIÓN";
             default:
                 return null;
         }

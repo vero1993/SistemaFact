@@ -68,7 +68,7 @@ public class ModeloTablaProductos extends AbstractTableModel {
         switch (column) {
             
             case 0:
-                return "CODIGO";
+                return "CÓDIGO";
             case 1:
                 return "NOMBRE";
             case 2:

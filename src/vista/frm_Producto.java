@@ -265,7 +265,7 @@ public class frm_Producto extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblTabla);
 
         jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 55, 453, 260);
+        jScrollPane1.setBounds(10, 55, 452, 260);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,7 +280,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(cbxBuscarProducto);
-        cbxBuscarProducto.setBounds(90, 20, 150, 24);
+        cbxBuscarProducto.setBounds(90, 20, 150, 20);
 
         txtBuscarProducto.setEditable(false);
         txtBuscarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -312,7 +312,7 @@ public class frm_Producto extends javax.swing.JDialog {
         jPanel2.setLayout(null);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("CATEGORIA:");
+        jLabel3.setText("CATEGORÍA:");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(10, 70, 80, 29);
 
@@ -405,7 +405,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel2.add(rdbIvaNo);
-        rdbIvaNo.setBounds(320, 210, 40, 22);
+        rdbIvaNo.setBounds(320, 210, 40, 23);
 
         giva.add(rdbIvaSi);
         rdbIvaSi.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -416,7 +416,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel2.add(rdbIvaSi);
-        rdbIvaSi.setBounds(280, 210, 40, 22);
+        rdbIvaSi.setBounds(280, 210, 40, 23);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("IVA:");
