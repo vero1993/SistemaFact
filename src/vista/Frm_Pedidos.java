@@ -69,7 +69,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         txtDireccionDestinatario.setLineWrap(true);
         this.Limitar();
         this.btnFacturar.setEnabled(false);
-        //this.btnAbonar.setEnabled(false);
+        this.btnAbonar.setEnabled(false);
 
     }
 
@@ -879,8 +879,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private void txtBuscarProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProductoKeyReleased
 
         Validacion.validarMayusculas(evt, txtBuscarProducto);
-        this.modelopp.setLista(this.sProducto.buscarTodosProductos(this.txtBuscarProducto.getText()));
-        this.tblproducto.setModel(this.modelopp);
+        this.modeloProducto.setLista(this.sProducto.buscarTodosProductos(this.txtBuscarProducto.getText()));
+        this.tblproducto.setModel(this.modeloProducto);
         this.tblproducto.updateUI();
     }//GEN-LAST:event_txtBuscarProductoKeyReleased
 
@@ -1087,6 +1087,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         // guarda o midifica el despacho
         if (Validacion.requerido(txtNroPedido, txtNroPedido.getText()) == true
                 && Validacion.requerido(txttotalcant, txttotalcant.getText()) == true
+                && Validacion.requerido(txtCedulaCliente, txtCedulaCliente.getText()) == true
+                && Validacion.requerido(txtApellidosCliente, txtApellidosCliente.getText()) == true
                 && Validacion.requerido(txtSubtotalDoce, txtSubtotalDoce.getText()) == true) {
             this.CargarObjeto();
             this.sPedido.getPedido().setCliente(this.sCliente.getCliente());
@@ -1138,6 +1140,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         llenadodetalle();
         this.cambiarNombreBoton();
         this.btnFacturar.setEnabled(true);
+        this.btnAbonar.setEnabled(true);
     }//GEN-LAST:event_tblPedidosMouseClicked
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
@@ -1156,11 +1159,11 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                         this.cargarVista();
                         this.tblPedidos.clearSelection();
                     } else {
-                        JOptionPane.showMessageDialog(this, "DESPACHO YA SE ENCUENTRA ASIGNADO NO SE PUEDE MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "PEDIDO YA SE ENCUENTRA ASIGNADO NO SE PUEDE MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
                         this.tblPedidos.clearSelection();
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "SELECCIONE UN DESPACHO ACTIVO PARA MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "SELECCIONE UN PEDIDO ACTIVO PARA MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
                     this.tblPedidos.clearSelection();
                 }
             } else {
