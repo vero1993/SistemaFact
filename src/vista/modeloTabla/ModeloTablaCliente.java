@@ -60,7 +60,7 @@ public class ModeloTablaCliente extends AbstractTableModel{
             case 0: return "CÉDULA";
             case 1: return "APELLIDOS";
             case 2: return "NOMBRES";
-            case 3: return "DIRECCION";
+            case 3: return "DIRECCIÓN";
             
                 default: return null;
         }

@@ -1173,7 +1173,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                     this.cargarVista();
                     this.tblPedidos.clearSelection();
                 } else {
-                    JOptionPane.showMessageDialog(this, "DESPACHO TERMINADO NO SE PUEDE DEVOLVER PRODUCTOS", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "PEDIDO TERMINADO NO SE PUEDE DEVOLVER PRODUCTOS", "ERROR", JOptionPane.ERROR_MESSAGE);
                     this.tblPedidos.clearSelection();
                 }
             }
