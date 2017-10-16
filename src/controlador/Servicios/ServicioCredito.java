@@ -52,4 +52,16 @@ public class ServicioCredito {
      public List<Credito> listarCreditoActivados() {
          return this.cDao.listarCreditoActivados();
      }
+     
+     public List<Credito> listarCreditoDesactivados() {
+         return this.cDao.listarCreditoDesactivados();
+     }
+     
+     public Credito obtenerCredito(String num_pedido) {
+         return this.cDao.obtenerCredito(num_pedido);
+     }
+     
+     public List<Credito> buscarCreditosporPedido(String variable){
+         return this.cDao.buscarCreditosporPedido(variable);
+     }
 }

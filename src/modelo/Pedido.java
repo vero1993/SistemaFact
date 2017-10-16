@@ -41,7 +41,7 @@ public class Pedido implements Serializable{
     @Column(columnDefinition="Decimal(10,2) default '00.00'")
     private Double tot_ped;
     private String estado;
-    private boolean asignado; 
+    private String asignado="N"; 
     @Column(columnDefinition="Decimal(10,2) default '00.00'")
     private Double sal_ped;
     @Column(columnDefinition="Decimal(10,2) default '00.00'")
@@ -115,11 +115,11 @@ public class Pedido implements Serializable{
         this.estado = estado;
     }
 
-    public boolean isAsignado() {
+    public String getAsignado() {
         return asignado;
     }
 
-    public void setAsignado(boolean asignado) {
+    public void setAsignado(String asignado) {
         this.asignado = asignado;
     }
 

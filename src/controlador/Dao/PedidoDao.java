@@ -197,10 +197,9 @@ public class PedidoDao extends AdaptadorDao {
     public List<Pedido> buscarPedidosparaCredito(String cedula){
         List lista = null;
         try {
-            String query = "Select a from Pedido a where a.cliente.ced_per=? and a.facturado='N' and a.estado='ACTIVO' and a.asignado=?"; // 
+            String query = "Select a from Pedido a where a.cliente.ced_per=? and a.facturado='N' and a.estado='ACTIVO' and a.asignado='N'"; // 
             Query q = this.getEntityManager().createQuery(query);
             q.setParameter(1, cedula);
-            q.setParameter(2, false);
             lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage() + "buscarPedido");
