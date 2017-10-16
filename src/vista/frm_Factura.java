@@ -220,7 +220,7 @@ public class frm_Factura extends javax.swing.JDialog {
             }
         });
         panelImage2.add(btnGuardar);
-        btnGuardar.setBounds(40, 520, 130, 41);
+        btnGuardar.setBounds(40, 520, 130, 42);
 
         txtSubtotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSubtotal.setText("0.00");

@@ -5,14 +5,18 @@
  */
 package vista;
 
+import controlador.Reportes.Reportes;
 import controlador.Servicios.ServicioCliente;
 import controlador.Servicios.ServicioCredito;
 import controlador.Servicios.ServicioPagos;
 import controlador.Servicios.ServicioPedidos;
+import controlador.Sesiones;
 import java.awt.event.KeyEvent;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
+import modelo.Pagos;
+import modelo.Pedido;
 import vista.Utilidades.LlenadoComponentes;
 import vista.Utilidades.Validacion;
 import vista.modeloTabla.ModeloTablaAbonos;
@@ -46,6 +50,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         this.tpcredito.setEnabledAt(2, false);
         modeloTablaCredito.tablaModel(tblCreditos);
         this.reiniciar();
+        this.txtBuscarCuenta.setEnabled(false);
     }
 
     /**
@@ -64,12 +69,13 @@ public class Frm_Abono extends javax.swing.JDialog {
         btnNuevo = new javax.swing.JButton();
         tbnsalir = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        cbxbuscar = new javax.swing.JComboBox();
+        cbxCriterioBuscar = new javax.swing.JComboBox();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblCreditos = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
         btnAbonar = new javax.swing.JButton();
         txtBuscarCuenta = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        chkDesactivadas = new javax.swing.JCheckBox();
         tpnuevo = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         txtMontoPedido = new javax.swing.JTextField();
@@ -107,8 +113,6 @@ public class Frm_Abono extends javax.swing.JDialog {
         btnCancelarAbono = new javax.swing.JButton();
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
         panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/F9PVwxM.jpg"))); // NOI18N
         panelImage1.setLayout(null);
 
@@ -136,9 +140,14 @@ public class Frm_Abono extends javax.swing.JDialog {
         tplistar.add(jLabel17);
         jLabel17.setBounds(20, 20, 60, 20);
 
-        cbxbuscar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        tplistar.add(cbxbuscar);
-        cbxbuscar.setBounds(80, 20, 100, 25);
+        cbxCriterioBuscar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONE UNA OPCIÓN", "NUM. PEDIDO", "CLIENTE" }));
+        cbxCriterioBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCriterioBuscarActionPerformed(evt);
+            }
+        });
+        tplistar.add(cbxCriterioBuscar);
+        cbxCriterioBuscar.setBounds(80, 20, 100, 25);
 
         tblCreditos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tblCreditos.setModel(new javax.swing.table.DefaultTableModel(
@@ -162,12 +171,6 @@ public class Frm_Abono extends javax.swing.JDialog {
         tplistar.add(jScrollPane7);
         jScrollPane7.setBounds(20, 90, 600, 220);
 
-        jLabel3.setFont(new java.awt.Font("TlwgTypewriter", 1, 24)); // NOI18N
-        jLabel3.setForeground(java.awt.Color.blue);
-        jLabel3.setText("CUENTAS POR COBRAR");
-        tplistar.add(jLabel3);
-        jLabel3.setBounds(30, 60, 300, 32);
-
         btnAbonar.setText("ABONAR");
         btnAbonar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,8 +179,31 @@ public class Frm_Abono extends javax.swing.JDialog {
         });
         tplistar.add(btnAbonar);
         btnAbonar.setBounds(270, 320, 110, 30);
+
+        txtBuscarCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarCuentaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarCuentaKeyTyped(evt);
+            }
+        });
         tplistar.add(txtBuscarCuenta);
         txtBuscarCuenta.setBounds(190, 20, 190, 25);
+
+        jLabel5.setFont(new java.awt.Font("TlwgTypewriter", 1, 18)); // NOI18N
+        jLabel5.setText("LISTA DE CUENTAS ACTIVAS");
+        tplistar.add(jLabel5);
+        jLabel5.setBounds(20, 60, 290, 24);
+
+        chkDesactivadas.setText("CUENTAS DESACTIVADAS");
+        chkDesactivadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkDesactivadasActionPerformed(evt);
+            }
+        });
+        tplistar.add(chkDesactivadas);
+        chkDesactivadas.setBounds(442, 60, 180, 23);
 
         tpcredito.addTab("LISTAR", tplistar);
 
@@ -345,7 +371,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
         jLabel1.setText("OBSERVACIÓN:");
         jPanel5.add(jLabel1);
-        jLabel1.setBounds(410, 10, 100, 14);
+        jLabel1.setBounds(410, 10, 100, 15);
 
         txtObservacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -376,10 +402,10 @@ public class Frm_Abono extends javax.swing.JDialog {
         tpnuevo1.add(btnguardar1);
         btnguardar1.setBounds(160, 340, 100, 30);
 
-        jLabel4.setFont(new java.awt.Font("TlwgTypewriter", 1, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("TlwgTypewriter", 1, 18)); // NOI18N
         jLabel4.setText("DETALLE DE ABONOS");
         tpnuevo1.add(jLabel4);
-        jLabel4.setBounds(20, 20, 290, 32);
+        jLabel4.setBounds(20, 20, 290, 24);
 
         tblDetalleAbonos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tblDetalleAbonos.setModel(new javax.swing.table.DefaultTableModel(
@@ -427,9 +453,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelImage1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(panelImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -463,7 +487,7 @@ public class Frm_Abono extends javax.swing.JDialog {
             this.sCredito.fijarInstancia(this.modeloTablaCredito.getLista().get(fila));
             this.btnAbonar.setEnabled(true);
         } else {
-           // JOptionPane.showMessageDialog(this, "Seleccione un credito para realizar el pago", "Error", JOptionPane.ERROR_MESSAGE);
+            // JOptionPane.showMessageDialog(this, "Seleccione un credito para realizar el pago", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_tblCreditosMouseClicked
 
@@ -473,33 +497,34 @@ public class Frm_Abono extends javax.swing.JDialog {
         this.tblDetalleAbonos.updateUI();//asigna los objetos a la tabla
 
     }
+
     private void cargarPagos() {//carga los pagos
         this.txtTotalPago.setText(String.valueOf(this.sCredito.getCredito().getMonto()));
         this.txtSaldo.setText(String.valueOf(this.sCredito.getCredito().getSaldo()).trim());
     }
     private void btnAbonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonarActionPerformed
-        
+
         if (this.sCredito.getCredito().getEstado().equalsIgnoreCase("ACTIVO")) {
-                IrPagos();
-                this.cargarPagos();
-                this.btnAbonar.setEnabled(true);
-                this.CargarTablaPagos(this.sCredito.getCredito().getId_credito());
-            } else {
-                //JOptionPane.showMessageDialog(this, "Seleccione un credito activo para realizar el Pago", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            this.tblCreditos.clearSelection();
-            this.btnAbonar.setEnabled(false);
+            IrPagos();
+            this.cargarPagos();
+            this.btnAbonar.setEnabled(true);
+            this.CargarTablaPagos(this.sCredito.getCredito().getId_credito());
+        } else {
+            //JOptionPane.showMessageDialog(this, "Seleccione un credito activo para realizar el Pago", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        this.tblCreditos.clearSelection();
+        this.btnAbonar.setEnabled(false);
     }//GEN-LAST:event_btnAbonarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
-       this.IrListar();
+        this.IrListar();
     }//GEN-LAST:event_btncancelarActionPerformed
 
     private void btnGuardarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCuentaActionPerformed
-         if (Validacion.requerido(txtApellidosNombres, txtApellidosNombres.getText()) == true) {
-             this.CargarObjeto();
-             if (this.sCredito.getCredito().getId_credito() == null) {
-                if (this.sCredito.guardar() == true && this.sPedido.modificar() == true) {
+        if (Validacion.requerido(txtApellidosNombres, txtApellidosNombres.getText()) == true) {
+            this.CargarObjeto();
+            if (this.sCredito.getCredito().getId_credito() == null) {
+                if (this.sCredito.guardar() == true) {
                     JOptionPane.showMessageDialog(this, "SE HA REGISTRADO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
                     this.IrListar();
                     this.limpiarCampos();
@@ -515,7 +540,7 @@ public class Frm_Abono extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "NO SE HA PODIDO MODIFICAR..!!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
-         }
+        }
     }//GEN-LAST:event_btnGuardarCuentaActionPerformed
 
     private void limpiarCampos() {// para limpiar los cajas de texto
@@ -526,6 +551,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         this.txtNumeroCredito.setText("");
         this.dtFechaCredito.setDate(new Date());
     }
+
     private void CargarObjeto() {
         this.sCredito.getCredito().setNum_credito(this.txtNumeroCredito.getText());
         this.sCredito.getCredito().setEstado("ACTIVO");
@@ -534,7 +560,8 @@ public class Frm_Abono extends javax.swing.JDialog {
         this.sCredito.getCredito().setSaldo(Double.parseDouble(this.txtMontoPedido.getText()));
         this.sCredito.getCredito().setCliente(this.sCliente.getCliente());
         this.sCredito.getCredito().setPedido(this.sPedido.getPedido());
-        this.sPedido.getPedido().setAsignado(true);
+        this.sPedido.getPedido().setAsignado("S");
+        this.sPedido.modificar();
         this.sCredito.getCredito().setDetalle("");
     }
     private void txtTotalPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalPagoKeyTyped
@@ -561,19 +588,37 @@ public class Frm_Abono extends javax.swing.JDialog {
                 this.cargaPagos();
                 if (this.sPagos.getPagos().getId_pagos() == null) {
                     if (this.sPagos.guardar() == true) {
-                     JOptionPane.showMessageDialog(this, "SE HA REGISTRADO EL PAGO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "SE HA REGISTRADO EL PAGO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
+                        int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR RECIBO", "IMPRIMIR RECIBO", JOptionPane.YES_NO_OPTION);
+                        if (showConfirmDialog == 0) {
+                            System.out.println("llamado a imprimir");
+                            Pagos pago = this.sPagos.getPagos();
+                            String numeroPedido = this.sCredito.getCredito().getPedido().getNum_pedido();
+                            String nombreCliente = this.sCredito.getCredito().getCliente().getApe_per() + " " + this.sCredito.getCredito().getCliente().getNom_per();
+                            Date fechaAbono = this.dtFechaAbono.getDate();
+                            double totalPedido = this.sCredito.getCredito().getMonto();
+                            double totalAbonado = this.sCredito.getCredito().getMonto() - this.sCredito.getCredito().getSaldo();
+                            double saldoPendiente = this.sCredito.getCredito().getSaldo();
+                            Long idImp = this.sPagos.getPagos().getId_pagos();
+                            String usuario = (Sesiones.getCuenta().getUsu().getApe_per() + " " + Sesiones.getCuenta().getUsu().getNom_per());
+                            System.out.println(numeroPedido);
+                            System.out.println(nombreCliente);
+                            Reportes.reporteAbono(nombreCliente, numeroPedido, pago, fechaAbono, totalPedido, totalAbonado, saldoPendiente, idImp, usuario);
+                        } else {
+                            System.out.println("Usted escogio no imprimir");
+                        }
                         this.limpiarPagos();
                         this.cargarPagos();
                         this.CargarTablaPagos(this.sCredito.getCredito().getId_credito());
                         //refrescar();
                     } else {
                         JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR", "Error", JOptionPane.ERROR_MESSAGE);
-                   }
+                    }
                 }
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(this, "EL ABONO DEBE SER MENOR AL SALDO", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "INGRESE VALOR DE ABONO", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnguardar1ActionPerformed
@@ -586,6 +631,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         this.dtFechaAbono.setDate(new Date());
         this.txtObservacion.setText("");
     }
+
     private void cargaPagos() {//va a cargar los pagos a guardar
         this.sPagos.getPagos().setDetalle(txtObservacion.getText());
         this.sPagos.getPagos().setCredito(this.sCredito.getCredito());
@@ -621,7 +667,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tblPedidosMouseClicked
 
-    private void reiniciar(){
+    private void reiniciar() {
         this.btnGuardarCuenta.setEnabled(false);
         this.btnAbonar.setEnabled(false);
     }
@@ -646,25 +692,79 @@ public class Frm_Abono extends javax.swing.JDialog {
     }//GEN-LAST:event_txtAbonoKeyTyped
 
     private void txtObservacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObservacionKeyTyped
-      Validacion.ValidarLetrasEspacio(evt);
-      Validacion.cambiarMayusculas(evt);
-      
+        Validacion.ValidarLetrasEspacio(evt);
+        Validacion.cambiarMayusculas(evt);
+
     }//GEN-LAST:event_txtObservacionKeyTyped
+
+    private void chkDesactivadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDesactivadasActionPerformed
+        if (this.chkDesactivadas.isSelected() == true) {
+            this.btnAbonar.setVisible(false);
+            this.modeloTablaCredito.setLista(this.sCredito.listarCreditoDesactivados());//el modelo recive la lista
+            this.tblCreditos.setModel(this.modeloTablaCredito);//aplica el modelo
+            this.tblCreditos.updateUI();
+        } else {
+            this.btnAbonar.setVisible(true);
+            this.CargarTabla();
+        }
+    }//GEN-LAST:event_chkDesactivadasActionPerformed
+
+    private void cbxCriterioBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCriterioBuscarActionPerformed
+        if (cbxCriterioBuscar.getSelectedIndex() == 0) {
+            // txtBuscarCuenta.setEditable(false);
+            txtBuscarCuenta.setEnabled(false);
+            txtBuscarCuenta.setText("");
+        } else {
+            txtBuscarCuenta.setEnabled(true);
+            //txtBuscarCuenta.setEditable(true);
+            txtBuscarCuenta.requestFocus();
+            txtBuscarCuenta.setText("");
+
+            if (cbxCriterioBuscar.getSelectedIndex() == 2) {
+                txtBuscarCuenta.setEnabled(true);
+                txtBuscarCuenta.requestFocus();
+                txtBuscarCuenta.setText("");
+            }
+        }
+    }//GEN-LAST:event_cbxCriterioBuscarActionPerformed
+
+    private void txtBuscarCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCuentaKeyTyped
+        if (cbxCriterioBuscar.getSelectedIndex() == 1) {
+            Validacion.validarNumeros(evt);
+        } else {
+            if (cbxCriterioBuscar.getSelectedIndex() > 1) {
+                Validacion.ValidarLetrasEspacio(evt);
+                Validacion.cambiarMayusculas(evt);
+            }
+        }
+    }//GEN-LAST:event_txtBuscarCuentaKeyTyped
+
+    private void txtBuscarCuentaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCuentaKeyReleased
+        if (cbxCriterioBuscar.getSelectedIndex() == 1 && this.chkDesactivadas.isSelected()==false) {
+            this.modeloTablaCredito.setLista(this.sCredito.buscarCreditosporPedido(this.txtBuscarCuenta.getText()));
+        } else {
+            /*if (cbxBuscarPedido.getSelectedIndex() == 2) {
+                this.modeloPedido.setLista(this.sPedido.buscarPedidosporFecha(this.txtBuscarPedido.getText()));
+            }*/
+        }
+        this.tblCreditos.setModel(this.modeloTablaCredito);
+        this.tblCreditos.updateUI();
+    }//GEN-LAST:event_txtBuscarCuentaKeyReleased
     public void cargarDatosCliente() {
         sCliente.nuevaInstancia();
         sCliente.fijarInstancia((Cliente) sCliente.obtenerPersonaCedula(txtCedulaCliente.getText()));
-        txtApellidosNombres.setText(sCliente.getCliente().getApe_per()+" "+ sCliente.getCliente().getNom_per());
+        txtApellidosNombres.setText(sCliente.getCliente().getApe_per() + " " + sCliente.getCliente().getNom_per());
     }
-    
+
     private void cargaTablaPedidos() {
 
-        this.modeloTablaPedido.setLista(this.sPedido.buscarPedidosparaCredito(this.txtCedulaCliente.getText()));
         if (this.sPedido.buscarPedidosparaFactura(this.txtCedulaCliente.getText()).size() <= 0) {
             JOptionPane.showMessageDialog(this, this.txtApellidosNombres.getText() + " NO TIENE PEDIDOS PENDIENTES", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         } else {
+            this.modeloTablaPedido.setLista(this.sPedido.buscarPedidosparaCredito(this.txtCedulaCliente.getText()));
             this.tblPedidos.setModel(this.modeloTablaPedido);
             this.tblPedidos.updateUI();
-        } 
+        }
     }
 
     private void IrListar()//para ir de nuevo a listar
@@ -676,7 +776,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         this.tpcredito.setTitleAt(1, "NUEVO");
         this.CargarTabla();
     }
-    
+
     private void IrPagos()//para ir de nuevo a listar
     {
         this.tpcredito.setEnabledAt(0, false);
@@ -686,6 +786,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         this.tpcredito.setTitleAt(1, "NUEVO");
         // this.CargarTabla();
     }
+
     /**
      * @param args the command line arguments
      */
@@ -715,7 +816,8 @@ public class Frm_Abono extends javax.swing.JDialog {
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btncancelar;
     private javax.swing.JButton btnguardar1;
-    private javax.swing.JComboBox cbxbuscar;
+    private javax.swing.JComboBox cbxCriterioBuscar;
+    private javax.swing.JCheckBox chkDesactivadas;
     private com.toedter.calendar.JDateChooser dtFechaAbono;
     private com.toedter.calendar.JDateChooser dtFechaCredito;
     private javax.swing.JLabel jLabel1;
@@ -725,9 +827,9 @@ public class Frm_Abono extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

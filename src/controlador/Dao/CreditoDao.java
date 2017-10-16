@@ -81,4 +81,42 @@ public class CreditoDao extends AdaptadorDao{
         }
         return lista;
     }
+    
+    public Credito obtenerCredito(String num_pedido) {//lista un despacho por su id
+        Credito lista = null;
+        try {
+            String query = "Select p from Credito p where p.pedido.num_pedido=?"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter(1, num_pedido);
+            lista = (Credito) q.getSingleResult(); // obteniene el objeto que esta guardado en la tabla de la base de datos de despacho
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+    
+    public List<Credito> listarCreditoDesactivados() {//lista los creditos activos
+        List<Credito> lista = new ArrayList<Credito>();
+        try {
+            String query = "Select p from Credito p where p.estado='DESACTIVO' ";
+            Query q = this.getEntityManager().createQuery(query);
+            //q.setParameter(1, estado);
+
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+    
+    public List<Credito> buscarCreditosporPedido(String variable){
+        List lista = new ArrayList();
+        try {
+            String query = "Select c from Credito c where c.estado='ACTIVO' and c.pedido.num_pedido LIKE :num_pedido"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter("num_pedido", "%"+variable+"%");
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "buscarPedido");
+        }
+        return lista;
+    }
   }

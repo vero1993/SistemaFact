@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.Servicios.ServicioCliente;
+import controlador.Servicios.ServicioCredito;
 import controlador.Servicios.ServicioDestinatario;
 import controlador.Servicios.ServicioDetallePedido;
 import controlador.Servicios.ServicioPedidos;
@@ -39,6 +40,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private ServicioProducto sProducto = new ServicioProducto();
     private ServicioDetallePedido sDetallePedido = new ServicioDetallePedido();
     private ServicioDestinatario sDestinatario = new ServicioDestinatario();
+    private ServicioCredito sCredito = new ServicioCredito();
 
     private ModeloTablaProducto modelopp = new ModeloTablaProducto();
     private ModeloTablaDetallePedido modelodd = new ModeloTablaDetallePedido();
@@ -284,21 +286,21 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jScrollPane8.setViewportView(jTextPane1);
 
         jPanel1.add(jScrollPane8);
-        jScrollPane8.setBounds(620, 210, 8, 22);
+        jScrollPane8.setBounds(620, 210, 9, 24);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("LISTA DE PEDIDOS PENDIENTE");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(10, 60, 180, 30);
 
-        cbxBuscarPedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Opción", "Num. Pedido", "Fecha" }));
+        cbxBuscarPedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE UNA OPCCIÓN", "NUM. PEDIDO", "FECHA" }));
         cbxBuscarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxBuscarPedidoActionPerformed(evt);
             }
         });
         jPanel1.add(cbxBuscarPedido);
-        cbxBuscarPedido.setBounds(80, 10, 150, 20);
+        cbxBuscarPedido.setBounds(80, 10, 150, 24);
 
         txtBuscarPedido.setEditable(false);
         txtBuscarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -588,7 +590,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnguardar);
-        btnguardar.setBounds(640, 470, 117, 40);
+        btnguardar.setBounds(640, 470, 122, 40);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
         jPanel3.setLayout(null);
@@ -879,8 +881,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private void txtBuscarProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProductoKeyReleased
 
         Validacion.validarMayusculas(evt, txtBuscarProducto);
-        this.modelopp.setLista(this.sProducto.buscarTodosProductos(this.txtBuscarProducto.getText()));
-        this.tblproducto.setModel(this.modelopp);
+        this.modeloProducto.setLista(this.sProducto.buscarTodosProductos(this.txtBuscarProducto.getText()));
+        this.tblproducto.setModel(this.modeloProducto);
         this.tblproducto.updateUI();
     }//GEN-LAST:event_txtBuscarProductoKeyReleased
 
@@ -1087,6 +1089,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         // guarda o midifica el despacho
         if (Validacion.requerido(txtNroPedido, txtNroPedido.getText()) == true
                 && Validacion.requerido(txttotalcant, txttotalcant.getText()) == true
+                && Validacion.requerido(txtCedulaCliente, txtCedulaCliente.getText()) == true
+                && Validacion.requerido(txtApellidosCliente, txtApellidosCliente.getText()) == true
                 && Validacion.requerido(txtSubtotalDoce, txtSubtotalDoce.getText()) == true) {
             this.CargarObjeto();
             this.sPedido.getPedido().setCliente(this.sCliente.getCliente());
@@ -1099,12 +1103,26 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                         this.IrListar();
                         this.limpiarCampos();
                     } else {
-                        JOptionPane.showMessageDialog(this, "NO SE H APODIDO REGISTRAR", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR", "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR PEDIDO SIN PRODUCTOS", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
+                System.out.println(this.sPedido.getPedido().getNum_pedido());
+                System.out.println(this.sPedido.getPedido().getAsignado());
+                System.out.println(this.sPedido.getPedido().getEstado());
+                if(this.sPedido.getPedido().getAsignado().equals("S")){
+                    System.out.println("El pedido esta en credito");
+                    this.sCredito.fijarInstancia(this.sCredito.obtenerCredito(this.txtNroPedido.getText()));
+                    System.out.println("El numero de credito del pedidod es: "+this.sCredito.getCredito().getNum_credito());
+                    double valor =  this.sCredito.getCredito().getMonto()- this.sCredito.getCredito().getSaldo();
+                    this.sCredito.getCredito().setMonto(this.sPedido.getPedido().getTot_ped());
+                    this.sCredito.getCredito().setSaldo(this.sPedido.getPedido().getTot_ped()-valor);
+                    this.sCredito.modificar();
+                }else{
+                    System.out.println("El pedido no esta en credito");
+                }
                 LlenadoComponentes.eliminardetalles(this.sPedido.getPedido().getId_ped());
                 if (this.sPedido.modificar() == true) {
                     if (this.tpPedido.getTitleAt(1).equalsIgnoreCase("DEVOLVER")) {
@@ -1150,33 +1168,34 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             this.sCliente.fijarInstancia(this.sPedido.getPedido().getCliente());
             this.sDestinatario.fijarInstancia(this.sPedido.getPedido().getDestinatario());
             if (this.btnmodificar.getText().toString().equalsIgnoreCase("MODIFICAR")) {
-                if (this.sPedido.getPedido().getEstado().equalsIgnoreCase("ACTIVO") && this.sPedido.getPedido().isAsignado() == false) {
-                    if (this.sPedido.getPedido().isAsignado() == false) {
+                //if (this.sPedido.getPedido().getEstado().equalsIgnoreCase("ACTIVO") && this.sPedido.getPedido().isAsignado() == false) {
+                    //if (this.sPedido.getPedido().isAsignado() == false) {
                         this.tpPedido.setTitleAt(1, "MODIFICAR");
                         this.IrNuevo();
                         this.cargarVista();
                         this.tblPedidos.clearSelection();
-                    } else {
+                    /*} else {
                         JOptionPane.showMessageDialog(this, "PEDIDO YA SE ENCUENTRA ASIGNADO NO SE PUEDE MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
                         this.tblPedidos.clearSelection();
                     }
-                } else {
+                /*} else {
                     JOptionPane.showMessageDialog(this, "SELECCIONE UN PEDIDO ACTIVO PARA MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
                     this.tblPedidos.clearSelection();
-                }
-            } else {
-                if (this.sPedido.getPedido().getEstado().equalsIgnoreCase("DESACTIVO") && this.sPedido.getPedido().isAsignado() == false) {
-                    this.tpPedido.setTitleAt(1, "DEVOLVER");
-                    this.IrNuevo();
-                    this.cargarVista();
-                    this.tblPedidos.clearSelection();
-                } else {
+                }*/
+            }
+           // else {
+               // if (this.sPedido.getPedido().getEstado().equalsIgnoreCase("DESACTIVO") && this.sPedido.getPedido().isAsignado() == false) {
+                   // this.tpPedido.setTitleAt(1, "DEVOLVER");
+                   // this.IrNuevo();
+                    //this.cargarVista();
+                    //this.tblPedidos.clearSelection();
+              /*  } else {
                     JOptionPane.showMessageDialog(this, "PEDIDO TERMINADO NO SE PUEDE DEVOLVER PRODUCTOS", "ERROR", JOptionPane.ERROR_MESSAGE);
                     this.tblPedidos.clearSelection();
                 }
-            }
+            }*/
         } else {
-            JOptionPane.showMessageDialog(this, "SELECCIONE UN DESPACHO PARA MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "SELECCIONE UN PEDIDO PARA MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnmodificarActionPerformed
 
@@ -1364,6 +1383,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.txtSubtotalCero.setText(String.valueOf(this.sPedido.getPedido().getSubtotalCero()));
         this.txtIvaDoce.setText(String.valueOf(this.sPedido.getPedido().getIvaDoce()));
         this.txtTotal.setText(String.valueOf(this.sPedido.getPedido().getTot_ped()));
+        System.out.println("El pedido esta: "+this.sPedido.getPedido().getAsignado());
     }
 
     private void CargarTablaDetalles(Long id) {//metodo q permite cargar a la tabla la lista
@@ -1399,13 +1419,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.sPedido.getPedido().setSubtotalCero(Double.parseDouble(this.txtSubtotalCero.getText()));
         this.sPedido.getPedido().setSubtotalDoce(Double.parseDouble(this.txtSubtotalDoce.getText()));
         this.sPedido.getPedido().setIvaDoce(Double.parseDouble(this.txtIvaDoce.getText()));
-        if (this.tpPedido.getTitleAt(1).equalsIgnoreCase("DEVOLVER")) {
-            this.sPedido.getPedido().setAsignado(true);
-            this.sPedido.getPedido().setEstado("DESACTIVO");
-        } else {
-            this.sPedido.getPedido().setAsignado(false);
-            this.sPedido.getPedido().setEstado("ACTIVO");
-        }
+        //this.sPedido.getPedido().setAsignado("N");
+        this.sPedido.getPedido().setEstado("ACTIVO");
         this.sPedido.getPedido().setCant_productos(Integer.parseInt(txttotalcant.getText()));
         this.sPedido.getPedido().setTot_ped(Double.parseDouble(txtTotal.getText()));
         this.sDestinatario.getDestinatario().setApe_des(this.txtApellidosDestinatario.getText());
