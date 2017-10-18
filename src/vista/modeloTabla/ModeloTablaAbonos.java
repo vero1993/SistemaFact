@@ -8,7 +8,7 @@ package vista.modeloTabla;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import modelo.Pagos;
+import modelo.Abonos;
 
 /**
  *
@@ -16,13 +16,13 @@ import modelo.Pagos;
  */
 public class ModeloTablaAbonos extends AbstractTableModel {
 
-    private List<Pagos> lista = new ArrayList<>();
+    private List<Abonos> lista = new ArrayList<>();
 
-    public List<Pagos> getLista() {
+    public List<Abonos> getLista() {
         return lista;
     }
 
-    public void setLista(List<Pagos> lista) {
+    public void setLista(List<Abonos> lista) {
         this.lista = lista;
     }
 
@@ -39,7 +39,7 @@ public class ModeloTablaAbonos extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex)//son los datos que se saca de la base de datos
     {
-        Pagos p = this.lista.get(rowIndex); //sacamos de la lista da el indice segun la tabla
+        Abonos p = this.lista.get(rowIndex); //sacamos de la lista da el indice segun la tabla
         switch (columnIndex) {
             case 0:
                 return p.getFecha();

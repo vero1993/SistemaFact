@@ -7,16 +7,11 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,7 +32,7 @@ public class Destinatario implements Serializable{
     private String tel_des;
     
     @Temporal(TemporalType.DATE)
-    private Date ent_des;
+    private Date fecha_envio;
 
     
 
@@ -107,13 +102,13 @@ public class Destinatario implements Serializable{
         this.tel_des = tel_des;
     }
 
-    public Date getEnt_des() {
-        return ent_des;
+    public Date getFecha_envio() {
+        return fecha_envio;
     }
 
-    public void setEnt_des(Date ent_des) {
-        this.ent_des = ent_des;
+    public void setFecha_envio(Date fecha_envio) {
+        this.fecha_envio = fecha_envio;
     }
 
-  
+    
 }

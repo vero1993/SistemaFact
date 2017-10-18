@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import modelo.Credito;
+import modelo.CxC;
 
 /**
  *
@@ -18,13 +18,13 @@ import modelo.Credito;
  */
 public class ModeloTablaCredito extends AbstractTableModel {
 
-    private List<Credito> lista = new ArrayList<>();
+    private List<CxC> lista = new ArrayList<>();
 
-    public List<Credito> getLista() {
+    public List<CxC> getLista() {
         return lista;
     }
 
-    public void setLista(List<Credito> lista) {
+    public void setLista(List<CxC> lista) {
         this.lista = lista;
     }
 
@@ -41,10 +41,10 @@ public class ModeloTablaCredito extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex)//son los datos que se saca de la base de datos
     {
-        Credito p = this.lista.get(rowIndex); //sacamos de la lista da el indice segun la tabla
+        CxC p = this.lista.get(rowIndex); //sacamos de la lista da el indice segun la tabla
         switch (columnIndex) {
             case 0:
-                return p.getNum_credito();
+                return p.getNum_cxc();
             case 1:
                 return p.getCliente().getApe_per()+ " " + p.getCliente().getNom_per();//para ir llenando en la tabla
             case 2:
@@ -68,7 +68,7 @@ public class ModeloTablaCredito extends AbstractTableModel {
     {
         switch (column) {
             case 0:
-                return "CREDITO";
+                return "CXC";
             case 1:
                 return "CLIENTE";
             case 2:

@@ -14,7 +14,7 @@ import modelo.Pedido;
 
 /**
  *
- * @author Gilmar C
+ * @author STEVEN Y
  */
 public class ModeloTablaPedidoCredito extends AbstractTableModel{
     //La tabla siempre maneja una lista

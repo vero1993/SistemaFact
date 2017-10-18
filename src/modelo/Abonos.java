@@ -25,12 +25,12 @@ import javax.persistence.TemporalType;
  * @author usuario
  */
 @Entity
-@Table(name = "pagos")//crear nombre a nuestra tabla
-public class Pagos implements Serializable {
+@Table(name = "abonos")//crear nombre a nuestra tabla
+public class Abonos implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)//generar un id incrementable
-    private Long id_pagos;
+    private Long id_abonos;
     @Column(columnDefinition="Decimal(10,2) default '00.00'")
     private double monto;
     @Column(columnDefinition="Decimal(10,2) default '00.00'")
@@ -42,18 +42,19 @@ public class Pagos implements Serializable {
     private Date fecha;
 
     @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)//permite mapear con credito de muchos a 1
-    @JoinColumn(name = "id_credito", nullable = true, referencedColumnName = "id_credito")//se crea la columna con referencia al id de credito
-    private Credito credito;
+    @JoinColumn(name = "id_cxc", nullable = true, referencedColumnName = "id_cxc")//se crea la columna con referencia al id de credito
+    private CxC cxc;
 
     //getter y setter
-    public Long getId_pagos() {
-        return id_pagos;
+
+    public Long getId_abonos() {
+        return id_abonos;
     }
 
-    public void setId_pagos(Long id_pagos) {
-        this.id_pagos = id_pagos;
+    public void setId_abonos(Long id_abonos) {
+        this.id_abonos = id_abonos;
     }
-
+    
     public double getMonto() {
         return monto;
     }
@@ -86,12 +87,12 @@ public class Pagos implements Serializable {
         this.fecha = fecha;
     }
 
-    public Credito getCredito() {
-        return credito;
+    public CxC getCxc() {
+        return cxc;
     }
 
-    public void setCredito(Credito credito) {
-        this.credito = credito;
+    public void setCxc(CxC cxc) {
+        this.cxc = cxc;
     }
 
     public String getDetalle() {

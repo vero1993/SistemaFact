@@ -6,7 +6,7 @@
 package vista;
 
 import controlador.Servicios.ServicioCliente;
-import controlador.Servicios.ServicioCredito;
+import controlador.Servicios.ServicioCxC;
 import controlador.Servicios.ServicioDestinatario;
 import controlador.Servicios.ServicioDetallePedido;
 import controlador.Servicios.ServicioPedidos;
@@ -40,7 +40,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private ServicioProducto sProducto = new ServicioProducto();
     private ServicioDetallePedido sDetallePedido = new ServicioDetallePedido();
     private ServicioDestinatario sDestinatario = new ServicioDestinatario();
-    private ServicioCredito sCredito = new ServicioCredito();
+    private ServicioCxC sCxC = new ServicioCxC();
 
     private ModeloTablaProducto modelopp = new ModeloTablaProducto();
     private ModeloTablaDetallePedido modelodd = new ModeloTablaDetallePedido();
@@ -286,7 +286,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jScrollPane8.setViewportView(jTextPane1);
 
         jPanel1.add(jScrollPane8);
-        jScrollPane8.setBounds(620, 210, 9, 24);
+        jScrollPane8.setBounds(620, 210, 8, 22);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("LISTA DE PEDIDOS PENDIENTE");
@@ -300,7 +300,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel1.add(cbxBuscarPedido);
-        cbxBuscarPedido.setBounds(80, 10, 150, 24);
+        cbxBuscarPedido.setBounds(80, 10, 150, 20);
 
         txtBuscarPedido.setEditable(false);
         txtBuscarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -590,13 +590,13 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnguardar);
-        btnguardar.setBounds(640, 470, 122, 40);
+        btnguardar.setBounds(640, 470, 117, 40);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
         jPanel3.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("DIRECCION:");
+        jLabel2.setText("DIRECCIÓN:");
         jPanel3.add(jLabel2);
         jLabel2.setBounds(450, 40, 70, 20);
 
@@ -614,7 +614,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         btnBuscaClientes.setBounds(690, 20, 70, 60);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("CEDULA:");
+        jLabel5.setText("CÉDULA:");
         jPanel3.add(jLabel5);
         jLabel5.setBounds(10, 20, 50, 20);
 
@@ -628,7 +628,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         txtNombreCliente.setBounds(70, 50, 170, 25);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("TELEFONO:");
+        jLabel14.setText("TELÉFONO:");
         jPanel3.add(jLabel14);
         jLabel14.setBounds(250, 50, 60, 30);
 
@@ -736,7 +736,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jScrollPane7.setBounds(80, 110, 160, 50);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel19.setText("TELEFONO:");
+        jLabel19.setText("TELÉFONO:");
         jPanel8.add(jLabel19);
         jLabel19.setBounds(10, 80, 60, 30);
 
@@ -1114,12 +1114,12 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                 System.out.println(this.sPedido.getPedido().getEstado());
                 if(this.sPedido.getPedido().getAsignado().equals("S")){
                     System.out.println("El pedido esta en credito");
-                    this.sCredito.fijarInstancia(this.sCredito.obtenerCredito(this.txtNroPedido.getText()));
-                    System.out.println("El numero de credito del pedidod es: "+this.sCredito.getCredito().getNum_credito());
-                    double valor =  this.sCredito.getCredito().getMonto()- this.sCredito.getCredito().getSaldo();
-                    this.sCredito.getCredito().setMonto(this.sPedido.getPedido().getTot_ped());
-                    this.sCredito.getCredito().setSaldo(this.sPedido.getPedido().getTot_ped()-valor);
-                    this.sCredito.modificar();
+                    this.sCxC.fijarInstancia(this.sCxC.obtenerCxC(this.txtNroPedido.getText()));
+                    System.out.println("El numero de credito del pedidod es: "+this.sCxC.getCxC().getNum_cxc());
+                    double valor =  this.sCxC.getCxC().getMonto()- this.sCxC.getCxC().getSaldo();
+                    this.sCxC.getCxC().setMonto(this.sPedido.getPedido().getTot_ped());
+                    this.sCxC.getCxC().setSaldo(this.sPedido.getPedido().getTot_ped()-valor);
+                    this.sCxC.modificar();
                 }else{
                     System.out.println("El pedido no esta en credito");
                 }

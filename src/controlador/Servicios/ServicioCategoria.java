@@ -6,10 +6,9 @@
 
 package controlador.Servicios;
 
-import controlador.Dao.AbonosDao;
 import controlador.Dao.CategoriaDao;
 import java.util.List;
-import modelo.Credito;
+import modelo.CxC;
 import modelo.Categoria;
 
 /**

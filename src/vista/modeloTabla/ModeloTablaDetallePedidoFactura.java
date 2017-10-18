@@ -75,7 +75,7 @@ public class ModeloTablaDetallePedidoFactura extends AbstractTableModel {
             case 2:
                 return "PRODUCTO";
             case 3:
-                return "CATEGORIA";
+                return "CATEGORÍA";
             case 4:
                 return "P. UNIT";
             case 5:

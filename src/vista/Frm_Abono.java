@@ -7,15 +7,15 @@ package vista;
 
 import controlador.Reportes.Reportes;
 import controlador.Servicios.ServicioCliente;
-import controlador.Servicios.ServicioCredito;
-import controlador.Servicios.ServicioPagos;
+import controlador.Servicios.ServicioCxC;
+import controlador.Servicios.ServicioAbonos;
 import controlador.Servicios.ServicioPedidos;
 import controlador.Sesiones;
 import java.awt.event.KeyEvent;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
-import modelo.Pagos;
+import modelo.Abonos;
 import modelo.Pedido;
 import vista.Utilidades.LlenadoComponentes;
 import vista.Utilidades.Validacion;
@@ -35,10 +35,10 @@ public class Frm_Abono extends javax.swing.JDialog {
     private ModeloTablaCredito modeloTablaCredito = new ModeloTablaCredito();
     private ModeloTablaPedidoCredito modeloTablaPedido = new ModeloTablaPedidoCredito();
     private ModeloTablaAbonos modeloTablaAbo = new ModeloTablaAbonos();
-    private ServicioCredito sCredito = new ServicioCredito();
+    private ServicioCxC sCxC = new ServicioCxC();
     private ServicioCliente sCliente = new ServicioCliente();
     private ServicioPedidos sPedido = new ServicioPedidos();
-    private ServicioPagos sPagos = new ServicioPagos();
+    private ServicioAbonos sAbonos = new ServicioAbonos();
 
     public Frm_Abono(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -51,6 +51,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         modeloTablaCredito.tablaModel(tblCreditos);
         this.reiniciar();
         this.txtBuscarCuenta.setEnabled(false);
+        
     }
 
     /**
@@ -460,7 +461,7 @@ public class Frm_Abono extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CargarTabla() {//metodo q permite cargar a la tabla la lista de creditos activos
-        this.modeloTablaCredito.setLista(this.sCredito.listarCreditoActivados());//el modelo recive la lista
+        this.modeloTablaCredito.setLista(this.sCxC.listarCxCActivados());//el modelo recive la lista
         this.tblCreditos.setModel(this.modeloTablaCredito);//aplica el modelo
         this.tblCreditos.updateUI();//asigna los objetos a la tabla
     }
@@ -484,7 +485,7 @@ public class Frm_Abono extends javax.swing.JDialog {
     private void tblCreditosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCreditosMouseClicked
         int fila = this.tblCreditos.getSelectedRow();
         if (fila >= 0) {
-            this.sCredito.fijarInstancia(this.modeloTablaCredito.getLista().get(fila));
+            this.sCxC.fijarInstancia(this.modeloTablaCredito.getLista().get(fila));
             this.btnAbonar.setEnabled(true);
         } else {
             // JOptionPane.showMessageDialog(this, "Seleccione un credito para realizar el pago", "Error", JOptionPane.ERROR_MESSAGE);
@@ -492,23 +493,23 @@ public class Frm_Abono extends javax.swing.JDialog {
     }//GEN-LAST:event_tblCreditosMouseClicked
 
     private void CargarTablaPagos(Long id) {//metodo q permite cargar a la tabla la lista de pagos
-        this.modeloTablaAbo.setLista(this.sPagos.listarPagos(id));//el modelo recive la lista
+        this.modeloTablaAbo.setLista(this.sAbonos.listarAbonos(id));//el modelo recive la lista
         this.tblDetalleAbonos.setModel(this.modeloTablaAbo);//aplica el modelo
         this.tblDetalleAbonos.updateUI();//asigna los objetos a la tabla
 
     }
 
     private void cargarPagos() {//carga los pagos
-        this.txtTotalPago.setText(String.valueOf(this.sCredito.getCredito().getMonto()));
-        this.txtSaldo.setText(String.valueOf(this.sCredito.getCredito().getSaldo()).trim());
+        this.txtTotalPago.setText(String.valueOf(this.sCxC.getCxC().getMonto()));
+        this.txtSaldo.setText(String.valueOf(this.sCxC.getCxC().getSaldo()).trim());
     }
     private void btnAbonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonarActionPerformed
 
-        if (this.sCredito.getCredito().getEstado().equalsIgnoreCase("ACTIVO")) {
+        if (this.sCxC.getCxC().getEstado().equalsIgnoreCase("ACTIVO")) {
             IrPagos();
             this.cargarPagos();
             this.btnAbonar.setEnabled(true);
-            this.CargarTablaPagos(this.sCredito.getCredito().getId_credito());
+            this.CargarTablaPagos(this.sCxC.getCxC().getId_cxc());
         } else {
             //JOptionPane.showMessageDialog(this, "Seleccione un credito activo para realizar el Pago", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -523,8 +524,8 @@ public class Frm_Abono extends javax.swing.JDialog {
     private void btnGuardarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCuentaActionPerformed
         if (Validacion.requerido(txtApellidosNombres, txtApellidosNombres.getText()) == true) {
             this.CargarObjeto();
-            if (this.sCredito.getCredito().getId_credito() == null) {
-                if (this.sCredito.guardar() == true) {
+            if (this.sCxC.getCxC().getId_cxc()== null) {
+                if (this.sCxC.guardar() == true) {
                     JOptionPane.showMessageDialog(this, "SE HA REGISTRADO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
                     this.IrListar();
                     this.limpiarCampos();
@@ -532,7 +533,7 @@ public class Frm_Abono extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR..!!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                if (this.sCredito.modificar() == true) {
+                if (this.sCxC.modificar() == true) {
                     JOptionPane.showMessageDialog(this, "SE HA MODIFICADO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
                     this.limpiarCampos();
                     this.IrListar(); //Regreso a la lista
@@ -544,25 +545,28 @@ public class Frm_Abono extends javax.swing.JDialog {
     }//GEN-LAST:event_btnGuardarCuentaActionPerformed
 
     private void limpiarCampos() {// para limpiar los cajas de texto
-        this.sCredito.nuevaInstancia();
+        this.sCxC.nuevaInstancia();
         this.sCliente.nuevaInstancia();
         this.sPedido.nuevaInstancia();
         this.txtMontoPedido.setText("");
         this.txtNumeroCredito.setText("");
+        this.txtCedulaCliente.setText("");
+        this.txtApellidosNombres.setText("");
+        this.txtMontoPedido.setText("");
         this.dtFechaCredito.setDate(new Date());
     }
 
     private void CargarObjeto() {
-        this.sCredito.getCredito().setNum_credito(this.txtNumeroCredito.getText());
-        this.sCredito.getCredito().setEstado("ACTIVO");
-        this.sCredito.getCredito().setFecha_ingreso(this.dtFechaCredito.getDate());
-        this.sCredito.getCredito().setMonto(Double.parseDouble(this.txtMontoPedido.getText()));
-        this.sCredito.getCredito().setSaldo(Double.parseDouble(this.txtMontoPedido.getText()));
-        this.sCredito.getCredito().setCliente(this.sCliente.getCliente());
-        this.sCredito.getCredito().setPedido(this.sPedido.getPedido());
+        this.sCxC.getCxC().setNum_cxc(this.txtNumeroCredito.getText());
+        this.sCxC.getCxC().setEstado("ACTIVO");
+        this.sCxC.getCxC().setFecha_ingreso(this.dtFechaCredito.getDate());
+        this.sCxC.getCxC().setMonto(Double.parseDouble(this.txtMontoPedido.getText()));
+        this.sCxC.getCxC().setSaldo(Double.parseDouble(this.txtMontoPedido.getText()));
+        this.sCxC.getCxC().setCliente(this.sCliente.getCliente());
+        this.sCxC.getCxC().setPedido(this.sPedido.getPedido());
         this.sPedido.getPedido().setAsignado("S");
         this.sPedido.modificar();
-        this.sCredito.getCredito().setDetalle("");
+        this.sCxC.getCxC().setDetalle("");
     }
     private void txtTotalPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalPagoKeyTyped
         // TODO add your handling code here:
@@ -578,7 +582,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         limpiarPagos();
-        this.sCredito.nuevaInstancia();
+        this.sCxC.nuevaInstancia();
         IrListar();
     }//GEN-LAST:event_btnInicioActionPerformed
 
@@ -586,20 +590,20 @@ public class Frm_Abono extends javax.swing.JDialog {
         if (Validacion.requerido(txtAbono, txtAbono.getText()) == true) {
             if ((Double.parseDouble(txtSaldo.getText())) >= Double.parseDouble(txtAbono.getText())) {
                 this.cargaPagos();
-                if (this.sPagos.getPagos().getId_pagos() == null) {
-                    if (this.sPagos.guardar() == true) {
+                if (this.sAbonos.getAbonos().getId_abonos()== null) {
+                    if (this.sAbonos.guardar() == true) {
                         JOptionPane.showMessageDialog(this, "SE HA REGISTRADO EL PAGO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
                         int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR RECIBO", "IMPRIMIR RECIBO", JOptionPane.YES_NO_OPTION);
                         if (showConfirmDialog == 0) {
                             System.out.println("llamado a imprimir");
-                            Pagos pago = this.sPagos.getPagos();
-                            String numeroPedido = this.sCredito.getCredito().getPedido().getNum_pedido();
-                            String nombreCliente = this.sCredito.getCredito().getCliente().getApe_per() + " " + this.sCredito.getCredito().getCliente().getNom_per();
+                            Abonos pago = this.sAbonos.getAbonos();
+                            String numeroPedido = this.sCxC.getCxC().getPedido().getNum_pedido();
+                            String nombreCliente = this.sCxC.getCxC().getCliente().getApe_per() + " " + this.sCxC.getCxC().getCliente().getNom_per();
                             Date fechaAbono = this.dtFechaAbono.getDate();
-                            double totalPedido = this.sCredito.getCredito().getMonto();
-                            double totalAbonado = this.sCredito.getCredito().getMonto() - this.sCredito.getCredito().getSaldo();
-                            double saldoPendiente = this.sCredito.getCredito().getSaldo();
-                            Long idImp = this.sPagos.getPagos().getId_pagos();
+                            double totalPedido = this.sCxC.getCxC().getMonto();
+                            double totalAbonado = this.sCxC.getCxC().getMonto() - this.sCxC.getCxC().getSaldo();
+                            double saldoPendiente = this.sCxC.getCxC().getSaldo();
+                            Long idImp = this.sAbonos.getAbonos().getId_abonos();
                             String usuario = (Sesiones.getCuenta().getUsu().getApe_per() + " " + Sesiones.getCuenta().getUsu().getNom_per());
                             System.out.println(numeroPedido);
                             System.out.println(nombreCliente);
@@ -609,7 +613,7 @@ public class Frm_Abono extends javax.swing.JDialog {
                         }
                         this.limpiarPagos();
                         this.cargarPagos();
-                        this.CargarTablaPagos(this.sCredito.getCredito().getId_credito());
+                        this.CargarTablaPagos(this.sCxC.getCxC().getId_cxc());
                         //refrescar();
                     } else {
                         JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR", "Error", JOptionPane.ERROR_MESSAGE);
@@ -626,34 +630,34 @@ public class Frm_Abono extends javax.swing.JDialog {
     private void limpiarPagos() {// para limpiar los cajas de texto
         this.sCliente.nuevaInstancia();
         this.sPedido.nuevaInstancia();
-        this.sPagos.nuevaInstancia();
+        this.sAbonos.nuevaInstancia();
         this.txtAbono.setText("0.00");
         this.dtFechaAbono.setDate(new Date());
         this.txtObservacion.setText("");
     }
 
     private void cargaPagos() {//va a cargar los pagos a guardar
-        this.sPagos.getPagos().setDetalle(txtObservacion.getText());
-        this.sPagos.getPagos().setCredito(this.sCredito.getCredito());
-        this.sPagos.getPagos().setValor(Double.parseDouble(txtAbono.getText()));
-        this.sPagos.getPagos().setSaldo(Double.parseDouble(txtSaldo.getText()) - Double.parseDouble(txtAbono.getText()));
-        this.sPagos.getPagos().setFecha(dtFechaAbono.getDate());
-        this.sCredito.getCredito().setSaldo(this.sPagos.getPagos().getSaldo());
-        this.sCredito.modificar();
-        this.sPagos.getPagos().setMonto(this.sCredito.getCredito().getSaldo() + this.sPagos.getPagos().getValor());
-        if (this.sCredito.getCredito().getSaldo() == 0.00) {
+        this.sAbonos.getAbonos().setDetalle(txtObservacion.getText());
+        this.sAbonos.getAbonos().setCxc(this.sCxC.getCxC());
+        this.sAbonos.getAbonos().setValor(Double.parseDouble(txtAbono.getText()));
+        this.sAbonos.getAbonos().setSaldo(Double.parseDouble(txtSaldo.getText()) - Double.parseDouble(txtAbono.getText()));
+        this.sAbonos.getAbonos().setFecha(dtFechaAbono.getDate());
+        this.sCxC.getCxC().setSaldo(this.sAbonos.getAbonos().getSaldo());
+        this.sCxC.modificar();
+        this.sAbonos.getAbonos().setMonto(this.sCxC.getCxC().getSaldo() + this.sAbonos.getAbonos().getValor());
+        if (this.sCxC.getCxC().getSaldo() == 0.00) {
             //this.sc.fijarInstancia(this.scr.getCredito().getCliente());
             //this.sd.fijarInstancia(this.scr.getCredito().getDespacho());
             //this.sc.getCliente().setAsignado(false);
             //this.sd.getDespacho().setEstado("DESACTIVO");
-            this.sCredito.getCredito().setEstado("DESACTIVO");
-            this.sCredito.modificar();
+            this.sCxC.getCxC().setEstado("DESACTIVO");
+            this.sCxC.modificar();
             //this.sc.modificar();
             //this.sd.modificar();          
         }
     }
     private void btnCancelarAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAbonoActionPerformed
-        this.CargarTablaPagos(this.sCredito.getCredito().getId_credito());
+        this.CargarTablaPagos(this.sCxC.getCxC().getId_cxc());
         cargarPagos();
         limpiarPagos();
     }//GEN-LAST:event_btnCancelarAbonoActionPerformed
@@ -700,7 +704,7 @@ public class Frm_Abono extends javax.swing.JDialog {
     private void chkDesactivadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDesactivadasActionPerformed
         if (this.chkDesactivadas.isSelected() == true) {
             this.btnAbonar.setVisible(false);
-            this.modeloTablaCredito.setLista(this.sCredito.listarCreditoDesactivados());//el modelo recive la lista
+            this.modeloTablaCredito.setLista(this.sCxC.listarCxCDesactivados());//el modelo recive la lista
             this.tblCreditos.setModel(this.modeloTablaCredito);//aplica el modelo
             this.tblCreditos.updateUI();
         } else {
@@ -741,7 +745,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
     private void txtBuscarCuentaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCuentaKeyReleased
         if (cbxCriterioBuscar.getSelectedIndex() == 1 && this.chkDesactivadas.isSelected()==false) {
-            this.modeloTablaCredito.setLista(this.sCredito.buscarCreditosporPedido(this.txtBuscarCuenta.getText()));
+            this.modeloTablaCredito.setLista(this.sCxC.buscarCxCporPedido(this.txtBuscarCuenta.getText()));
         } else {
             /*if (cbxBuscarPedido.getSelectedIndex() == 2) {
                 this.modeloPedido.setLista(this.sPedido.buscarPedidosporFecha(this.txtBuscarPedido.getText()));

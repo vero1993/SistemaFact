@@ -61,7 +61,7 @@ public class ModeloTablaCategorias extends AbstractTableModel{
     {
         switch (column) {
             case 0:
-                return "ID_CATEGORIA";
+                return "ID_CATEGORÍA";
 
             case 1:
                 return "NOMBRE";
