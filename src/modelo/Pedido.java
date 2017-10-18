@@ -42,8 +42,7 @@ public class Pedido implements Serializable{
     private Double tot_ped;
     private String estado;
     private String asignado="N"; 
-    @Column(columnDefinition="Decimal(10,2) default '00.00'")
-    private Double sal_ped;
+
     @Column(columnDefinition="Decimal(10,2) default '00.00'")
     private Double subtotalDoce;
     @Column(columnDefinition="Decimal(10,2) default '00.00'")
@@ -121,14 +120,6 @@ public class Pedido implements Serializable{
 
     public void setAsignado(String asignado) {
         this.asignado = asignado;
-    }
-
-    public Double getSal_ped() {
-        return sal_ped;
-    }
-
-    public void setSal_ped(Double sal_ped) {
-        this.sal_ped = sal_ped;
     }
 
     public Cliente getCliente() {

@@ -6,17 +6,16 @@
 
 package controlador.Servicios;
 
-
 import controlador.Dao.AbonosDao;
 import java.util.List;
-import modelo.Credito;
+import modelo.Abonos;
 
 /**
  *
  * @author Steven Y
  */
 public class ServicioAbonos {
-        private AbonosDao cDao; //Para todo Dao va haber un servicio
+           private AbonosDao cDao; //Para todo Dao va haber un servicio
 
     //Contructor
     public ServicioAbonos() {
@@ -34,17 +33,23 @@ public class ServicioAbonos {
         return this.cDao.modificar();
     }
 
-    public Credito getAbonos()
+    public Abonos getAbonos()
     {
         return this.cDao.getAbonos();
     }
     public void nuevaInstancia(){
          this.cDao.nuevaInstancia();
      }
-     public void fijarInstancia(Credito p){
+     public void fijarInstancia(Abonos p){
          this.cDao.fijarInstancia(p);
      }
-     public List<Credito>listar(){
-         return this.cDao.listar();
+    
+     public List<Abonos> listar()
+    {
+        return this.cDao.listar();
+    }
+     
+     public List<Abonos> listarAbonos(Long id_credito) {
+         return this.cDao.listarAbonos(id_credito);
      }
 }

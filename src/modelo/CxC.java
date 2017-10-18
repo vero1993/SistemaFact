@@ -30,12 +30,12 @@ import javax.persistence.TemporalType;
  * @author Steven Y
  */
 @Entity
-@Table(name = "credito")
-public class Credito implements Serializable{
+@Table(name = "cxc")
+public class CxC implements Serializable{
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)//Genera el id del rol
-    private Long id_credito;
-    private String num_credito;
+    private Long id_cxc;
+    private String num_cxc;
     @Temporal(TemporalType.DATE)//crear un campo tipo fecha
     private Date fecha_ingreso;
     @Column(columnDefinition="Decimal(10,2) default '00.00'")
@@ -49,28 +49,30 @@ public class Credito implements Serializable{
     @JoinColumn(name = "id_cliente", nullable = true, referencedColumnName = "id_persona")//se crea la columna con referencia al id de cliente
     private Cliente cliente;
     
-    @OneToMany(mappedBy = "credito", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)//permite mapear con DetalleDespacho de 1 a muchos
-    private List<Pagos> listaPagos = new ArrayList<Pagos>();
+    @OneToMany(mappedBy = "cxc", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)//permite mapear con DetalleDespacho de 1 a muchos
+    private List<Abonos> listaAbonos = new ArrayList<Abonos>();
     
     @OneToOne(cascade = CascadeType.REFRESH)//permite mapear con Despacho de 1 a 1
     @JoinColumn(name = "id_pedido", nullable = true, referencedColumnName = "id_ped")//se crea la columna con referencia al id de Despacho
     private Pedido pedido;
 
-    public Long getId_credito() {
-        return id_credito;
+    public Long getId_cxc() {
+        return id_cxc;
     }
 
-    public void setId_credito(Long id_credito) {
-        this.id_credito = id_credito;
+    public void setId_cxc(Long id_cxc) {
+        this.id_cxc = id_cxc;
     }
 
-    public String getNum_credito() {
-        return num_credito;
+    public String getNum_cxc() {
+        return num_cxc;
     }
 
-    public void setNum_credito(String num_credito) {
-        this.num_credito = num_credito;
+    public void setNum_cxc(String num_cxc) {
+        this.num_cxc = num_cxc;
     }
+
+    
 
     public Date getFecha_ingreso() {
         return fecha_ingreso;
@@ -120,13 +122,15 @@ public class Credito implements Serializable{
         this.cliente = cliente;
     }
 
-    public List<Pagos> getListaPagos() {
-        return listaPagos;
+    public List<Abonos> getListaAbonos() {
+        return listaAbonos;
     }
 
-    public void setListaPagos(List<Pagos> listaPagos) {
-        this.listaPagos = listaPagos;
+    public void setListaAbonos(List<Abonos> listaAbonos) {
+        this.listaAbonos = listaAbonos;
     }
+
+    
 
     public Pedido getPedido() {
         return pedido;
@@ -138,6 +142,6 @@ public class Credito implements Serializable{
     
     @Override
     public String toString() {
-        return  this.num_credito;
+        return  this.num_cxc;
     }
 }

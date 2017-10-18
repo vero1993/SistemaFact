@@ -628,11 +628,11 @@ public class frm_Usuario extends javax.swing.JDialog {
                 if (this.su.getUsuario().getId_persona() == null) {//guardar
                     if (new ServicioPersona().obtenerPersonaCedula(txtCedula.getText())== null){//objeto anonimo
                         if (rdbGerente.isSelected()) {
-                          this.su.getUsuario().setRol(this.sr.obtnerRolNombers("Administrador"));  
+                          this.su.getUsuario().setRol(this.sr.obtnerRolNombers("ADMINISTRADOR"));  
                         }else 
                         {
                             if (rdbEmpleado.isSelected()) {
-                                this.su.getUsuario().setRol(this.sr.obtnerRolNombers("Usuario")); 
+                                this.su.getUsuario().setRol(this.sr.obtnerRolNombers("USUARIO")); 
                             }
                         }
                         this.sc.getCuenta().setActivo(true);

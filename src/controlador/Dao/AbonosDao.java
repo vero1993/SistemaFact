@@ -9,19 +9,19 @@ package controlador.Dao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
-import modelo.Credito;
-import modelo.Producto;
+import modelo.CxC;
+import modelo.Abonos;
+
 
 /**
  *
  * @author Steven Y
  */
 public class AbonosDao extends AdaptadorDao{
-    private Credito abonos;
+    private Abonos abonos;
     public AbonosDao()
     {
-      super (Credito.class, new Conexion().getEm());//es un metodo de todas las clases q uno esta creando permite llamar al contructor de la clase padre
+      super (Abonos.class, new Conexion().getEm());//es un metodo de todas las clases q uno esta creando permite llamar al contructor de la clase padre
 
     }
     public boolean guardar()
@@ -56,31 +56,29 @@ public class AbonosDao extends AdaptadorDao{
     {
         this.abonos=null;
     }
-    public void fijarInstancia(Credito r)
+    public void fijarInstancia(Abonos r)
     {
         this.abonos=r;
     }
      
-   public Credito getAbonos() {
+    public Abonos getAbonos() {
         if(this.abonos == null)
         {
-            this.abonos = new Credito();
-        }
+            this.abonos = new Abonos();
+       }
         return abonos;
         
-    }  
-      
-    public List<Producto> listarProductoEstado(String estado) {
-        List<Producto> lista = new ArrayList<Producto>();
+    } 
+ 
+    public List<Abonos> listarAbonos(Long id_credito) {//es para listar pagos por el id del credito
+        List<Abonos> lista = new ArrayList<Abonos>();
         try {
-            String query = "Select p from Producto p where p.estado=? "; // 
+            String query = "Select p from Abonos p where p.credito.id_credito=?"; // 
             Query q = this.getEntityManager().createQuery(query);
-            q.setParameter(1, estado);
-            
-            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+            q.setParameter(1, id_credito);
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de pagos
         } catch (Exception e) {
         }
         return lista;
     }
-    
-}
+  }

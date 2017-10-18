@@ -315,7 +315,7 @@ public class frm_Cliente extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("CÉDULA:");
         panelReflect2.add(jLabel4);
-        jLabel4.setBounds(20, 30, 60, 25);
+        jLabel4.setBounds(10, 30, 60, 25);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));

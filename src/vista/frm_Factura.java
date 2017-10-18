@@ -13,7 +13,7 @@ import controlador.Servicios.ServicioPedidos;
 import controlador.Servicios.ServicioProducto;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;  
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
 import modelo.DetalleFactura;
@@ -108,7 +108,6 @@ public class frm_Factura extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnNuevo = new javax.swing.JButton();
         panelImage1 = new org.edisoncor.gui.panel.PanelImage();
         panelImage2 = new org.edisoncor.gui.panel.PanelImage();
         jScrollPane11 = new javax.swing.JScrollPane();
@@ -147,17 +146,10 @@ public class frm_Factura extends javax.swing.JDialog {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         txtIvaDoce = new javax.swing.JTextField();
+        btnNuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-
-        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Shopping cart.png"))); // NOI18N
-        btnNuevo.setText("NUEVA FACTURA");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
 
         panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/F9PVwxM.jpg"))); // NOI18N
         panelImage1.setLayout(null);
@@ -189,28 +181,28 @@ public class frm_Factura extends javax.swing.JDialog {
         jScrollPane11.setViewportView(tblPedidos1);
 
         panelImage2.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 270, 580, 80);
+        jScrollPane11.setBounds(20, 290, 580, 80);
 
         jLabel40.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel40.setText("LISTA DE PEDIDOS:");
         panelImage2.add(jLabel40);
-        jLabel40.setBounds(20, 240, 110, 30);
+        jLabel40.setBounds(20, 260, 110, 30);
 
         jLabel22.setBackground(new java.awt.Color(255, 255, 255));
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel22.setText("N. FACTURA:");
         panelImage2.add(jLabel22);
-        jLabel22.setBounds(200, 70, 69, 24);
+        jLabel22.setBounds(200, 90, 69, 24);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel23.setText("FECHA:");
         panelImage2.add(jLabel23);
-        jLabel23.setBounds(410, 70, 38, 29);
+        jLabel23.setBounds(390, 90, 38, 29);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("SUBTOTAL:");
         panelImage2.add(jLabel10);
-        jLabel10.setBounds(440, 470, 70, 24);
+        jLabel10.setBounds(440, 490, 70, 24);
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/save.png"))); // NOI18N
         btnGuardar.setText("GUARDAR");
@@ -220,17 +212,17 @@ public class frm_Factura extends javax.swing.JDialog {
             }
         });
         panelImage2.add(btnGuardar);
-        btnGuardar.setBounds(40, 520, 130, 42);
+        btnGuardar.setBounds(40, 520, 130, 41);
 
         txtSubtotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSubtotal.setText("0.00");
         panelImage2.add(txtSubtotal);
-        txtSubtotal.setBounds(520, 470, 77, 25);
+        txtSubtotal.setBounds(520, 490, 77, 25);
 
         txtSubIvaCero.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSubIvaCero.setText("0.00");
         panelImage2.add(txtSubIvaCero);
-        txtSubIvaCero.setBounds(520, 530, 77, 25);
+        txtSubIvaCero.setBounds(520, 550, 77, 25);
 
         txtDescuento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtDescuento.setText("0.00");
@@ -240,23 +232,23 @@ public class frm_Factura extends javax.swing.JDialog {
             }
         });
         panelImage2.add(txtDescuento);
-        txtDescuento.setBounds(520, 500, 77, 25);
+        txtDescuento.setBounds(520, 520, 77, 25);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("IVA 12%:");
         panelImage2.add(jLabel12);
-        jLabel12.setBounds(450, 560, 60, 26);
+        jLabel12.setBounds(450, 580, 60, 26);
 
         txtTotal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTotal.setText("0.00");
         panelImage2.add(txtTotal);
-        txtTotal.setBounds(520, 590, 77, 25);
+        txtTotal.setBounds(520, 610, 77, 25);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("TOTAL:");
         panelImage2.add(jLabel13);
-        jLabel13.setBounds(470, 590, 40, 23);
+        jLabel13.setBounds(470, 610, 40, 23);
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/cancel.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
@@ -269,11 +261,11 @@ public class frm_Factura extends javax.swing.JDialog {
         btnCancelar.setBounds(40, 570, 130, 40);
 
         labelMetric1.setBackground(new java.awt.Color(255, 255, 255));
-        labelMetric1.setText("FACTURACION \"Verarte\"");
+        labelMetric1.setText("FACTURACIÓN \"Verarte\"");
         labelMetric1.setColorDeSombra(new java.awt.Color(0, 0, 51));
         labelMetric1.setFont(new java.awt.Font("Algerian", 1, 18)); // NOI18N
         panelImage2.add(labelMetric1);
-        labelMetric1.setBounds(200, 10, 249, 38);
+        labelMetric1.setBounds(190, 20, 249, 38);
 
         tblDetalles1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -289,23 +281,23 @@ public class frm_Factura extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblDetalles1);
 
         panelImage2.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 360, 580, 100);
+        jScrollPane1.setBounds(20, 380, 580, 100);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 11), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Nombres:");
+        jLabel1.setText("NOMBRES:");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 90, 58, 24);
+        jLabel1.setBounds(20, 90, 70, 24);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Apellidos:");
+        jLabel2.setText("APELLIDOS:");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(17, 56, 58, 27);
+        jLabel2.setBounds(17, 56, 70, 27);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Cedula:");
+        jLabel3.setText("CÉDULA:");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(17, 22, 58, 23);
 
@@ -321,14 +313,18 @@ public class frm_Factura extends javax.swing.JDialog {
             }
         });
         jPanel1.add(txtCedula);
-        txtCedula.setBounds(87, 23, 154, 25);
+        txtCedula.setBounds(91, 23, 150, 25);
+
+        txtApellidos.setEditable(false);
         jPanel1.add(txtApellidos);
-        txtApellidos.setBounds(87, 54, 154, 25);
+        txtApellidos.setBounds(91, 54, 150, 25);
+
+        txtNombres.setEditable(false);
         jPanel1.add(txtNombres);
         txtNombres.setBounds(90, 90, 154, 25);
 
         jLabel42.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel42.setText("TELEFONO:");
+        jLabel42.setText("TELÉFONO:");
         jPanel1.add(jLabel42);
         jLabel42.setBounds(260, 20, 60, 30);
 
@@ -342,12 +338,13 @@ public class frm_Factura extends javax.swing.JDialog {
         txtTelefonoCliente1.setBounds(330, 20, 110, 25);
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel43.setText("DIRECCION:");
+        jLabel43.setText("DIRECCIÓN:");
         jPanel1.add(jLabel43);
         jLabel43.setBounds(259, 74, 70, 20);
 
         jScrollPane12.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        txtDireccionCliente1.setEditable(false);
         txtDireccionCliente1.setColumns(20);
         txtDireccionCliente1.setRows(5);
         jScrollPane12.setViewportView(txtDireccionCliente1);
@@ -356,7 +353,7 @@ public class frm_Factura extends javax.swing.JDialog {
         jScrollPane12.setBounds(330, 50, 130, 60);
 
         panelImage2.add(jPanel1);
-        jPanel1.setBounds(30, 110, 470, 130);
+        jPanel1.setBounds(20, 130, 470, 130);
 
         txtNumeroFactura.setEditable(false);
         txtNumeroFactura.addActionListener(new java.awt.event.ActionListener() {
@@ -365,12 +362,12 @@ public class frm_Factura extends javax.swing.JDialog {
             }
         });
         panelImage2.add(txtNumeroFactura);
-        txtNumeroFactura.setBounds(280, 70, 90, 25);
+        txtNumeroFactura.setBounds(280, 90, 90, 25);
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/verartefac.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/verartelogo - copia.jpg"))); // NOI18N
         jLabel8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelImage2.add(jLabel8);
-        jLabel8.setBounds(20, 10, 70, 43);
+        jLabel8.setBounds(40, 10, 70, 60);
 
         btnPedidos.setText("PEDIDOS");
         btnPedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -379,47 +376,52 @@ public class frm_Factura extends javax.swing.JDialog {
             }
         });
         panelImage2.add(btnPedidos);
-        btnPedidos.setBounds(506, 110, 77, 130);
+        btnPedidos.setBounds(500, 130, 77, 130);
 
         fecha.setEnabled(false);
         panelImage2.add(fecha);
-        fecha.setBounds(460, 70, 140, 25);
+        fecha.setBounds(440, 90, 140, 25);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("DESCUENTO:");
         panelImage2.add(jLabel14);
-        jLabel14.setBounds(440, 500, 70, 26);
+        jLabel14.setBounds(440, 520, 70, 26);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("SUB. IVA 0%:");
         panelImage2.add(jLabel15);
-        jLabel15.setBounds(430, 530, 80, 26);
+        jLabel15.setBounds(430, 550, 80, 26);
 
         txtIvaDoce.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtIvaDoce.setText("0.00");
         panelImage2.add(txtIvaDoce);
-        txtIvaDoce.setBounds(520, 560, 77, 25);
+        txtIvaDoce.setBounds(520, 580, 77, 25);
+
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Shopping cart.png"))); // NOI18N
+        btnNuevo.setText("NUEVA FACTURA");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+        panelImage2.add(btnNuevo);
+        btnNuevo.setBounds(30, 80, 150, 33);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelImage1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(434, Short.MAX_VALUE))
+                .addComponent(panelImage1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(613, Short.MAX_VALUE))
             .addComponent(panelImage2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelImage1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(640, Short.MAX_VALUE))
+            .addComponent(panelImage2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

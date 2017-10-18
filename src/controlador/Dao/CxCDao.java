@@ -9,18 +9,18 @@ package controlador.Dao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
-import modelo.Credito;
+import modelo.CxC;
 
 
 /**
  *
  * @author Steven Y
  */
-public class CreditoDao extends AdaptadorDao{
-    private Credito credito;
-    public CreditoDao()
+public class CxCDao extends AdaptadorDao{
+    private CxC cxc;
+    public CxCDao()
     {
-      super (Credito.class, new Conexion().getEm());//es un metodo de todas las clases q uno esta creando permite llamar al contructor de la clase padre
+      super (CxC.class, new Conexion().getEm());//es un metodo de todas las clases q uno esta creando permite llamar al contructor de la clase padre
 
     }
     public boolean guardar()
@@ -28,7 +28,7 @@ public class CreditoDao extends AdaptadorDao{
         boolean band = false;
         try {
             this.getEntityManager().getTransaction().begin(); //Para hacer las tranasacciones begin inicializar una transaccion y se obtiene
-            this.guardar(this.credito); // se utliza el metodo guardar del cuentaDao
+            this.guardar(this.cxc); // se utliza el metodo guardar del cuentaDao
             this.getEntityManager().getTransaction().commit(); // commit=envi de datos cuando se persiste datos no se van directamente  a mmemoria
             band = true; // se cambia la bandera sino hay errores significa q se guardo
         } catch (Exception e) {
@@ -42,7 +42,7 @@ public class CreditoDao extends AdaptadorDao{
         boolean band = false;
         try {
             this.getEntityManager().getTransaction().begin(); //Para hacer las tranasacciones begin inicializar una transaccion y se obtiene
-            this.modificar(this.credito); // se utliza el metodo modificar del cuentaDao
+            this.modificar(this.cxc); // se utliza el metodo modificar del cuentaDao
             this.getEntityManager().getTransaction().commit(); // commit=envi de datos cuando se persiste datos no se van directamente  a mmemoria
             band = true; // se cambia la bandera sino hay errores significa q se guardo
         } catch (Exception e) {
@@ -53,26 +53,26 @@ public class CreditoDao extends AdaptadorDao{
     
      public void nuevaInstancia()
     {
-        this.credito=null;
+        this.cxc=null;
     }
-    public void fijarInstancia(Credito r)
+    public void fijarInstancia(CxC r)
     {
-        this.credito=r;
+        this.cxc=r;
     }
      
-    public Credito getCredito() {
-        if(this.credito == null)
+    public CxC getCxC() {
+        if(this.cxc == null)
         {
-            this.credito = new Credito();
+            this.cxc = new CxC();
        }
-        return credito;
+        return cxc;
         
     } 
  
-    public List<Credito> listarCreditoActivados() {//lista los creditos activos
-        List<Credito> lista = new ArrayList<Credito>();
+    public List<CxC> listarCxCActivados() {//lista los creditos activos
+        List<CxC> lista = new ArrayList<CxC>();
         try {
-            String query = "Select p from Credito p where p.estado='ACTIVO' ";
+            String query = "Select p from CxC p where p.estado='ACTIVO' ";
             Query q = this.getEntityManager().createQuery(query);
             //q.setParameter(1, estado);
 
@@ -82,22 +82,22 @@ public class CreditoDao extends AdaptadorDao{
         return lista;
     }
     
-    public Credito obtenerCredito(String num_pedido) {//lista un despacho por su id
-        Credito lista = null;
+    public CxC obtenerCxC(String num_pedido) {//lista un despacho por su id
+        CxC lista = null;
         try {
-            String query = "Select p from Credito p where p.pedido.num_pedido=?"; // 
+            String query = "Select p from CxC p where p.pedido.num_pedido=?"; // 
             Query q = this.getEntityManager().createQuery(query);
             q.setParameter(1, num_pedido);
-            lista = (Credito) q.getSingleResult(); // obteniene el objeto que esta guardado en la tabla de la base de datos de despacho
+            lista = (CxC) q.getSingleResult(); // obteniene el objeto que esta guardado en la tabla de la base de datos de despacho
         } catch (Exception e) {
         }
         return lista;
     }
     
-    public List<Credito> listarCreditoDesactivados() {//lista los creditos activos
-        List<Credito> lista = new ArrayList<Credito>();
+    public List<CxC> listarCxCDesactivados() {//lista los creditos activos
+        List<CxC> lista = new ArrayList<CxC>();
         try {
-            String query = "Select p from Credito p where p.estado='DESACTIVO' ";
+            String query = "Select p from CxC p where p.estado='DESACTIVO' ";
             Query q = this.getEntityManager().createQuery(query);
             //q.setParameter(1, estado);
 
@@ -107,10 +107,10 @@ public class CreditoDao extends AdaptadorDao{
         return lista;
     }
     
-    public List<Credito> buscarCreditosporPedido(String variable){
+    public List<CxC> buscarCxCporPedido(String variable){
         List lista = new ArrayList();
         try {
-            String query = "Select c from Credito c where c.estado='ACTIVO' and c.pedido.num_pedido LIKE :num_pedido"; // 
+            String query = "Select c from CxC c where c.estado='ACTIVO' and c.pedido.num_pedido LIKE :num_pedido"; // 
             Query q = this.getEntityManager().createQuery(query);
             q.setParameter("num_pedido", "%"+variable+"%");
             lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido

@@ -9,7 +9,7 @@ package vista.Utilidades;
 
 import controlador.Servicios.ServicioCategoria;
 import controlador.Servicios.ServicioCliente;
-import controlador.Servicios.ServicioCredito;
+import controlador.Servicios.ServicioCxC;
 import controlador.Servicios.ServicioCuenta;
 import controlador.Servicios.ServicioDetallePedido;
 import controlador.Servicios.ServicioFactura;
@@ -30,7 +30,7 @@ public class LlenadoComponentes {
     
     private static ServicioProducto sp = new ServicioProducto();
     private static ServicioCategoria sc = new ServicioCategoria();
-    private static ServicioCredito sCredito = new ServicioCredito();
+    private static ServicioCxC sCredito = new ServicioCxC();
     private static ServicioCuenta scu = new ServicioCuenta();
     private static ServicioCliente scl = new ServicioCliente();
     private static ServicioPedido sPedido = new ServicioPedido();

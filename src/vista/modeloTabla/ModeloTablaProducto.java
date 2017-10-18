@@ -77,7 +77,7 @@ public class ModeloTablaProducto extends AbstractTableModel {
             case 3:
                 return "P. UNIT";
             case 4:
-                return "CATEGORIA";
+                return "CATEGORÍA";
             case 5:
                 return "IVA";
             case 6:

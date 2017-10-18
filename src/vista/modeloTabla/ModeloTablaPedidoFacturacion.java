@@ -12,10 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import modelo.Pedido;
 
-/**
- *
- * @author Gilmar C
- */
+
 public class ModeloTablaPedidoFacturacion extends AbstractTableModel{
     //La tabla siempre maneja una lista
     

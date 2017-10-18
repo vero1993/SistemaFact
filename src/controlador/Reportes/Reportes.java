@@ -21,16 +21,16 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import modelo.Cliente;
-import modelo.Pagos;
+import modelo.Abonos;
 import modelo.Pedido;
 
 /**
  *
- * @author Gilmar
+ * @author Steven Y
  */
 public class Reportes {
 
-    public static void reporteAbono(String cliente, String num_pedido, Pagos pago, Date fechainicio, double totalPedido, double totalAbonado, double saldoPend, Long idPago, String usuario) {
+    public static void reporteAbono(String cliente, String num_pedido, Abonos pago, Date fechainicio, double totalPedido, double totalAbonado, double saldoPend, Long idPago, String usuario) {
         Document documento = new Document(PageSize.A6);
         DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
         simbolos.setDecimalSeparator('.');
