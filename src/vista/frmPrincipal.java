@@ -49,7 +49,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
         lblUsu = new org.edisoncor.gui.label.LabelMetric();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuAdministrar = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -60,7 +60,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
-        jMenu2 = new javax.swing.JMenu();
+        menuGenerar = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -96,8 +96,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/administrar.png"))); // NOI18N
-        jMenu1.setText("ADMINISTRAR");
+        menuAdministrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/administrar.png"))); // NOI18N
+        menuAdministrar.setText("ADMINISTRAR");
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/administrar users.png"))); // NOI18N
         jMenuItem1.setText("USUARIO");
@@ -106,8 +106,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
-        jMenu1.add(jSeparator1);
+        menuAdministrar.add(jMenuItem1);
+        menuAdministrar.add(jSeparator1);
 
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/clientes.png"))); // NOI18N
         jMenuItem7.setText("CLIENTE");
@@ -116,8 +116,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 jMenuItem7ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
-        jMenu1.add(jSeparator2);
+        menuAdministrar.add(jMenuItem7);
+        menuAdministrar.add(jSeparator2);
 
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/categoria.png"))); // NOI18N
         jMenuItem8.setText("CATEGORIA");
@@ -126,8 +126,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 jMenuItem8ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem8);
-        jMenu1.add(jSeparator3);
+        menuAdministrar.add(jMenuItem8);
+        menuAdministrar.add(jSeparator3);
 
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/producto (2).png"))); // NOI18N
         jMenuItem9.setText("PRODUCTO");
@@ -136,8 +136,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 jMenuItem9ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem9);
-        jMenu1.add(jSeparator5);
+        menuAdministrar.add(jMenuItem9);
+        menuAdministrar.add(jSeparator5);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/abonos.png"))); // NOI18N
         jMenuItem4.setText("ABONOS");
@@ -146,13 +146,13 @@ public class frmPrincipal extends javax.swing.JFrame {
                 jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
-        jMenu1.add(jSeparator6);
+        menuAdministrar.add(jMenuItem4);
+        menuAdministrar.add(jSeparator6);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuAdministrar);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Shopping cart.png"))); // NOI18N
-        jMenu2.setText("GENERAR");
+        menuGenerar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Shopping cart.png"))); // NOI18N
+        menuGenerar.setText("GENERAR");
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/pedido.png"))); // NOI18N
         jMenuItem3.setText("ORDEN DE PEDIDO");
@@ -161,8 +161,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
-        jMenu2.add(jSeparator4);
+        menuGenerar.add(jMenuItem3);
+        menuGenerar.add(jSeparator4);
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/factura.png"))); // NOI18N
         jMenuItem2.setText("FACTURA");
@@ -171,9 +171,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        menuGenerar.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(menuGenerar);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/salir.png"))); // NOI18N
         jMenu4.setText("SISTEMA");
@@ -264,8 +264,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private vista.componentes.PanelImagen fondo;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -284,5 +282,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric lblUsu;
+    private javax.swing.JMenu menuAdministrar;
+    private javax.swing.JMenu menuGenerar;
     // End of variables declaration//GEN-END:variables
 }
