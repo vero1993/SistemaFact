@@ -214,7 +214,7 @@ public class frm_Usuario extends javax.swing.JDialog {
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Nombres:");
+        jLabel4.setText("NOMBRES:");
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -228,11 +228,11 @@ public class frm_Usuario extends javax.swing.JDialog {
 
         grupotipo.add(rdbGerente);
         rdbGerente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rdbGerente.setText("Gerente");
+        rdbGerente.setText("GERENTE");
 
         grupotipo.add(rdbEmpleado);
         rdbEmpleado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rdbEmpleado.setText("Empleado");
+        rdbEmpleado.setText("EMPLEADO");
         rdbEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdbEmpleadoActionPerformed(evt);
@@ -261,7 +261,7 @@ public class frm_Usuario extends javax.swing.JDialog {
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Telefono:");
+        jLabel7.setText("TELÉFONO:");
 
         txtCedula.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -298,7 +298,7 @@ public class frm_Usuario extends javax.swing.JDialog {
 
         jLabel8.setBackground(new java.awt.Color(0, 0, 0));
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Email:");
+        jLabel8.setText("EMAIL:");
 
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -311,11 +311,11 @@ public class frm_Usuario extends javax.swing.JDialog {
 
         gruposexo.add(rdbMasculino);
         rdbMasculino.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rdbMasculino.setText("Masculino");
+        rdbMasculino.setText("MASCULINO");
 
         gruposexo.add(rdbFemenino);
         rdbFemenino.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rdbFemenino.setText("Femenino");
+        rdbFemenino.setText("FEMENINO");
         rdbFemenino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdbFemeninoActionPerformed(evt);
@@ -442,9 +442,9 @@ public class frm_Usuario extends javax.swing.JDialog {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
                 .addContainerGap())
         );
 
@@ -480,7 +480,7 @@ public class frm_Usuario extends javax.swing.JDialog {
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 166, Short.MAX_VALUE)))
+                        .addGap(0, 180, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(

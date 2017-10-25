@@ -326,6 +326,11 @@ public class Frm_Pedidos extends javax.swing.JDialog {
 
         btnDesactivar.setText("DESACTIVAR");
         btnDesactivar.setBorder(null);
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDesactivar);
         btnDesactivar.setBounds(680, 490, 101, 40);
 
@@ -1347,6 +1352,10 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.dispose();
         frmAbo.setVisible(true);
     }//GEN-LAST:event_btnAbonarActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDesactivarActionPerformed
 
     public void cargarDatosCliente() {
         sCliente.nuevaInstancia();
