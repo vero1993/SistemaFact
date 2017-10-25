@@ -38,7 +38,7 @@ public class frm_Cliente extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         this.cargarTabla();
         this.Limitar();
-        this.setSize(650, 337);
+        this.setSize(625, 337);
         this.Limitar();
         tblClientes.getTableHeader().setBackground(Color.blue);
         tblClientes.getTableHeader().setForeground(Color.white);
@@ -439,7 +439,7 @@ public class frm_Cliente extends javax.swing.JDialog {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:ç
         this.irNuevo();
-        this.setSize(650, 610);
+        this.setSize(625, 650);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -500,7 +500,7 @@ public class frm_Cliente extends javax.swing.JDialog {
             this.tblClientes.clearSelection(); //quitar seleccion de la tabla
             this.cargarVista();
             this.txtCedula.setEditable(false);//nose va a ppoder editar
-            this.setSize(625, 610);
+            this.setSize(625, 650);
         }   
         else
         {

@@ -56,6 +56,7 @@ public class frm_Producto extends javax.swing.JDialog {
         }
         this.txtPrecioVenta.setText(String.valueOf(this.sp.getProducto().getPre_venta()).trim());
         this.cargarComboCategoria();
+        this.cbxCategoria.setSelectedIndex(LlenadoComponentes.obtenerIndexComboCategoria(cbxCategoria, this.sp.getProducto().getCategoria()));
     }
 
     private void cargarTabla() {//cargar los elementos en la tabla
@@ -188,8 +189,6 @@ public class frm_Producto extends javax.swing.JDialog {
         panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/F9PVwxM.jpg"))); // NOI18N
         panelImage1.setLayout(null);
 
-        tpproducto.setForeground(new java.awt.Color(255, 255, 255));
-
         jPanel3.setLayout(null);
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/new.png"))); // NOI18N
@@ -267,11 +266,9 @@ public class frm_Producto extends javax.swing.JDialog {
         jPanel3.add(jScrollPane1);
         jScrollPane1.setBounds(10, 55, 452, 260);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Buscar por:");
+        jLabel2.setText("BUSCAR POR:");
         jPanel3.add(jLabel2);
-        jLabel2.setBounds(20, 20, 63, 25);
+        jLabel2.setBounds(20, 20, 80, 25);
 
         cbxBuscarProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Opción", "Nombre", "Codigo" }));
         cbxBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +277,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(cbxBuscarProducto);
-        cbxBuscarProducto.setBounds(90, 20, 150, 20);
+        cbxBuscarProducto.setBounds(110, 20, 150, 20);
 
         txtBuscarProducto.setEditable(false);
         txtBuscarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -302,7 +299,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(txtBuscarProducto);
-        txtBuscarProducto.setBounds(250, 20, 190, 25);
+        txtBuscarProducto.setBounds(270, 20, 190, 25);
 
         tpproducto.addTab("LISTAR", jPanel3);
 
