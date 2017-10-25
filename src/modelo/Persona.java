@@ -38,6 +38,8 @@ public class Persona implements Serializable{
     private String nom_per;
     private String tel_per;
     private String ema_per;
+    
+    @Column(length = 500)
     private String dir_per;
     
     private String sex_per;
