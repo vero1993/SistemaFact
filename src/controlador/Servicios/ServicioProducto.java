@@ -55,7 +55,7 @@ public class ServicioProducto {
       public List<Producto> listarProductosActivos() {
         return this.cDao.listarProductosActivados();
     }
-    public List<Producto> listarProductoDesactivos() {
+    public List<Producto> listarProductosDesactivos() {
         return this.cDao.listarProductosDesactivos();
     }
 
