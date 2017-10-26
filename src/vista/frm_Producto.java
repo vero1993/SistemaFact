@@ -78,6 +78,7 @@ public class frm_Producto extends javax.swing.JDialog {
         this.sp.getProducto().setPor_ganancia(Double.parseDouble(this.txtGanancia.getText()));
         this.sp.getProducto().setPrecioSinIva(Double.parseDouble(this.txtPrecioSinIva.getText()));
         this.sp.getProducto().setIva12(Double.parseDouble(this.txtIva.getText()));
+        this.sp.getProducto().setEst_pro("ACTIVO");
        
         if (this.rdbIvaSi.isSelected()) {
             this.sp.getProducto().setDescripcion_iva("S");
