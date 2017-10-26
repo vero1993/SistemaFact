@@ -49,13 +49,16 @@ public class ServicioProducto {
      
      public List<Producto> listarProductoActivos()
     {
-        return this.cDao.listarProductoEstado(true);
+        return this.cDao.listarProductoEstado("ACTIVO");
     }
-    
-    public List<Producto> listarProductoDesactivos()
-    {
-        return this.cDao.listarProductoEstado(false);
+    //
+      public List<Producto> listarProductosActivos() {
+        return this.cDao.listarProductosActivados();
     }
+    public List<Producto> listarProductoDesactivos() {
+        return this.cDao.listarProductosDesactivos();
+    }
+
      public Producto traecodigo(){
      return this.cDao.TraeCodigo(listar().size());
      }

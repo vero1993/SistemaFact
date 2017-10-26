@@ -40,7 +40,7 @@ public class Producto implements Serializable{
     private String descripcion_iva;
     private double iva12;
     private double precioSinIva;
-    private boolean estado = true;
+    private String est_pro;
     
     @OneToMany(mappedBy = "producto", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)//permite mapear con DetalleDespacho de 1 a muchos
     private List<DetallePedido> listaDetalle = new ArrayList<DetallePedido>();
@@ -92,13 +92,15 @@ public class Producto implements Serializable{
     public void setCan_producto(int can_producto) {
         this.can_producto = can_producto;
     }
-    public boolean isEstado() {
-        return estado;
+
+    public String getEst_pro() {
+        return est_pro;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setEst_pro(String est_pro) {
+        this.est_pro = est_pro;
     }
+   
 
     public List<DetallePedido> getListaDetalle() {
         return listaDetalle;
