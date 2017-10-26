@@ -50,14 +50,15 @@ public class ServicioCategoria {
         return this.cDao.listar();
     }
      
-       public List<Categoria> listarCategoriasPorEstado(boolean est_cat)
+       public List<Categoria> listarCategoriasPorEstado()
     {
-        return this.cDao.listarCategoriasPorEstado(true);
+        return this.cDao.listarCategoriasPorEstado("ACTIVO");
     }
-    
-    public List<Categoria> listarCategoriasDesactivos()
-    {
-        return this.cDao.listarCategoriasPorEstado(false);
+     public List<Categoria> listarCategoriaActivos() {
+        return this.cDao.listarCategoriaActivados();
+    }
+    public List<Categoria> listarCategoriaDesactivos() {
+        return this.cDao.listarCategoriaDesactivos();
     }
     public Categoria obtenerCategoriaNombre(String nom_cat)
     {

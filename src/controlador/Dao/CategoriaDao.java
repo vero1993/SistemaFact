@@ -70,7 +70,7 @@ public class CategoriaDao extends AdaptadorDao{
         
     } 
     
-  public List<Categoria> listarCategoriasPorEstado(boolean est_cat)
+  public List<Categoria> listarCategoriasPorEstado(String est_cat)
     {
         List<Categoria> lista = new ArrayList<Categoria>();
         try {
@@ -82,6 +82,33 @@ public class CategoriaDao extends AdaptadorDao{
         }
         return lista;
     }
+  
+  //listar los productos activos
+
+    public List<Categoria> listarCategoriaActivados() {
+        List<Categoria> lista = new ArrayList<Categoria>();
+        try {
+            String query = "Select c from Categoria c where c.est_cat='ACTIVO'";
+            Query q = this.getEntityManager().createQuery(query);
+            
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la BD de producto
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+  // Lista los productos desactivos
+
+    public List<Categoria> listarCategoriaDesactivos() {
+        List<Categoria> lista = new ArrayList<Categoria>();
+        try {
+            String query = "Select c from Categoria c where c.est_cat='DESACTIVO'";
+            Query q = this.getEntityManager().createQuery(query);
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la BD de producto
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+    
     public Categoria obtenerCategoriaNombre(String nom_cat)
     {
         Categoria c = null;
@@ -106,4 +133,6 @@ public class CategoriaDao extends AdaptadorDao{
         }
         return lista;
     }
+
+    
   }

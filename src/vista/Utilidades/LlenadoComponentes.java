@@ -43,7 +43,7 @@ public class LlenadoComponentes {
    public static JComboBox<Categoria> cargarComboCategoria(JComboBox combo)
     {
         combo.removeAllItems();//remueve todos items
-        for(Categoria c:sc.listarCategoriasPorEstado(true)) //foreach es el for de objetos iteraciones con cualquier elemento de la lista de objetos
+        for(Categoria c:sc.listarCategoriasPorEstado()) //foreach es el for de objetos iteraciones con cualquier elemento de la lista de objetos
         {
             combo.addItem(c); // llenamos el combo
         }
@@ -152,7 +152,7 @@ public class LlenadoComponentes {
     }
     public static List<Categoria> cargarComboCategoria()
     {
-        return sc.listarCategoriasPorEstado(true);
+        return sc.listarCategoriasPorEstado();
     }
     public static List<Producto> cargarproductocancel() {
         //pro = sp.listarProcutosActivos();
