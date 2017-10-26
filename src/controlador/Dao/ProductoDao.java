@@ -85,7 +85,7 @@ public class ProductoDao extends AdaptadorDao{
         return c;
     }
     
-    public List<Producto> listarProductoEstado(boolean estado) {
+    public List<Producto> listarProductoEstado(String estado) {
         List<Producto> lista = new ArrayList<Producto>();
         try {
             String query = "Select p from Producto p where p.estado=? "; // 
@@ -256,4 +256,31 @@ public class ProductoDao extends AdaptadorDao{
         pro = (Producto) q.getSingleResult();
          return pro;
     }
+    
+    //listar los productos activos
+
+    public List<Producto> listarProductosActivados() {
+        List<Producto> lista = new ArrayList<Producto>();
+        try {
+            String query = "Select c from Producto c where c.est_pro='ACTIVO'";
+            Query q = this.getEntityManager().createQuery(query);
+            
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la BD de producto
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+  // Lista los productos desactivos
+
+    public List<Producto> listarProductosDesactivos() {
+        List<Producto> lista = new ArrayList<Producto>();
+        try {
+            String query = "Select c from Producto c where c.est_pro='DESACTIVO'";
+            Query q = this.getEntityManager().createQuery(query);
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la BD de producto
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+    
 }

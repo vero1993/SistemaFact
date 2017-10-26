@@ -60,11 +60,16 @@ public class frm_Producto extends javax.swing.JDialog {
     }
 
     private void cargarTabla() {//cargar los elementos en la tabla
-        this.modelo.setLista(this.sp.listar());
+        this.modelo.setLista(this.sp.listarProductosActivos());
         this.tblTabla.setModel(this.modelo);
         this.tblTabla.updateUI();
     }
+     private void CargarTablaDesactivos() {//cargar los elementos en la tabla
+        this.modelo.setLista(this.sp.listarProductoDesactivos());
+        this.tblTabla.setModel(this.modelo);
+        this.tblTabla.updateUI();
 
+    }
     private void cargarObjeto() {
         this.sp.getProducto().setNom_producto(txtNombre.getText());
         this.sp.getProducto().setCod_producto(txtCodigo.getText());
@@ -73,6 +78,8 @@ public class frm_Producto extends javax.swing.JDialog {
         this.sp.getProducto().setPor_ganancia(Double.parseDouble(this.txtGanancia.getText()));
         this.sp.getProducto().setPrecioSinIva(Double.parseDouble(this.txtPrecioSinIva.getText()));
         this.sp.getProducto().setIva12(Double.parseDouble(this.txtIva.getText()));
+        this.sp.getProducto().setEst_pro("ACTIVO");
+       
         if (this.rdbIvaSi.isSelected()) {
             this.sp.getProducto().setDescripcion_iva("S");
         } else {
@@ -117,14 +124,17 @@ public class frm_Producto extends javax.swing.JDialog {
         this.tpproducto.setEnabledAt(1, false);//para poder desbloquear la pestana
         this.tpproducto.setSelectedIndex(0);//para dirigirce hacia otra pestana
         this.tpproducto.setTitleAt(1, "NUEVO");
-        // this.cargarTabla();
+        this.cargarTabla();
     }
 
     private void cambiarNombreBoton() {//cambia su texto a un boton
         int fila = this.tblTabla.getSelectedRow();
-        String texto = (this.modelo.getLista().get(fila).isEstado() == true) ? "Desactivar" : "Activar";
-        this.btndesactivar.setText(texto);
-
+        String texto = (this.modelo.getLista().get(fila).getEst_pro());
+        if (texto.equals("ACTIVO")) {
+            this.btndesactivar.setText("DESACTIVAR");
+        } else {
+            this.btndesactivar.setText("ACTIVAR");
+        }
     }
 
     /**
@@ -151,6 +161,8 @@ public class frm_Producto extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         cbxBuscarProducto = new javax.swing.JComboBox<>();
         txtBuscarProducto = new javax.swing.JTextField();
+        chbeliminados = new java.awt.Checkbox();
+        label1 = new java.awt.Label();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -200,7 +212,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(btnNuevo);
-        btnNuevo.setBounds(480, 70, 101, 34);
+        btnNuevo.setBounds(480, 120, 101, 34);
 
         btnModifcar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/producto.png"))); // NOI18N
         btnModifcar.setText("MODIFICAR");
@@ -216,7 +228,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(btnModifcar);
-        btnModifcar.setBounds(480, 110, 101, 34);
+        btnModifcar.setBounds(480, 160, 101, 34);
 
         btndesactivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/desactivar.png"))); // NOI18N
         btndesactivar.setText("DESACTIVAR");
@@ -227,7 +239,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(btndesactivar);
-        btndesactivar.setBounds(480, 150, 101, 34);
+        btndesactivar.setBounds(480, 200, 101, 34);
 
         btnsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/cancel.png"))); // NOI18N
         btnsalir.setText("SALIR");
@@ -238,7 +250,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(btnsalir);
-        btnsalir.setBounds(480, 190, 101, 34);
+        btnsalir.setBounds(480, 240, 101, 34);
 
         tblTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -264,7 +276,7 @@ public class frm_Producto extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblTabla);
 
         jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 55, 452, 260);
+        jScrollPane1.setBounds(10, 90, 452, 260);
 
         jLabel2.setText("BUSCAR POR:");
         jPanel3.add(jLabel2);
@@ -277,7 +289,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(cbxBuscarProducto);
-        cbxBuscarProducto.setBounds(110, 20, 150, 20);
+        cbxBuscarProducto.setBounds(100, 20, 150, 20);
 
         txtBuscarProducto.setEditable(false);
         txtBuscarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -300,6 +312,23 @@ public class frm_Producto extends javax.swing.JDialog {
         });
         jPanel3.add(txtBuscarProducto);
         txtBuscarProducto.setBounds(270, 20, 190, 25);
+
+        chbeliminados.setFont(new java.awt.Font("TlwgTypewriter", 1, 15)); // NOI18N
+        chbeliminados.setForeground(new java.awt.Color(0, 0, 0));
+        chbeliminados.setLabel("DESACTIVOS");
+        chbeliminados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                chbeliminadosMousePressed(evt);
+            }
+        });
+        jPanel3.add(chbeliminados);
+        chbeliminados.setBounds(460, 60, 120, 24);
+
+        label1.setFont(new java.awt.Font("TlwgTypewriter", 1, 15)); // NOI18N
+        label1.setForeground(new java.awt.Color(0, 0, 0));
+        label1.setText("LISTAR PRODUCTOS");
+        jPanel3.add(label1);
+        label1.setBounds(290, 60, 160, 24);
 
         tpproducto.addTab("LISTAR", jPanel3);
 
@@ -565,29 +594,35 @@ public class frm_Producto extends javax.swing.JDialog {
         }
     }
     private void btndesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndesactivarActionPerformed
-        int fila = tblTabla.getSelectedRow();//seleccionamos la fila
+        int fila = tblTabla.getSelectedRow();
         if (fila >= 0) {
+
             this.sp.fijarInstancia(this.modelo.getLista().get(fila));
-            this.tblTabla.clearSelection(); // Para limpiar la seleccion
-            String aux1 = "Esta seguro de Activar al producto denominada: " + this.sp.getProducto().getNom_producto();
-            String aux2 = "Esta seguro de Desactivar al Prodcto denominada: " + this.sp.getProducto().getNom_producto();
+
+            String aux = "Estas seguro de querer " + this.btndesactivar.getText() + ":" + this.sp.getProducto().getNom_producto();
             int a = -1;
-            if (this.sp.getProducto().isEstado())//Significa q esta activo
-            {
-                a = JOptionPane.showConfirmDialog(this, aux2, "Confirmar", JOptionPane.OK_CANCEL_OPTION);
+            if (this.sp.getProducto().getEst_pro()== "ACTIVO") {
+                a = JOptionPane.showConfirmDialog(this, aux, "Confirmar", JOptionPane.OK_CANCEL_OPTION);
             } else {
-                a = JOptionPane.showConfirmDialog(this, aux1, "Confirmar", JOptionPane.OK_CANCEL_OPTION);
+                a = JOptionPane.showConfirmDialog(this, aux, "Confirmar", JOptionPane.OK_CANCEL_OPTION);
             }
-            if (a == JOptionPane.OK_OPTION) //significa si el usuario a aceptado
-            {
-                boolean estado = (this.sp.getProducto().isEstado() == true) ? false : true; //operacion ternaria como estar utilizando un if-else
-                this.sp.getProducto().setEstado(estado);
+            if (a == JOptionPane.OK_OPTION) {
+                if (this.btndesactivar.getText() == "ACTIVAR") {
+                    this.sp.getProducto().setEst_pro("ACTIVO");
+                } else {
+                    this.sp.getProducto().setEst_pro("DESACTIVO");
+                }
                 this.sp.modificar();
                 this.limpiarCampos();
-                this.cargarTabla();
+                if (chbeliminados.getState() == true) {
+                    this.CargarTablaDesactivos();
+                } else {
+                    this.cargarTabla();
+                }
+                this.tblTabla.clearSelection();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione una fila de la tabla !!!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Escoja una fila", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btndesactivarActionPerformed
 
@@ -769,6 +804,10 @@ public class frm_Producto extends javax.swing.JDialog {
         this.calculoPrecio();
     }//GEN-LAST:event_txtPrecioCostoFocusLost
 
+    private void chbeliminadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chbeliminadosMousePressed
+       
+    }//GEN-LAST:event_chbeliminadosMousePressed
+
     private void calculoPrecio() {
         float ganancia = 0, precioSIva = 0;
         float precioCosto = 0;
@@ -851,6 +890,7 @@ public class frm_Producto extends javax.swing.JDialog {
     private javax.swing.JButton btnsalir;
     private javax.swing.JComboBox<String> cbxBuscarProducto;
     private javax.swing.JComboBox cbxCategoria;
+    private java.awt.Checkbox chbeliminados;
     private javax.swing.ButtonGroup giva;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -869,6 +909,7 @@ public class frm_Producto extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private java.awt.Label label1;
     private org.edisoncor.gui.panel.PanelImage panelImage1;
     private javax.swing.JRadioButton rdbIvaNo;
     private javax.swing.JRadioButton rdbIvaSi;

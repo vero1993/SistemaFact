@@ -31,7 +31,7 @@ public class Categoria implements Serializable{
     private String nom_cat;
     private String des_cat;
     //private String est_cat;
-    private boolean est_cat = true;
+    private String est_cat;
     @OneToMany(mappedBy = "categoria", cascade = {CascadeType.ALL},fetch = FetchType.LAZY)//referenciar de cuan entidad: mapeao por partido, mapeo bidereccional
     private List <Producto> listaProducto = new ArrayList<Producto>();
 
@@ -69,16 +69,13 @@ public class Categoria implements Serializable{
         this.listaProducto = listaProducto;
     }
 
-    public boolean isEst_cat() {
+    public String getEst_cat() {
         return est_cat;
     }
 
-    public void setEst_cat(boolean est_cat) {
+    public void setEst_cat(String est_cat) {
         this.est_cat = est_cat;
     }
-
-   
-    
 
     @Override
     public String toString() { //metodo q muestra con que datos kiero q se presente el objeto
