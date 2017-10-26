@@ -598,7 +598,6 @@ public class frm_Producto extends javax.swing.JDialog {
         if (fila >= 0) {
 
             this.sp.fijarInstancia(this.modelo.getLista().get(fila));
-
             String aux = "Estas seguro de querer " + this.btndesactivar.getText() + ":" + this.sp.getProducto().getNom_producto();
             int a = -1;
             if (this.sp.getProducto().getEst_pro()== "ACTIVO") {
