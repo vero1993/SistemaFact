@@ -289,7 +289,7 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(cbxBuscarProducto);
-        cbxBuscarProducto.setBounds(110, 20, 150, 20);
+        cbxBuscarProducto.setBounds(100, 20, 150, 20);
 
         txtBuscarProducto.setEditable(false);
         txtBuscarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
