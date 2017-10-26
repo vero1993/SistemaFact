@@ -65,7 +65,7 @@ public class frm_Producto extends javax.swing.JDialog {
         this.tblTabla.updateUI();
     }
      private void CargarTablaDesactivos() {//cargar los elementos en la tabla
-        this.modelo.setLista(this.sp.listarProductoDesactivos());
+        this.modelo.setLista(this.sp.listarProductosDesactivos());
         this.tblTabla.setModel(this.modelo);
         this.tblTabla.updateUI();
 
@@ -805,7 +805,12 @@ public class frm_Producto extends javax.swing.JDialog {
     }//GEN-LAST:event_txtPrecioCostoFocusLost
 
     private void chbeliminadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chbeliminadosMousePressed
-       
+        // cargar los productos desactivados
+        if (chbeliminados.getState() == false) {
+            this.CargarTablaDesactivos();
+        } else {
+            this.cargarTabla();
+        }
     }//GEN-LAST:event_chbeliminadosMousePressed
 
     private void calculoPrecio() {
