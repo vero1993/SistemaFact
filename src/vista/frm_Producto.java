@@ -56,7 +56,6 @@ public class frm_Producto extends javax.swing.JDialog {
         }
         this.txtPrecioVenta.setText(String.valueOf(this.sp.getProducto().getPre_venta()).trim());
         this.cargarComboCategoria();
-        this.cbxCategoria.setSelectedIndex(LlenadoComponentes.obtenerIndexComboCategoria(cbxCategoria, this.sp.getProducto().getCategoria()));
     }
 
     private void cargarTabla() {//cargar los elementos en la tabla
@@ -102,6 +101,7 @@ public class frm_Producto extends javax.swing.JDialog {
         this.txtNombre.setEditable(true);
         //this.btnGenerar.setEnabled(true);
         this.cbxCategoria.setSelectedIndex(0);
+        this.chkHabilitarPrecio.setSelected(false);
     }
 
     private void IrNuevo()//activar la pestana nuevo y reutilizarla
@@ -155,7 +155,6 @@ public class frm_Producto extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtPrecioVenta = new javax.swing.JTextField();
         cbxCategoria = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -164,16 +163,18 @@ public class frm_Producto extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         txtGanancia = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        rdbIvaNo = new javax.swing.JRadioButton();
-        rdbIvaSi = new javax.swing.JRadioButton();
         jLabel13 = new javax.swing.JLabel();
         txtIva = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        txtPrecioCosto = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         txtPrecioSinIva = new javax.swing.JTextField();
+        chkHabilitarPrecio = new javax.swing.JCheckBox();
+        txtPrecioVenta = new javax.swing.JTextField();
+        rdbIvaNo = new javax.swing.JRadioButton();
+        rdbIvaSi = new javax.swing.JRadioButton();
+        txtPrecioCosto = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
 
@@ -318,16 +319,6 @@ public class frm_Producto extends javax.swing.JDialog {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(10, 110, 60, 22);
 
-        txtPrecioVenta.setEditable(false);
-        txtPrecioVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtPrecioVenta.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPrecioVentaKeyTyped(evt);
-            }
-        });
-        jPanel2.add(txtPrecioVenta);
-        txtPrecioVenta.setBounds(100, 240, 80, 27);
-
         cbxCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxCategoriaActionPerformed(evt);
@@ -393,28 +384,6 @@ public class frm_Producto extends javax.swing.JDialog {
         jPanel2.add(jLabel8);
         jLabel8.setBounds(10, 240, 90, 27);
 
-        giva.add(rdbIvaNo);
-        rdbIvaNo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rdbIvaNo.setText("NO");
-        rdbIvaNo.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                rdbIvaNoStateChanged(evt);
-            }
-        });
-        jPanel2.add(rdbIvaNo);
-        rdbIvaNo.setBounds(320, 210, 40, 23);
-
-        giva.add(rdbIvaSi);
-        rdbIvaSi.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rdbIvaSi.setText("SI");
-        rdbIvaSi.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                rdbIvaSiStateChanged(evt);
-            }
-        });
-        jPanel2.add(rdbIvaSi);
-        rdbIvaSi.setBounds(280, 210, 40, 23);
-
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("IVA:");
         jPanel2.add(jLabel13);
@@ -428,19 +397,6 @@ public class frm_Producto extends javax.swing.JDialog {
         jLabel14.setText("PRECIO SIN IVA:");
         jPanel2.add(jLabel14);
         jLabel14.setBounds(180, 180, 90, 27);
-
-        txtPrecioCosto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPrecioCostoFocusLost(evt);
-            }
-        });
-        txtPrecioCosto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPrecioCostoKeyTyped(evt);
-            }
-        });
-        jPanel2.add(txtPrecioCosto);
-        txtPrecioCosto.setBounds(280, 150, 80, 26);
 
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -463,6 +419,64 @@ public class frm_Producto extends javax.swing.JDialog {
         txtPrecioSinIva.setEditable(false);
         jPanel2.add(txtPrecioSinIva);
         txtPrecioSinIva.setBounds(280, 180, 80, 25);
+
+        chkHabilitarPrecio.setText("HABILITAR");
+        chkHabilitarPrecio.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkHabilitarPrecioItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(chkHabilitarPrecio);
+        chkHabilitarPrecio.setBounds(210, 240, 100, 23);
+
+        txtPrecioVenta.setEditable(false);
+        txtPrecioVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtPrecioVenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPrecioVentaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPrecioVentaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioVentaKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtPrecioVenta);
+        txtPrecioVenta.setBounds(100, 240, 80, 27);
+
+        rdbIvaNo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rdbIvaNo.setText("NO");
+        rdbIvaNo.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rdbIvaNoStateChanged(evt);
+            }
+        });
+        jPanel2.add(rdbIvaNo);
+        rdbIvaNo.setBounds(320, 210, 40, 23);
+
+        rdbIvaSi.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rdbIvaSi.setText("SI");
+        rdbIvaSi.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rdbIvaSiStateChanged(evt);
+            }
+        });
+        jPanel2.add(rdbIvaSi);
+        rdbIvaSi.setBounds(280, 210, 40, 23);
+
+        txtPrecioCosto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPrecioCostoFocusLost(evt);
+            }
+        });
+        txtPrecioCosto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioCostoKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtPrecioCosto);
+        txtPrecioCosto.setBounds(280, 150, 80, 26);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(80, 10, 470, 280);
@@ -674,10 +688,6 @@ public class frm_Producto extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxCategoriaActionPerformed
 
-    private void txtPrecioVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVentaKeyTyped
-        Validacion.validardobles(evt, txtPrecioVenta);
-    }//GEN-LAST:event_txtPrecioVentaKeyTyped
-
     private void txtGananciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGananciaKeyTyped
         Validacion.numerosDecimales(evt, txtGanancia);
     }//GEN-LAST:event_txtGananciaKeyTyped
@@ -685,14 +695,6 @@ public class frm_Producto extends javax.swing.JDialog {
     private void txtGananciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGananciaKeyReleased
         this.calculoPrecio();
     }//GEN-LAST:event_txtGananciaKeyReleased
-
-    private void rdbIvaSiStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rdbIvaSiStateChanged
-        this.calculoPrecio();
-    }//GEN-LAST:event_rdbIvaSiStateChanged
-
-    private void rdbIvaNoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rdbIvaNoStateChanged
-        this.calculoPrecio();
-    }//GEN-LAST:event_rdbIvaNoStateChanged
 
     private void cbxBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBuscarProductoActionPerformed
         // seleccionar el criterio de busqueda
@@ -761,13 +763,79 @@ public class frm_Producto extends javax.swing.JDialog {
         Validacion.cambiarMayusculas(evt);
     }//GEN-LAST:event_txtNombreKeyTyped
 
+    private void chkHabilitarPrecioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkHabilitarPrecioItemStateChanged
+        if (this.chkHabilitarPrecio.isSelected()) {
+            this.txtPrecioVenta.setEditable(true);
+            this.txtPrecioVenta.requestFocus();
+            this.txtGanancia.setEditable(false);
+            this.txtPrecioSinIva.setEditable(false);
+            this.txtIva.setEditable(false);
+            this.rdbIvaNo.setEnabled(false);
+            this.rdbIvaSi.setEnabled(false);
+
+        } else {
+            this.txtPrecioVenta.setEditable(false);
+            this.calculoPrecio();
+            this.txtGanancia.setEditable(true);
+            this.txtPrecioSinIva.setEditable(true);
+            this.txtIva.setEditable(true);
+            this.rdbIvaNo.setEnabled(true);
+            this.rdbIvaSi.setEnabled(true);
+        }
+    }//GEN-LAST:event_chkHabilitarPrecioItemStateChanged
+
+    private void calculoPrecio2() {
+        float ganancia = 0, precioSIva0, iva = 0;
+        float precioSinIva;
+        if (this.txtPrecioVenta.getText().isEmpty() == true) {
+            this.txtGanancia.setText("0.00");
+            this.txtPrecioSinIva.setText("0.00");
+            precioSinIva = 0 / 1.12f;
+        } else {
+            if (this.rdbIvaSi.isSelected() == true) {
+                precioSinIva = Float.parseFloat(this.txtPrecioVenta.getText()) / 1.12f;
+                iva = (Float.parseFloat(this.txtPrecioVenta.getText()) - Float.parseFloat(this.txtPrecioSinIva.getText()));
+                ganancia = ((Float.parseFloat(this.txtPrecioSinIva.getText())*100) / (Float.parseFloat(this.txtPrecioCosto.getText())));
+            }else{
+                iva =0;
+                precioSinIva = Float.parseFloat(this.txtPrecioVenta.getText());
+                ganancia = ((Float.parseFloat(this.txtPrecioSinIva.getText())*100) / (Float.parseFloat(this.txtPrecioCosto.getText())));
+            }
+        }
+        this.txtGanancia.setText(String.valueOf(Math.round(ganancia * Math.pow(10, 2))/ Math.pow(10, 2)));
+        this.txtIva.setText(String.valueOf(Math.round(iva* Math.pow(10, 2))/ Math.pow(10, 2)));
+        this.txtPrecioSinIva.setText(String.valueOf(Math.round(precioSinIva * Math.pow(10, 2)) / Math.pow(10, 2)));
+    }
+    private void txtPrecioVentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVentaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecioVentaKeyPressed
+
+    private void txtPrecioVentaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVentaKeyReleased
+        calculoPrecio2();
+    }//GEN-LAST:event_txtPrecioVentaKeyReleased
+
+    private void txtPrecioVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVentaKeyTyped
+        Validacion.validardobles(evt, txtPrecioVenta);
+    }//GEN-LAST:event_txtPrecioVentaKeyTyped
+
+    private void rdbIvaNoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rdbIvaNoStateChanged
+        this.calculoPrecio();
+    }//GEN-LAST:event_rdbIvaNoStateChanged
+
+    private void rdbIvaSiStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rdbIvaSiStateChanged
+        this.calculoPrecio();
+    }//GEN-LAST:event_rdbIvaSiStateChanged
+
+    private void txtPrecioCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioCostoFocusLost
+
+        if (this.chkHabilitarPrecio.isSelected() == false) {
+            this.calculoPrecio();
+        }
+    }//GEN-LAST:event_txtPrecioCostoFocusLost
+
     private void txtPrecioCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCostoKeyTyped
         Validacion.numerosDecimales(evt, txtPrecioCosto);
     }//GEN-LAST:event_txtPrecioCostoKeyTyped
-
-    private void txtPrecioCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioCostoFocusLost
-        this.calculoPrecio();
-    }//GEN-LAST:event_txtPrecioCostoFocusLost
 
     private void calculoPrecio() {
         float ganancia = 0, precioSIva = 0;
@@ -851,6 +919,7 @@ public class frm_Producto extends javax.swing.JDialog {
     private javax.swing.JButton btnsalir;
     private javax.swing.JComboBox<String> cbxBuscarProducto;
     private javax.swing.JComboBox cbxCategoria;
+    private javax.swing.JCheckBox chkHabilitarPrecio;
     private javax.swing.ButtonGroup giva;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

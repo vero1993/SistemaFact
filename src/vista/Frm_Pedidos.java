@@ -1393,6 +1393,11 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.txtIvaDoce.setText(String.valueOf(this.sPedido.getPedido().getIvaDoce()));
         this.txtTotal.setText(String.valueOf(this.sPedido.getPedido().getTot_ped()));
         System.out.println("El pedido esta: "+this.sPedido.getPedido().getAsignado());
+        if(this.sPedido.getPedido().getAsignado().equals("S")){
+            this.btnquitarprod.setVisible(false);
+        }else{
+            this.btnquitarprod.setVisible(true);
+        }
     }
 
     private void CargarTablaDetalles(Long id) {//metodo q permite cargar a la tabla la lista
