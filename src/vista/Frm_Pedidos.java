@@ -116,7 +116,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         cbxBuscarPedido = new javax.swing.JComboBox<>();
         txtBuscarPedido = new javax.swing.JTextField();
-        btnDesactivar = new javax.swing.JButton();
         chkFacturados = new javax.swing.JCheckBox();
         btnAbonar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -250,7 +249,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnNuevo);
-        btnNuevo.setBounds(460, 490, 101, 40);
+        btnNuevo.setBounds(560, 490, 101, 40);
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/cancel.png"))); // NOI18N
         btnSalir.setText("SALIR");
@@ -263,6 +262,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jPanel1.add(btnSalir);
         btnSalir.setBounds(790, 490, 90, 40);
 
+        btnFacturar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/factura.png"))); // NOI18N
         btnFacturar.setText("FACTURAR");
         btnFacturar.setBorder(null);
         btnFacturar.addActionListener(new java.awt.event.ActionListener() {
@@ -281,7 +281,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnmodificar);
-        btnmodificar.setBounds(570, 490, 100, 40);
+        btnmodificar.setBounds(670, 490, 100, 40);
 
         jScrollPane8.setViewportView(jTextPane1);
 
@@ -324,16 +324,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jPanel1.add(txtBuscarPedido);
         txtBuscarPedido.setBounds(240, 10, 190, 25);
 
-        btnDesactivar.setText("DESACTIVAR");
-        btnDesactivar.setBorder(null);
-        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDesactivarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnDesactivar);
-        btnDesactivar.setBounds(680, 490, 101, 40);
-
         chkFacturados.setText("FACTURADOS");
         chkFacturados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,6 +333,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jPanel1.add(chkFacturados);
         chkFacturados.setBounds(760, 60, 120, 23);
 
+        btnAbonar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/abonos.png"))); // NOI18N
         btnAbonar.setText("ABONAR");
         btnAbonar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,7 +341,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnAbonar);
-        btnAbonar.setBounds(130, 490, 90, 40);
+        btnAbonar.setBounds(130, 490, 110, 40);
 
         tpPedido.addTab("LISTAR", jPanel1);
 
@@ -394,7 +385,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnCancelar);
-        btnCancelar.setBounds(770, 470, 110, 40);
+        btnCancelar.setBounds(780, 470, 110, 40);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153), null, null));
         jPanel5.setLayout(null);
@@ -595,7 +586,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnguardar);
-        btnguardar.setBounds(640, 470, 117, 40);
+        btnguardar.setBounds(640, 470, 130, 40);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
         jPanel3.setLayout(null);
@@ -1148,18 +1139,17 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR EL DESPACHO SIN PRODUCTOS!!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR LA ORDEN DE PEDIDO SIN PRODUCTOS!!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void tblPedidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPedidosKeyReleased
         llenadodetalle();
-        this.cambiarNombreBoton();
+        
     }//GEN-LAST:event_tblPedidosKeyReleased
 
     private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidosMouseClicked
         llenadodetalle();
-        this.cambiarNombreBoton();
         this.btnFacturar.setEnabled(true);
         this.btnAbonar.setEnabled(true);
         if(this.chkFacturados.isSelected()==true){
@@ -1361,10 +1351,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         frmAbo.setVisible(true);
     }//GEN-LAST:event_btnAbonarActionPerformed
 
-    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDesactivarActionPerformed
-
     public void cargarDatosCliente() {
         sCliente.nuevaInstancia();
         sCliente.fijarInstancia((Cliente) sCliente.obtenerPersonaCedula(txtCedulaCliente.getText()));
@@ -1423,16 +1409,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         }
     }
 
-    private void cambiarNombreBoton() {//cambiar el nombre a un buton cuando se selecciona un elemento de la tabla
-        int fila = this.tblPedidos.getSelectedRow();
-        String texto = (this.modeloPedido.getLista().get(fila).getEstado());
-        if (texto.equals("ACTIVO")) {
-            this.btnDesactivar.setText("DESACTIVAR");
-        } else {
-            this.btnDesactivar.setText("ACTIVAR");
-        }
-
-    }
 
     private void CargarObjeto() {//carga el objeto a almacenar
         this.sPedido.getPedido().setNum_pedido(txtNroPedido.getText().trim());
@@ -1483,7 +1459,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private javax.swing.JButton btnAbonar;
     private javax.swing.JButton btnBuscaClientes;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnDesactivar;
     private javax.swing.JButton btnFacturar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
