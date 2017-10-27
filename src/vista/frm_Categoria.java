@@ -33,7 +33,7 @@ public class frm_Categoria extends javax.swing.JDialog {
         this.tpcategoria.setEnabledAt(1, false);
     }
     private void transparente (){
-        jPanel3.setOpaque(false);
+        jPanel3.setOpaque(false); 
         jPanel1.setOpaque(false);
         jPanel2.setOpaque(false);
        
