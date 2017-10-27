@@ -273,6 +273,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jPanel1.add(btnFacturar);
         btnFacturar.setBounds(10, 490, 101, 40);
 
+        btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/producto.png"))); // NOI18N
         btnmodificar.setText("MODIFICAR");
         btnmodificar.setBorder(null);
         btnmodificar.addActionListener(new java.awt.event.ActionListener() {
@@ -281,7 +282,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnmodificar);
-        btnmodificar.setBounds(670, 490, 100, 40);
+        btnmodificar.setBounds(680, 490, 100, 40);
 
         jScrollPane8.setViewportView(jTextPane1);
 
@@ -341,7 +342,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnAbonar);
-        btnAbonar.setBounds(130, 490, 110, 40);
+        btnAbonar.setBounds(130, 490, 120, 40);
 
         tpPedido.addTab("LISTAR", jPanel1);
 
