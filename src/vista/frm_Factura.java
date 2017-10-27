@@ -513,6 +513,7 @@ public class frm_Factura extends javax.swing.JDialog {
             this.sPedido.getPedido().setEstado("DESACTIVO");
             this.sPedido.getPedido().setFacturado("S");
             this.sPedido.modificar();
+            
 
             System.out.println(this.sCuentaxCobrar.getCxC().getNum_cxc());
             if (this.sPedido.getPedido().getAsignado().equals("S")) {
