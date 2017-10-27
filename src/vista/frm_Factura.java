@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.Servicios.ServicioCliente;
+import controlador.Servicios.ServicioCxC;
 import controlador.Servicios.ServicioDetalleFactura;
 import controlador.Servicios.ServicioDetallePedido;
 import controlador.Servicios.ServicioFactura;
@@ -13,7 +14,7 @@ import controlador.Servicios.ServicioPedidos;
 import controlador.Servicios.ServicioProducto;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import javax.swing.JOptionPane;  
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
 import modelo.DetalleFactura;
@@ -41,6 +42,7 @@ public class frm_Factura extends javax.swing.JDialog {
     private ServicioFactura sFactura = new ServicioFactura();
     private ModeloTablaPedidoFacturacion modeloPedidoFact = new ModeloTablaPedidoFacturacion();
     private ModeloTablaDetallePedidoFactura modeloDetallePedido = new ModeloTablaDetallePedidoFactura();
+    private ServicioCxC sCuentaxCobrar = new ServicioCxC();
 
     public frm_Factura(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -57,6 +59,10 @@ public class frm_Factura extends javax.swing.JDialog {
         txtCedula.setEnabled(false);
         //modeloPedidoFact.tablaModel(tblPedidos1);
         //this.tblPedidos1.setModel(modeloDetallePedido);
+        this.lblAbono.setVisible(false);
+        this.lblSaldo.setVisible(false);
+        this.txtAbono.setVisible(false);
+        this.txtSaldo.setVisible(false);
 
     }
     private DefaultTableModel model;
@@ -147,6 +153,10 @@ public class frm_Factura extends javax.swing.JDialog {
         jLabel15 = new javax.swing.JLabel();
         txtIvaDoce = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
+        lblAbono = new javax.swing.JLabel();
+        lblSaldo = new javax.swing.JLabel();
+        txtAbono = new javax.swing.JTextField();
+        txtSaldo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -171,11 +181,6 @@ public class frm_Factura extends javax.swing.JDialog {
         tblPedidos1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPedidos1MouseClicked(evt);
-            }
-        });
-        tblPedidos1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblPedidos1KeyReleased(evt);
             }
         });
         jScrollPane11.setViewportView(tblPedidos1);
@@ -407,6 +412,26 @@ public class frm_Factura extends javax.swing.JDialog {
         panelImage2.add(btnNuevo);
         btnNuevo.setBounds(30, 80, 150, 33);
 
+        lblAbono.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAbono.setText("ABONO:");
+        panelImage2.add(lblAbono);
+        lblAbono.setBounds(220, 515, 60, 30);
+
+        lblSaldo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblSaldo.setText("SALDO:");
+        panelImage2.add(lblSaldo);
+        lblSaldo.setBounds(220, 555, 60, 30);
+
+        txtAbono.setEditable(false);
+        txtAbono.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        panelImage2.add(txtAbono);
+        txtAbono.setBounds(290, 520, 59, 25);
+
+        txtSaldo.setEditable(false);
+        txtSaldo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        panelImage2.add(txtSaldo);
+        txtSaldo.setBounds(290, 560, 59, 25);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -452,27 +477,28 @@ public class frm_Factura extends javax.swing.JDialog {
         } else {
             frm_Factura.tblPedidos1.setModel(this.modeloPedidoFact);
             frm_Factura.tblPedidos1.updateUI();
-        } 
-    }
-     private void reiniciarIdentidades(){
-            this.sFactura.nuevaInstancia();
-            this.sDetallePedido.nuevaInstancia();
-            this.sDetalleFactura.nuevaInstancia();
-            this.sProducto.nuevaInstancia();
-            this.txtNumeroFactura.setText("");
-            this.txtCedula.setText("");
-            this.txtApellidos.setText("");
-            this.txtNombres.setText("");
-            this.txtTelefonoCliente1.setText("");
-            this.txtDireccionCliente1.setText("");
-            this.txtSubtotal.setText("0.00");
-            this.txtDescuento.setText("0.00");
-            this.txtSubIvaCero.setText("0.00");
-            this.txtIvaDoce.setText("0.00");
-            this.txtTotal.setText("0.00");
-            this.btnGuardar.setEnabled(false);
-            this.limpiarTablas();
         }
+    }
+
+    private void reiniciarIdentidades() {
+        this.sFactura.nuevaInstancia();
+        this.sDetallePedido.nuevaInstancia();
+        this.sDetalleFactura.nuevaInstancia();
+        this.sProducto.nuevaInstancia();
+        this.txtNumeroFactura.setText("");
+        this.txtCedula.setText("");
+        this.txtApellidos.setText("");
+        this.txtNombres.setText("");
+        this.txtTelefonoCliente1.setText("");
+        this.txtDireccionCliente1.setText("");
+        this.txtSubtotal.setText("0.00");
+        this.txtDescuento.setText("0.00");
+        this.txtSubIvaCero.setText("0.00");
+        this.txtIvaDoce.setText("0.00");
+        this.txtTotal.setText("0.00");
+        this.btnGuardar.setEnabled(false);
+        this.limpiarTablas();
+    }
     private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
         Validacion.ValidarNumeros(evt);
     }//GEN-LAST:event_txtCedulaKeyTyped
@@ -487,13 +513,20 @@ public class frm_Factura extends javax.swing.JDialog {
             this.sPedido.getPedido().setEstado("DESACTIVO");
             this.sPedido.getPedido().setFacturado("S");
             this.sPedido.modificar();
+
+            System.out.println(this.sCuentaxCobrar.getCxC().getNum_cxc());
+            if (this.sPedido.getPedido().getAsignado().equals("S")) {
+                this.sCuentaxCobrar.getCxC().setEstado("DESACTIVO");
+                this.sCuentaxCobrar.modificar();
+            }
+
             if (this.sFactura.guardar() == true) {
                 JOptionPane.showMessageDialog(this, "SE HA REGISTRADO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
                 System.out.println(this.sFactura.getFactura().getNum_fac());
                 int showConfirmDialog = JOptionPane.showConfirmDialog(null, "DESEA IMPRIMIR ESTA FACTURA..??", "IMPRIMIR FACTURA", JOptionPane.YES_NO_OPTION);
                 if (showConfirmDialog == 0) {
                     System.out.println("llamado a imprimir");
-                }else{
+                } else {
                     System.out.println("Usted escogio no imprimir");
                 }
             } else {
@@ -540,14 +573,11 @@ public class frm_Factura extends javax.swing.JDialog {
             }
         } catch (Exception e) {
         }
+
     }
     private void tblPedidos1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidos1MouseClicked
         llenadodetalle();
     }//GEN-LAST:event_tblPedidos1MouseClicked
-
-    private void tblPedidos1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPedidos1KeyReleased
-
-    }//GEN-LAST:event_tblPedidos1KeyReleased
 
     private void llenadodetalle() {//cargar el objeto en la vista
         int fila = tblPedidos1.getSelectedRow();
@@ -557,7 +587,29 @@ public class frm_Factura extends javax.swing.JDialog {
             modeloDetallePedido.tablaModel(tblDetalles1);
             this.cargaDatosValores();
             this.btnGuardar.setEnabled(true);
+            if (this.sPedido.getPedido().getAsignado().equals("S")) {
+                this.lblAbono.setVisible(true);
+                this.lblSaldo.setVisible(true);
+                this.txtAbono.setVisible(true);
+                this.txtSaldo.setVisible(true);
+                this.cargarDatosCxC();
+                double abono;
+                abono = (this.sCuentaxCobrar.getCxC().getMonto() - this.sCuentaxCobrar.getCxC().getSaldo());
+                this.txtAbono.setText(String.valueOf(Math.round(abono * Math.pow(10, 2)) / Math.pow(10, 2)));
+                this.txtSaldo.setText(String.valueOf(this.sCuentaxCobrar.getCxC().getSaldo()));
+            } else {
+                if (this.sPedido.getPedido().getAsignado().equals("N")) {
+                    this.lblAbono.setVisible(false);
+                    this.lblSaldo.setVisible(false);
+                    this.txtAbono.setVisible(false);
+                    this.txtSaldo.setVisible(false);
+                }
+            }
         }
+    }
+
+    private void cargarDatosCxC() {
+        this.sCuentaxCobrar.fijarInstancia(this.sCuentaxCobrar.obtenerCxCparaFactura(this.sPedido.getPedido().getNum_pedido()));
     }
 
     private void cargaDatosValores() {
@@ -661,10 +713,13 @@ public class frm_Factura extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
+    private javax.swing.JLabel lblAbono;
+    private javax.swing.JLabel lblSaldo;
     private org.edisoncor.gui.panel.PanelImage panelImage1;
     private org.edisoncor.gui.panel.PanelImage panelImage2;
     private javax.swing.JTable tblDetalles1;
     public static javax.swing.JTable tblPedidos1;
+    private javax.swing.JTextField txtAbono;
     private javax.swing.JTextField txtApellidos;
     public static javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtDescuento;
@@ -672,6 +727,7 @@ public class frm_Factura extends javax.swing.JDialog {
     private javax.swing.JTextField txtIvaDoce;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtNumeroFactura;
+    private javax.swing.JTextField txtSaldo;
     private javax.swing.JTextField txtSubIvaCero;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTelefonoCliente1;
