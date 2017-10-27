@@ -118,6 +118,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         txtBuscarPedido = new javax.swing.JTextField();
         chkFacturados = new javax.swing.JCheckBox();
         btnAbonar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -342,6 +343,10 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         });
         jPanel1.add(btnAbonar);
         btnAbonar.setBounds(130, 490, 110, 40);
+
+        jButton1.setText("btnBorrar");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(740, 290, 79, 23);
 
         tpPedido.addTab("LISTAR", jPanel1);
 
@@ -1152,6 +1157,10 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         llenadodetalle();
         this.btnFacturar.setEnabled(true);
         this.btnAbonar.setEnabled(true);
+        if(this.chkFacturados.isSelected()==true){
+            this.btnAbonar.setEnabled(false);
+            this.btnFacturar.setEnabled(false);
+        }
     }//GEN-LAST:event_tblPedidosMouseClicked
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
@@ -1329,8 +1338,12 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private void chkFacturadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFacturadosActionPerformed
         if (chkFacturados.isSelected() == true) {
             this.modeloPedido.setLista(this.sPedido.listarPedidoDesactivos());
+            this.btnmodificar.setEnabled(false);
+            this.btnFacturar.setEnabled(false);
+            this.btnAbonar.setEnabled(false);
         } else {
             this.modeloPedido.setLista(this.sPedido.listarPedidoActivos());
+            this.btnmodificar.setEnabled(true);
 
         }
         this.tblPedidos.setModel(this.modeloPedido);
@@ -1462,6 +1475,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private java.awt.Checkbox chbproducto;
     private javax.swing.JCheckBox chkFacturados;
     private com.toedter.calendar.JDateChooser fecha;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

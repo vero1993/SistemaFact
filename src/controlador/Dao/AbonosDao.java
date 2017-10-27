@@ -73,7 +73,7 @@ public class AbonosDao extends AdaptadorDao{
     public List<Abonos> listarAbonos(Long id_credito) {//es para listar pagos por el id del credito
         List<Abonos> lista = new ArrayList<Abonos>();
         try {
-            String query = "Select p from Abonos p where p.credito.id_credito=?"; // 
+            String query = "Select p from Abonos p where p.cxc.id_cxc=?"; // 
             Query q = this.getEntityManager().createQuery(query);
             q.setParameter(1, id_credito);
             lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de pagos
