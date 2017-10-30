@@ -24,6 +24,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "detalle_pedido")
 public class DetallePedido implements Serializable{
+    
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)//Genera el id del rol
     private Long id_detalle;
