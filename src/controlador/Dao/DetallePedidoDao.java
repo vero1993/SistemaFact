@@ -79,4 +79,16 @@ public class DetallePedidoDao extends AdaptadorDao{
         }
         return lista;
     }
+    
+    public List<DetallePedido> listarPedidosparaReporte(Long id_despacho) {//lista los detalles de acuerdo al id del depacho
+        List<DetallePedido> lista = new ArrayList<DetallePedido>();
+        try {
+            String query = "Select p from DetallePedido p where p.pedido.id_ped=?"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter(1, id_despacho);            
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de detalle_despacho
+        } catch (Exception e) {
+        }
+        return lista;
+    }
 }

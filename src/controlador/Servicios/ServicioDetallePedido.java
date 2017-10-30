@@ -54,4 +54,8 @@ public class ServicioDetallePedido {
      public void eliminar(DetallePedido id) {
         this.cDao.eliminar(id);
     }
+     
+     public List<DetallePedido> listarPedidosparaReporte(Long id_despacho) {
+        return this.cDao.listarPedidosparaReporte(id_despacho);
+     }
 }
