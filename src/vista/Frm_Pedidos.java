@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.Reportes.ReportePedido;
 import controlador.Servicios.ServicioCliente;
 import controlador.Servicios.ServicioCxC;
 import controlador.Servicios.ServicioDestinatario;
@@ -48,6 +49,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private ModeloTablaProducto modeloProducto = new ModeloTablaProducto();
     private ModeloTablaDetallePedido modelodpr = new ModeloTablaDetallePedido();
     utilidades ut = new utilidades();
+    private char m='0';
 
     public Frm_Pedidos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -174,6 +176,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jScrollPane7 = new javax.swing.JScrollPane();
         txtDireccionDestinatario = new javax.swing.JTextArea();
         jLabel19 = new javax.swing.JLabel();
+        dtFechaEntrega = new com.toedter.calendar.JDateChooser();
+        jLabel23 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         txtMensaje = new javax.swing.JTextArea();
         jLabel18 = new javax.swing.JLabel();
@@ -390,7 +394,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnCancelar);
-        btnCancelar.setBounds(780, 470, 110, 40);
+        btnCancelar.setBounds(780, 480, 110, 40);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153), null, null));
         jPanel5.setLayout(null);
@@ -591,7 +595,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnguardar);
-        btnguardar.setBounds(640, 470, 130, 40);
+        btnguardar.setBounds(640, 480, 130, 40);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
         jPanel3.setLayout(null);
@@ -682,9 +686,9 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         txtNombreDestinatario.setBounds(80, 50, 170, 25);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("DIR:");
+        jLabel4.setText("F. ENTRE:");
         jPanel8.add(jLabel4);
-        jLabel4.setBounds(10, 120, 60, 30);
+        jLabel4.setBounds(10, 170, 60, 20);
 
         txtTelefonoDestinatario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -734,15 +738,22 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jScrollPane7.setViewportView(txtDireccionDestinatario);
 
         jPanel8.add(jScrollPane7);
-        jScrollPane7.setBounds(80, 110, 160, 50);
+        jScrollPane7.setBounds(80, 110, 170, 50);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setText("TELÉFONO:");
         jPanel8.add(jLabel19);
         jLabel19.setBounds(10, 80, 60, 30);
+        jPanel8.add(dtFechaEntrega);
+        dtFechaEntrega.setBounds(80, 165, 170, 30);
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel23.setText("DIR:");
+        jPanel8.add(jLabel23);
+        jLabel23.setBounds(10, 120, 60, 30);
 
         jPanel2.add(jPanel8);
-        jPanel8.setBounds(630, 160, 260, 180);
+        jPanel8.setBounds(630, 160, 260, 200);
 
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -756,12 +767,12 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jScrollPane5.setViewportView(txtMensaje);
 
         jPanel2.add(jScrollPane5);
-        jScrollPane5.setBounds(640, 370, 250, 90);
+        jScrollPane5.setBounds(640, 380, 250, 90);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel18.setText("MENSAJE:");
         jPanel2.add(jLabel18);
-        jLabel18.setBounds(640, 340, 70, 30);
+        jLabel18.setBounds(640, 360, 70, 20);
 
         tpPedido.addTab("NUEVO", jPanel2);
 
@@ -804,6 +815,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
 
     private void limpiarCampos() {// limpia las cajas de texto
         this.sPedido.nuevaInstancia();
+        //this.sDetallePedido.nuevaInstancia();
         this.sDestinatario.nuevaInstancia();
         this.sProducto.nuevaInstancia();
         this.sCliente.nuevaInstancia();
@@ -841,6 +853,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         LlenadoComponentes.borrarproducto();
         LlenadoComponentes.borrardetalle();
         cargartabladetalle();
+        m='0';
     }
 
     private void cargarTablaProducto() {//carga los productos activos en la tabla
@@ -940,13 +953,13 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.sDetallePedido.getDetallePedido().setCant_productos(cantidadPro);
         if (this.sProducto.getProducto().getDescripcion_iva().equals("S")) {
             System.out.println("el producto tiene iva");
-            this.sDetallePedido.getDetallePedido().setTotal(cantidadPro * this.sProducto.getProducto().getPrecioSinIva());
+            this.sDetallePedido.getDetallePedido().setTotal(Math.round(cantidadPro * this.sProducto.getProducto().getPrecioSinIva() * Math.pow(10, 2)) / Math.pow(10, 2));
             this.txtSubtotalDoce.setText(String.valueOf(Math.round((Double.parseDouble(txtSubtotalDoce.getText()) + this.sDetallePedido.getDetallePedido().getTotal()) * Math.pow(10, 2)) / Math.pow(10, 2)));
             double iva = cantidadPro * this.sProducto.getProducto().getIva12();
             this.txtIvaDoce.setText(String.valueOf(Math.round((Double.parseDouble(this.txtIvaDoce.getText()) + iva) * Math.pow(10, 2)) / Math.pow(10, 2)));
         } else {
             if (this.sProducto.getProducto().getDescripcion_iva().equals("N")) {
-                this.sDetallePedido.getDetallePedido().setTotal(cantidadPro * this.sProducto.getProducto().getPrecioSinIva());
+                this.sDetallePedido.getDetallePedido().setTotal(Math.round(cantidadPro * this.sProducto.getProducto().getPrecioSinIva() * Math.pow(10, 2)) / Math.pow(10, 2));
                 this.txtSubtotalCero.setText(String.valueOf(Math.round((Double.parseDouble(txtSubtotalCero.getText()) + this.sDetallePedido.getDetallePedido().getTotal()) * Math.pow(10, 2)) / Math.pow(10, 2)));
             }
         }
@@ -1068,7 +1081,11 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     }//GEN-LAST:event_txtSubtotalDoceKeyReleased
 
     private void tbldetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldetalleMouseClicked
-        // habilita el boton de quitado del detalle
+        if(this.txttotalcant.getText().equals("1") && m=='1'){
+            this.btnquitarprod.setVisible(false);
+        }else{
+            this.btnquitarprod.setVisible(true);
+        }
         this.btnquitarprod.setEnabled(true);
         this.btnagregarprod.setEnabled(false);
         this.tblproducto.clearSelection();
@@ -1101,6 +1118,13 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                         this.sPedido.getPedido().setListaDetalle(LlenadoComponentes.guargardetalle(this.sPedido.getPedido()));
                         LlenadoComponentes.guargarproducto();
                         JOptionPane.showMessageDialog(this, "SE HA REGISTRADO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
+                        int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR PEDIDO", "IMPRIMIR PEDIDO", JOptionPane.YES_NO_OPTION);
+                        if (showConfirmDialog == 0) {
+                            System.out.println("llamado a imprimir");
+                            ReportePedido.reporteAbono(this.sPedido.getPedido());
+                        } else {
+                            System.out.println("Usted escogio no imprimir");
+                        }
                         this.IrListar();
                         this.limpiarCampos();
                     } else {
@@ -1113,51 +1137,58 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                 System.out.println(this.sPedido.getPedido().getNum_pedido());
                 System.out.println(this.sPedido.getPedido().getAsignado());
                 System.out.println(this.sPedido.getPedido().getEstado());
-                if(this.sPedido.getPedido().getAsignado().equals("S")){
+                if (this.sPedido.getPedido().getAsignado().equals("S")) {
                     System.out.println("El pedido esta en credito");
                     this.sCxC.fijarInstancia(this.sCxC.obtenerCxC(this.txtNroPedido.getText()));
-                    System.out.println("El numero de credito del pedidod es: "+this.sCxC.getCxC().getNum_cxc());
-                    double valor =  this.sCxC.getCxC().getMonto()- this.sCxC.getCxC().getSaldo();
+                    System.out.println("El numero de credito del pedidod es: " + this.sCxC.getCxC().getNum_cxc());
+                    double valor = this.sCxC.getCxC().getMonto() - this.sCxC.getCxC().getSaldo();
                     this.sCxC.getCxC().setMonto(this.sPedido.getPedido().getTot_ped());
-                    this.sCxC.getCxC().setSaldo(this.sPedido.getPedido().getTot_ped()-valor);
+                    this.sCxC.getCxC().setSaldo(this.sPedido.getPedido().getTot_ped() - valor);
                     this.sCxC.modificar();
-                }else{
+                } else {
                     System.out.println("El pedido no esta en credito");
                 }
                 LlenadoComponentes.eliminardetalles(this.sPedido.getPedido().getId_ped());
+                //if (Integer.parseInt(txttotalcant.getText().toString()) > 0) { 
+                if (Integer.parseInt(txttotalcant.getText().toString()) > 0) {
                 if (this.sPedido.modificar() == true) {
-                    if (this.tpPedido.getTitleAt(1).equalsIgnoreCase("DEVOLVER")) {
-                        JOptionPane.showMessageDialog(this, "PRODUCTOS DEVUELTOS CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "SE HA MODIFICADO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
-                    }
                     this.sPedido.getPedido().setListaDetalle(LlenadoComponentes.guargardetalle(this.sPedido.getPedido()));
                     LlenadoComponentes.guargarproducto();
+                    JOptionPane.showMessageDialog(this, "SE HA MODIFICADO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
+                    int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR PEDIDO", "IMPRIMIR PEDIDO", JOptionPane.YES_NO_OPTION);
+                    if (showConfirmDialog == 0) {
+                        System.out.println("llamado a imprimir");
+                        ReportePedido.reporteAbono(this.sPedido.getPedido());
+                    } else {
+                        System.out.println("Usted escogio no imprimir");
+                    }
+                    if(this.sPedido.getPedido().getCant_productos()==0){
+                        this.sPedido.getPedido().setEstado("DESCATIVO");
+                        this.sPedido.getPedido().setFacturado("S");
+                    }
                     this.limpiarCampos();
                     this.IrListar(); //Regreso a la lista
                 } else {
-                    if (this.tpPedido.getTitleAt(1).equalsIgnoreCase("DEVOLVER")) {
-                        JOptionPane.showMessageDialog(this, "NO SE HA PODIDO DEVOLVER!!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "NO SE HA PODIDO MODIFICAR!!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(this, "NO SE HA PODIDO MODIFICAR!!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+                }
+                }else{
+                JOptionPane.showMessageDialog(this, "NO SE HA PODIDO MODIFICAR PEDIDO SIN PRODUCTOS", "ERROR", JOptionPane.ERROR_MESSAGE);
+                //this.CargarTablaDetalles(this.sPedido.getPedido().getId_ped());
                 }
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR LA ORDEN DE PEDIDO SIN PRODUCTOS!!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void tblPedidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPedidosKeyReleased
         llenadodetalle();
-        
+
     }//GEN-LAST:event_tblPedidosKeyReleased
 
     private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidosMouseClicked
         llenadodetalle();
         this.btnFacturar.setEnabled(true);
         this.btnAbonar.setEnabled(true);
-        if(this.chkFacturados.isSelected()==true){
+        if (this.chkFacturados.isSelected() == true) {
             this.btnAbonar.setEnabled(false);
             this.btnFacturar.setEnabled(false);
         }
@@ -1165,6 +1196,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // carga en la vista nuevo el despacho seleccionado
+        m='1';
         int fila = this.tblPedidos.getSelectedRow();
         if (fila >= 0) {
 
@@ -1173,12 +1205,12 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             this.sDestinatario.fijarInstancia(this.sPedido.getPedido().getDestinatario());
             if (this.btnmodificar.getText().toString().equalsIgnoreCase("MODIFICAR")) {
                 //if (this.sPedido.getPedido().getEstado().equalsIgnoreCase("ACTIVO") && this.sPedido.getPedido().isAsignado() == false) {
-                    //if (this.sPedido.getPedido().isAsignado() == false) {
-                        this.tpPedido.setTitleAt(1, "MODIFICAR");
-                        this.IrNuevo();
-                        this.cargarVista();
-                        this.tblPedidos.clearSelection();
-                    /*} else {
+                //if (this.sPedido.getPedido().isAsignado() == false) {
+                this.tpPedido.setTitleAt(1, "MODIFICAR");
+                this.IrNuevo();
+                this.cargarVista();
+                this.tblPedidos.clearSelection();
+                /*} else {
                         JOptionPane.showMessageDialog(this, "PEDIDO YA SE ENCUENTRA ASIGNADO NO SE PUEDE MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
                         this.tblPedidos.clearSelection();
                     }
@@ -1187,13 +1219,13 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                     this.tblPedidos.clearSelection();
                 }*/
             }
-           // else {
-               // if (this.sPedido.getPedido().getEstado().equalsIgnoreCase("DESACTIVO") && this.sPedido.getPedido().isAsignado() == false) {
-                   // this.tpPedido.setTitleAt(1, "DEVOLVER");
-                   // this.IrNuevo();
-                    //this.cargarVista();
-                    //this.tblPedidos.clearSelection();
-              /*  } else {
+            // else {
+            // if (this.sPedido.getPedido().getEstado().equalsIgnoreCase("DESACTIVO") && this.sPedido.getPedido().isAsignado() == false) {
+            // this.tpPedido.setTitleAt(1, "DEVOLVER");
+            // this.IrNuevo();
+            //this.cargarVista();
+            //this.tblPedidos.clearSelection();
+            /*  } else {
                     JOptionPane.showMessageDialog(this, "PEDIDO TERMINADO NO SE PUEDE DEVOLVER PRODUCTOS", "ERROR", JOptionPane.ERROR_MESSAGE);
                     this.tblPedidos.clearSelection();
                 }
@@ -1332,7 +1364,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         frmFact.txtCedula.requestFocus();
         this.dispose();
         frmFact.setVisible(true);
-        
+
     }//GEN-LAST:event_btnFacturarActionPerformed
 
     private void chkFacturadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFacturadosActionPerformed
@@ -1391,10 +1423,10 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.txtSubtotalCero.setText(String.valueOf(this.sPedido.getPedido().getSubtotalCero()));
         this.txtIvaDoce.setText(String.valueOf(this.sPedido.getPedido().getIvaDoce()));
         this.txtTotal.setText(String.valueOf(this.sPedido.getPedido().getTot_ped()));
-        System.out.println("El pedido esta: "+this.sPedido.getPedido().getAsignado());
-        if(this.sPedido.getPedido().getAsignado().equals("S")){
+        System.out.println("El pedido esta: " + this.sPedido.getPedido().getAsignado());
+        if (this.sPedido.getPedido().getAsignado().equals("S")) {
             this.btnquitarprod.setVisible(false);
-        }else{
+        } else {
             this.btnquitarprod.setVisible(true);
         }
     }
@@ -1413,7 +1445,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             cargarDetalle(this.sPedido.getPedido().getId_ped());
         }
     }
-
 
     private void CargarObjeto() {//carga el objeto a almacenar
         this.sPedido.getPedido().setNum_pedido(txtNroPedido.getText().trim());
@@ -1474,6 +1505,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbxBuscarPedido;
     private java.awt.Checkbox chbproducto;
     private javax.swing.JCheckBox chkFacturados;
+    private com.toedter.calendar.JDateChooser dtFechaEntrega;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -1491,6 +1523,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -130,6 +130,7 @@ public class Pedido implements Serializable{
         this.cliente = cliente;
     }
 
+    
     public List<DetallePedido> getListaDetalle() {
         return listaDetalle;
     }
