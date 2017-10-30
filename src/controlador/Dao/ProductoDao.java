@@ -88,7 +88,7 @@ public class ProductoDao extends AdaptadorDao{
     public List<Producto> listarProductoEstado(String estado) {
         List<Producto> lista = new ArrayList<Producto>();
         try {
-            String query = "Select p from Producto p where p.estado=? "; // 
+            String query = "Select p from Producto p where p.est_pro=? "; // 
             Query q = this.getEntityManager().createQuery(query);
             q.setParameter(1, estado);
             
@@ -223,7 +223,7 @@ public class ProductoDao extends AdaptadorDao{
     public List<Producto> buscarProductos(String variable){
         List lista = new ArrayList();
         try {
-            String query = "Select a from Producto a where a.nom_producto LIKE :nom_producto"; // 
+            String query = "Select a from Producto a where a.est_pro='ACTIVO' and a.nom_producto LIKE :nom_producto"; // 
             Query q = this.getEntityManager().createQuery(query);
             q.setParameter("nom_producto", "%"+variable+"%");
             lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido

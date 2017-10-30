@@ -119,4 +119,16 @@ public class CxCDao extends AdaptadorDao{
         }
         return lista;
     }
+    
+    public CxC obtenerCxCparaFactura(String num_pedido) {//lista un despacho por su id
+        CxC lista = null;
+        try {
+            String query = "Select p from CxC p where p.pedido.num_pedido=?"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter(1, num_pedido);
+            lista = (CxC) q.getSingleResult(); // obteniene el objeto que esta guardado en la tabla de la base de datos de despacho
+        } catch (Exception e) {
+        }
+        return lista;
+    }
   }

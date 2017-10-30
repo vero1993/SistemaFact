@@ -1153,6 +1153,10 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         llenadodetalle();
         this.btnFacturar.setEnabled(true);
         this.btnAbonar.setEnabled(true);
+        if(this.chkFacturados.isSelected()==true){
+            this.btnAbonar.setEnabled(false);
+            this.btnFacturar.setEnabled(false);
+        }
     }//GEN-LAST:event_tblPedidosMouseClicked
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
@@ -1330,8 +1334,12 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private void chkFacturadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFacturadosActionPerformed
         if (chkFacturados.isSelected() == true) {
             this.modeloPedido.setLista(this.sPedido.listarPedidoDesactivos());
+            this.btnmodificar.setEnabled(false);
+            this.btnFacturar.setEnabled(false);
+            this.btnAbonar.setEnabled(false);
         } else {
             this.modeloPedido.setLista(this.sPedido.listarPedidoActivos());
+            this.btnmodificar.setEnabled(true);
 
         }
         this.tblPedidos.setModel(this.modeloPedido);

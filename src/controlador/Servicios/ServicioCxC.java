@@ -64,4 +64,8 @@ public class ServicioCxC {
      public List<CxC> buscarCxCporPedido(String variable){
          return this.cDao.buscarCxCporPedido(variable);
      }
+     
+     public CxC obtenerCxCparaFactura(String num_pedido) {
+         return this.cDao.obtenerCxCparaFactura(num_pedido);
+     }
 }

@@ -263,7 +263,7 @@ public class frm_Usuario extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rdbGerente)
                     .addComponent(rdbEmpleado))
-                .addGap(0, 30, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,7 +276,7 @@ public class frm_Usuario extends javax.swing.JDialog {
         );
 
         jPanel2.add(jPanel4);
-        jPanel4.setBounds(429, 27, 127, 70);
+        jPanel4.setBounds(429, 27, 110, 80);
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -376,7 +376,7 @@ public class frm_Usuario extends javax.swing.JDialog {
         );
 
         jPanel2.add(jPanel5);
-        jPanel5.setBounds(286, 27, 133, 70);
+        jPanel5.setBounds(286, 27, 133, 80);
 
         txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -395,7 +395,7 @@ public class frm_Usuario extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnExaminarFoto);
-        btnExaminarFoto.setBounds(300, 210, 90, 25);
+        btnExaminarFoto.setBounds(290, 210, 100, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("C. CLAVE:");
