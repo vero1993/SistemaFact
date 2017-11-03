@@ -46,4 +46,8 @@ public class ServicioDetalleFactura {
      public List<DetalleFactura>listar(){
          return this.cDao.listar();
      }
+     
+     public List<DetalleFactura> listarFacturasparaReporte(Long id_factura) {
+         return this.cDao.listarFacturasparaReporte(id_factura);
+     }
 }

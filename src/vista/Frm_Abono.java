@@ -12,6 +12,8 @@ import controlador.Servicios.ServicioAbonos;
 import controlador.Servicios.ServicioPedidos;
 import controlador.Sesiones;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
@@ -39,6 +41,8 @@ public class Frm_Abono extends javax.swing.JDialog {
     private ServicioCliente sCliente = new ServicioCliente();
     private ServicioPedidos sPedido = new ServicioPedidos();
     private ServicioAbonos sAbonos = new ServicioAbonos();
+    
+    
 
     public Frm_Abono(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -51,7 +55,9 @@ public class Frm_Abono extends javax.swing.JDialog {
         modeloTablaCredito.tablaModel(tblCreditos);
         this.reiniciar();
         this.txtBuscarCuenta.setEnabled(false);
-        
+        DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+        simbolos.setDecimalSeparator('.');
+        DecimalFormat RedondearADos = new DecimalFormat("0.00", simbolos);
     }
 
     /**
@@ -150,7 +156,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         tplistar.add(cbxCriterioBuscar);
         cbxCriterioBuscar.setBounds(80, 20, 100, 25);
 
-        tblCreditos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tblCreditos.setBorder(new javax.swing.border.SoftBevelBorder(0));
         tblCreditos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -210,7 +216,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
         tpnuevo.setLayout(null);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153), null, null));
+        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, new java.awt.Color(153, 153, 153), null, null));
         jPanel4.setLayout(null);
 
         txtMontoPedido.setEditable(false);
@@ -221,7 +227,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         jPanel4.add(jLabel15);
         jLabel15.setBounds(360, 230, 50, 30);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DEL CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DEL CLIENTE", 0, 0, new java.awt.Font("Dialog", 1, 11))); // NOI18N
         jPanel2.setLayout(null);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -320,7 +326,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
         tpnuevo1.setLayout(null);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153), null, null));
+        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, new java.awt.Color(153, 153, 153), null, null));
         jPanel5.setLayout(null);
 
         jLabel7.setText("FECHA");
@@ -343,9 +349,6 @@ public class Frm_Abono extends javax.swing.JDialog {
         dtFechaAbono.setBounds(270, 10, 120, 25);
 
         txtAbono.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtAbonoKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtAbonoKeyTyped(evt);
             }
@@ -372,7 +375,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
         jLabel1.setText("OBSERVACIÓN:");
         jPanel5.add(jLabel1);
-        jLabel1.setBounds(410, 10, 100, 15);
+        jLabel1.setBounds(410, 10, 100, 14);
 
         txtObservacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -408,7 +411,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         tpnuevo1.add(jLabel4);
         jLabel4.setBounds(20, 20, 290, 24);
 
-        tblDetalleAbonos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tblDetalleAbonos.setBorder(new javax.swing.border.SoftBevelBorder(0));
         tblDetalleAbonos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -571,10 +574,6 @@ public class Frm_Abono extends javax.swing.JDialog {
     private void txtTotalPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalPagoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalPagoKeyTyped
-
-    private void txtAbonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAbonoKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAbonoKeyReleased
 
     private void txtSaldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoKeyTyped
         // TODO add your handling code here:

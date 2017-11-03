@@ -9,6 +9,7 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -20,9 +21,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import modelo.Cliente;
 import modelo.Abonos;
-import modelo.Pedido;
 
 /**
  *
@@ -40,8 +39,12 @@ public class Reportes {
             DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
             System.out.println("Hora y fecha: "+hourdateFormat.format(date));
             FileOutputStream salida = new FileOutputStream(cliente + idPago + ".pdf");//
+            Image logo = Image.getInstance("verartelogo.jpg");
+            logo.setAbsolutePosition(30, 350);  
+            logo.scalePercent(75);            
             PdfWriter.getInstance(documento, salida);
             documento.open();
+            documento.add(logo);
 
             /*=============ENCABEZADO=====================*/
             Paragraph titulo1 = new Paragraph("FLORISTERIA VERARTE",new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.BLACK));
@@ -66,7 +69,7 @@ public class Reportes {
             Paragraph totAbon = new Paragraph(("TOTAL ABONADO: "+ RedondearADos.format(totalAbonado)), new Font(Font.FontFamily.TIMES_ROMAN,9,Font.NORMAL,BaseColor.BLACK));
             documento.add(totAbon);
             
-            Paragraph salPen = new Paragraph(("SALDO PENDIENTE: "+ RedondearADos.format(saldoPend)), new Font(Font.FontFamily.TIMES_ROMAN,9,Font.NORMAL,BaseColor.BLACK));
+                Paragraph salPen = new Paragraph(("SALDO PENDIENTE: "+ RedondearADos.format(saldoPend)), new Font(Font.FontFamily.TIMES_ROMAN,9,Font.NORMAL,BaseColor.BLACK));
             documento.add(salPen);
             documento.add(new Paragraph(" "));
             documento.add(new Paragraph(" "));

@@ -30,7 +30,7 @@ public class DetallePedido implements Serializable{
     private Long id_detalle;
     private int cant_productos;
     private Double total;
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)//permite mapear con Despacho de muchos a 1
+    @ManyToOne//permite mapear con Despacho de muchos a 1
     @JoinColumn(name = "id_ped", nullable = true, referencedColumnName = "id_ped")//toma la columna del id de Despacho
     private Pedido pedido;
     

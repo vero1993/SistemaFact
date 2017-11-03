@@ -74,6 +74,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.Limitar();
         this.btnFacturar.setEnabled(false);
         this.btnAbonar.setEnabled(false);
+        this.btnImprimir.setEnabled(false);
 
     }
 
@@ -93,6 +94,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.tpPedido.setEnabledAt(0, false);
         this.tpPedido.setEnabledAt(1, true);//para poder desbloquear la pestana
         this.tpPedido.setSelectedIndex(1);//para dirigirce hacia otra pestana
+        this.btnguardar.setText("GUARDAR");
 
     }
 
@@ -121,6 +123,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         chkFacturados = new javax.swing.JCheckBox();
         btnAbonar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -223,11 +226,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         tblPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPedidosMouseClicked(evt);
-            }
-        });
-        tblPedidos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblPedidosKeyReleased(evt);
             }
         });
         jScrollPane3.setViewportView(tblPedidos);
@@ -351,6 +349,15 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jButton1.setText("btnBorrar");
         jPanel1.add(jButton1);
         jButton1.setBounds(740, 290, 79, 23);
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir);
+        btnImprimir.setBounds(488, 490, 65, 40);
 
         tpPedido.addTab("LISTAR", jPanel1);
 
@@ -1121,7 +1128,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                         int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR PEDIDO", "IMPRIMIR PEDIDO", JOptionPane.YES_NO_OPTION);
                         if (showConfirmDialog == 0) {
                             System.out.println("llamado a imprimir");
-                            ReportePedido.reporteAbono(this.sPedido.getPedido());
+                            ReportePedido.reportePedido(this.sPedido.getPedido());
                         } else {
                             System.out.println("Usted escogio no imprimir");
                         }
@@ -1158,7 +1165,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                     int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR PEDIDO", "IMPRIMIR PEDIDO", JOptionPane.YES_NO_OPTION);
                     if (showConfirmDialog == 0) {
                         System.out.println("llamado a imprimir");
-                        ReportePedido.reporteAbono(this.sPedido.getPedido());
+                        ReportePedido.reportePedido(this.sPedido.getPedido());
                     } else {
                         System.out.println("Usted escogio no imprimir");
                     }
@@ -1179,15 +1186,11 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnguardarActionPerformed
 
-    private void tblPedidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPedidosKeyReleased
-        llenadodetalle();
-
-    }//GEN-LAST:event_tblPedidosKeyReleased
-
     private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidosMouseClicked
         llenadodetalle();
         this.btnFacturar.setEnabled(true);
         this.btnAbonar.setEnabled(true);
+        this.btnImprimir.setEnabled(true);
         if (this.chkFacturados.isSelected() == true) {
             this.btnAbonar.setEnabled(false);
             this.btnFacturar.setEnabled(false);
@@ -1209,6 +1212,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                 this.tpPedido.setTitleAt(1, "MODIFICAR");
                 this.IrNuevo();
                 this.cargarVista();
+                this.btnguardar.setText("MODIFICAR");
                 this.tblPedidos.clearSelection();
                 /*} else {
                         JOptionPane.showMessageDialog(this, "PEDIDO YA SE ENCUENTRA ASIGNADO NO SE PUEDE MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -1388,6 +1392,15 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         frmAbo.setVisible(true);
     }//GEN-LAST:event_btnAbonarActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        if(this.sPedido.getPedido() !=null){
+            ReportePedido.reportePedido(this.sPedido.getPedido());
+        }else{
+            JOptionPane.showMessageDialog(this, "NO EXISTE PEDIDO SELECCIONADO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+        }
+        this.btnImprimir.setEnabled(false);
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     public void cargarDatosCliente() {
         sCliente.nuevaInstancia();
         sCliente.fijarInstancia((Cliente) sCliente.obtenerPersonaCedula(txtCedulaCliente.getText()));
@@ -1496,6 +1509,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private javax.swing.JButton btnBuscaClientes;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFacturar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnagregarprod;

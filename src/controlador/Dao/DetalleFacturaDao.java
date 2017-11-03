@@ -6,6 +6,9 @@
 
 package controlador.Dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Query;
 import modelo.DetalleFactura;
 
 /**
@@ -64,5 +67,17 @@ public class DetalleFacturaDao extends AdaptadorDao{
         return detallefactura;
         
     } 
+    
+    public List<DetalleFactura> listarFacturasparaReporte(Long id_factura) {//lista los detalles de acuerdo al id del depacho
+        List<DetalleFactura> lista = new ArrayList<DetalleFactura>();
+        try {
+            String query = "Select p from DetalleFactura p where p.factura.id_fact=?"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter(1, id_factura);            
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de detalle_despacho
+        } catch (Exception e) {
+        }
+        return lista;
+    }
     
 }

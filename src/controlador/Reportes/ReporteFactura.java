@@ -16,7 +16,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import controlador.Servicios.ServicioDetallePedido;
+import controlador.Servicios.ServicioDetalleFactura;
 import controlador.Utilidades;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,16 +25,16 @@ import java.text.DecimalFormatSymbols;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import modelo.DetallePedido;
-import modelo.Pedido;
+import modelo.DetalleFactura;
+import modelo.Factura;
 
 /**
  *
  * @author Steven Y
  */
-public class ReportePedido {
+public class ReporteFactura {
 
-    public static void reportePedido(Pedido pedido) {
+    public static void reporteFactura(Factura factura) {
         Document documento = new Document(PageSize.A5, 20, 20, 15, 10);
         DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
         simbolos.setDecimalSeparator('.');
@@ -42,8 +42,8 @@ public class ReportePedido {
         Date date = new Date();
         try {
             DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-            System.out.println("Hora y fecha: "+hourdateFormat.format(pedido.getFec_ped()));
-            FileOutputStream salida = new FileOutputStream("ReportePedido.pdf");//
+            System.out.println("Hora y fecha: "+hourdateFormat.format(factura.getFec_fac()));
+            FileOutputStream salida = new FileOutputStream("ReporteFactura.pdf");//
             Image logo = Image.getInstance("verartelogo.jpg");
             logo.setAbsolutePosition(40, 540);  
             logo.scalePercent(75);
@@ -63,7 +63,7 @@ public class ReportePedido {
             tablaEncabezado.setWidthPercentage(100);
             
             
-            Paragraph detalelPedido = new Paragraph("DETALLE DE PEDIDO", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK));
+            Paragraph detalelPedido = new Paragraph("DETALLE DE FACTURA", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK));
             detalelPedido.setAlignment(Element.ALIGN_CENTER);
             
             /*=====ENCABEZADO====*/
@@ -83,12 +83,12 @@ public class ReportePedido {
                     + " Cel.: 0980924052 / 0999372331 Loja - Ecuador", new Font(Font.FontFamily.HELVETICA, 6, Font.BOLD, BaseColor.BLACK));
             direccionEmpresa.setAlignment(Element.ALIGN_CENTER);
             
-            Paragraph sinValidez = new Paragraph("DOCUMENTO SIN VALIDEZ TRIBUTARIA", new Font(Font.FontFamily.HELVETICA, 6, Font.BOLD, BaseColor.BLACK));
+            /*Paragraph sinValidez = new Paragraph("DOCUMENTO SIN VALIDEZ TRIBUTARIA", new Font(Font.FontFamily.HELVETICA, 6, Font.BOLD, BaseColor.BLACK));
             sinValidez.setAlignment(Element.ALIGN_CENTER);
             
             //celInformacion.setRowspan(2);
             celInformacion.setBorder(0);
-            celInformacion.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celInformacion.setHorizontalAlignment(Element.ALIGN_CENTER);*/
             
             /*=======TABLA PARA SACAR LOS VALORES GENERALES*/
             float[] medidasCeldasTabla2 = {0.70f, 3.0f, 1.00f, 1.50f};
@@ -105,7 +105,7 @@ public class ReportePedido {
             celNombreCliente.setHorizontalAlignment(Element.ALIGN_LEFT);
             tabla2.addCell(celNombreCliente);
             
-            Paragraph nombresCliente = new Paragraph(pedido.getCliente().getApe_per()+" "+pedido.getCliente().getNom_per(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
+            Paragraph nombresCliente = new Paragraph(factura.getCliente().getApe_per()+" "+factura.getCliente().getNom_per(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celNombresCliente = new PdfPCell(nombresCliente);
             celNombresCliente.setBorder(0);
             celNombreCliente.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -117,7 +117,7 @@ public class ReportePedido {
             celfecha.setHorizontalAlignment(Element.ALIGN_LEFT);
             tabla2.addCell(celfecha);
             
-            Paragraph fechaRecibida = new Paragraph(hourdateFormat.format(pedido.getFec_ped()), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
+            Paragraph fechaRecibida = new Paragraph(hourdateFormat.format(factura.getFec_fac()), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celfechaRecibida = new PdfPCell(fechaRecibida);
             celfechaRecibida.setBorder(0);
             celfechaRecibida.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -131,7 +131,7 @@ public class ReportePedido {
             celNombreRuc.setHorizontalAlignment(Element.ALIGN_LEFT);
             tabla2.addCell(celNombreRuc);
             
-            Paragraph rucRecibido = new Paragraph(pedido.getCliente().getCed_per(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
+            Paragraph rucRecibido = new Paragraph(factura.getCliente().getCed_per(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celrucRecibido = new PdfPCell(rucRecibido);
             celrucRecibido.setBorder(0);
             celrucRecibido.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -143,7 +143,7 @@ public class ReportePedido {
             celnombreTele.setHorizontalAlignment(Element.ALIGN_LEFT);
             tabla2.addCell(celnombreTele);
             
-            Paragraph teleRecibido = new Paragraph(pedido.getCliente().getTel_per(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
+            Paragraph teleRecibido = new Paragraph(factura.getCliente().getTel_per(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celteleRecibido = new PdfPCell(teleRecibido);
             celteleRecibido.setBorder(0);
             celteleRecibido.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -157,19 +157,19 @@ public class ReportePedido {
             celnombreDir.setHorizontalAlignment(Element.ALIGN_LEFT);
             tabla2.addCell(celnombreDir);
             
-            Paragraph dirRecibido = new Paragraph(pedido.getCliente().getDir_per(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
+            Paragraph dirRecibido = new Paragraph(factura.getCliente().getDir_per(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celdirRecibido = new PdfPCell(dirRecibido);
             celdirRecibido.setBorder(0);
             celdirRecibido.setHorizontalAlignment(Element.ALIGN_LEFT);
             tabla2.addCell(celdirRecibido);
             
-            Paragraph nombreNumPedido = new Paragraph("NUM. PEDIDO:", new Font(Font.FontFamily.HELVETICA, 7, Font.BOLD, BaseColor.BLACK));
+            Paragraph nombreNumPedido = new Paragraph("NUM. FACTURA:", new Font(Font.FontFamily.HELVETICA, 7, Font.BOLD, BaseColor.BLACK));
             PdfPCell celnombreNumPedido = new PdfPCell(nombreNumPedido);
             celnombreNumPedido.setBorder(0);
             celnombreNumPedido.setHorizontalAlignment(Element.ALIGN_LEFT);
             tabla2.addCell(celnombreNumPedido);
             
-            Paragraph numPedRecibido = new Paragraph(pedido.getNum_pedido(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
+            Paragraph numPedRecibido = new Paragraph(factura.getNum_fac(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celnumPedRecibido = new PdfPCell(numPedRecibido);
             celnumPedRecibido.setBorder(0);
             celnumPedRecibido.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -217,15 +217,15 @@ public class ReportePedido {
             tablaDetalle.addCell(celNombrePTotal);
             
             /*LLENADO DE TABLA DE PEDIDO*/
-            ServicioDetallePedido sDetallePedido  = new ServicioDetallePedido();
+            ServicioDetalleFactura sDetalleFactura  = new ServicioDetalleFactura();
             Font standardFont = new Font(Font.FontFamily.HELVETICA, 6, Font.NORMAL, BaseColor.BLACK);
             
-            for (DetallePedido detallePedido: sDetallePedido.listarPedidosparaReporte(pedido.getId_ped())) {
-                PdfPCell clCodigoProducto = new PdfPCell(new Phrase(detallePedido.getProducto().getCod_producto(), standardFont));
-                PdfPCell clNombreProducto = new PdfPCell(new Phrase(detallePedido.getProducto().getNom_producto(), standardFont));
-                PdfPCell clCantProductos= new PdfPCell(new Phrase(String.valueOf(detallePedido.getCant_productos()), standardFont));
-                PdfPCell clPrecioSinIva = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(detallePedido.getProducto().getPrecioSinIva())), standardFont));
-                PdfPCell clTotalPrecioPro = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(detallePedido.getTotal())), standardFont));
+            for (DetalleFactura detalleFactura: sDetalleFactura.listarFacturasparaReporte(factura.getId_fact())) {
+                PdfPCell clCodigoProducto = new PdfPCell(new Phrase(detalleFactura.getProducto().getCod_producto(), standardFont));
+                PdfPCell clNombreProducto = new PdfPCell(new Phrase(detalleFactura.getProducto().getNom_producto(), standardFont));
+                PdfPCell clCantProductos= new PdfPCell(new Phrase(String.valueOf(detalleFactura.getCan_productos()), standardFont));
+                PdfPCell clPrecioSinIva = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(detalleFactura.getProducto().getPrecioSinIva())), standardFont));
+                PdfPCell clTotalPrecioPro = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(detalleFactura.getTotal())), standardFont));
                 clCodigoProducto.setBorder(0);
                 clNombreProducto.setBorder(0);
                 clCantProductos.setBorder(0);
@@ -264,7 +264,7 @@ public class ReportePedido {
             celNombreTotal.setBorder(0);
             celNombreTotal.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tablaTotales.addCell(celNombreTotal);
-            PdfPCell clSubtotalPedido = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(pedido.getSubtotalDoce())), standardFont));
+            PdfPCell clSubtotalPedido = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(factura.getSubtotalDoce())), standardFont));
             clSubtotalPedido.setBorder(0);
             clSubtotalPedido.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tablaTotales.addCell(clSubtotalPedido);
@@ -284,7 +284,7 @@ public class ReportePedido {
             celNombreIvaCero.setBorder(0);
             celNombreIvaCero.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tablaTotales.addCell(celNombreIvaCero);
-            PdfPCell clIvaCeroPedido = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(pedido.getSubtotalCero())), standardFont));
+            PdfPCell clIvaCeroPedido = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(factura.getSubtotalCero())), standardFont));
             clIvaCeroPedido.setBorder(0);
             clIvaCeroPedido.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tablaTotales.addCell(clIvaCeroPedido);
@@ -294,7 +294,7 @@ public class ReportePedido {
             celNombreIvaDoce.setBorder(0);
             celNombreIvaDoce.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tablaTotales.addCell(celNombreIvaDoce);
-            PdfPCell clIvaDocePedido = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(pedido.getIvaDoce())), standardFont));
+            PdfPCell clIvaDocePedido = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(factura.getIvaDoce())), standardFont));
             clIvaDocePedido.setBorder(0);
             clIvaDocePedido.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tablaTotales.addCell(clIvaDocePedido);
@@ -310,7 +310,7 @@ public class ReportePedido {
             celNombreTotalP.setBorder(0);
             celNombreTotalP.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tablaTotales.addCell(celNombreTotalP);
-            PdfPCell clTotalPedido = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(pedido.getTot_ped())), standardFont));
+            PdfPCell clTotalPedido = new PdfPCell(new Phrase(String.valueOf(RedondearADos.format(factura.getTot_fact())), standardFont));
             clTotalPedido.setBorder(0);
             clTotalPedido.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tablaTotales.addCell(clTotalPedido);
@@ -339,7 +339,7 @@ public class ReportePedido {
             tablaFirmas.addCell(celFirmaAut);
             
             Paragraph cFirmaCli= new Paragraph("___________________________________\n"
-                    + pedido.getCliente().getApe_per()+" "+pedido.getCliente().getNom_per(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
+                    + factura.getCliente().getApe_per()+" "+factura.getCliente().getNom_per(), new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celFirmaCli = new PdfPCell(cFirmaCli);
             celFirmaCli.setHorizontalAlignment(Element.ALIGN_CENTER);
             celFirmaCli.setBorder(0);
@@ -366,14 +366,14 @@ public class ReportePedido {
                     + "-------------------------------------------------------------"
                     + "--------------", new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK)));
             documento.add(detalelPedido);
-            documento.add(sinValidez);
+            //documento.add(sinValidez);
             documento.add(tablaDetalle);
             documento.add(tablaTotales);
             documento.add(new Paragraph(" "));
             documento.add(tablaFirmas);
                         
             documento.close();
-            File archivo = new File("ReportePedido.pdf");
+            File archivo = new File("ReporteFactura.pdf");
             Utilidades.llamarArchivo(archivo.getPath());
 
         } catch (Exception e) {
