@@ -360,6 +360,19 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jPanel1.add(btnImprimir);
         btnImprimir.setBounds(488, 490, 65, 40);
 
+        jButton1.setText("btnBorrar");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(740, 290, 79, 23);
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir);
+        btnImprimir.setBounds(488, 490, 65, 40);
+
         tpPedido.addTab("LISTAR", jPanel1);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1168,11 +1181,15 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                     int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR PEDIDO", "IMPRIMIR PEDIDO", JOptionPane.YES_NO_OPTION);
                     if (showConfirmDialog == 0) {
                         System.out.println("llamado a imprimir");
+<<<<<<< HEAD
 <<<<<<< HEAD (0ef1360) - FORMUARIO PEDIDOS
                         ReportePedido.reporteAbono(this.sPedido.getPedido());
 =======
                         ReportePedido.reportePedido(this.sPedido.getPedido());
 >>>>>>> origin/Gilmar (84be0a2) - revisar 02-11-
+=======
+                        ReportePedido.reportePedido(this.sPedido.getPedido());
+>>>>>>> origin/master
                     } else {
                         System.out.println("Usted escogio no imprimir");
                     }
@@ -1192,6 +1209,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnguardarActionPerformed
+<<<<<<< HEAD
 <<<<<<< HEAD (0ef1360) - FORMUARIO PEDIDOS
 
     private void tblPedidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPedidosKeyReleased
@@ -1200,15 +1218,21 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     }//GEN-LAST:event_tblPedidosKeyReleased
 =======
 >>>>>>> origin/Gilmar (84be0a2) - revisar 02-11-
+=======
+>>>>>>> origin/master
 
     private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidosMouseClicked
         llenadodetalle();
         this.btnFacturar.setEnabled(true);
         this.btnAbonar.setEnabled(true);
+<<<<<<< HEAD
 <<<<<<< HEAD (0ef1360) - FORMUARIO PEDIDOS
 =======
         this.btnImprimir.setEnabled(true);
 >>>>>>> origin/Gilmar (84be0a2) - revisar 02-11-
+=======
+        this.btnImprimir.setEnabled(true);
+>>>>>>> origin/master
         if (this.chkFacturados.isSelected() == true) {
             this.btnAbonar.setEnabled(false);
             this.btnFacturar.setEnabled(false);
@@ -1230,11 +1254,15 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                 this.tpPedido.setTitleAt(1, "MODIFICAR");
                 this.IrNuevo();
                 this.cargarVista();
+<<<<<<< HEAD
 <<<<<<< HEAD (0ef1360) - FORMUARIO PEDIDOS
 
 =======
                 this.btnguardar.setText("MODIFICAR");
 >>>>>>> origin/Gilmar (84be0a2) - revisar 02-11-
+=======
+                this.btnguardar.setText("MODIFICAR");
+>>>>>>> origin/master
                 this.tblPedidos.clearSelection();
                 /*} else {
                         JOptionPane.showMessageDialog(this, "PEDIDO YA SE ENCUENTRA ASIGNADO NO SE PUEDE MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);

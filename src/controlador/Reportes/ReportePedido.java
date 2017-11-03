@@ -17,7 +17,6 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import controlador.Servicios.ServicioDetallePedido;
-
 import controlador.Servicios.ServicioPedido;
 import controlador.Utilidades;
 import java.io.File;
@@ -310,6 +309,8 @@ public class ReportePedido {
             documento.add(fAuto);*/
             
 =======
+=======
+>>>>>>> origin/master
 import controlador.Utilidades;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -672,5 +673,5 @@ public class ReportePedido {
         } catch (Exception e) {
         }
     }
-
 }
+}}}
