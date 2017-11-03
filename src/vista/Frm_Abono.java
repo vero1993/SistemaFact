@@ -301,7 +301,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
         jLabel8.setText("Nº CUENTA POR COBRAR");
         tpnuevo.add(jLabel8);
-        jLabel8.setBounds(40, 10, 130, 20);
+        jLabel8.setBounds(30, 10, 150, 20);
 
         txtNumeroCredito.setEditable(false);
         txtNumeroCredito.setForeground(new java.awt.Color(255, 255, 255));
@@ -372,7 +372,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
         jLabel1.setText("OBSERVACIÓN:");
         jPanel5.add(jLabel1);
-        jLabel1.setBounds(410, 10, 100, 15);
+        jLabel1.setBounds(410, 10, 100, 14);
 
         txtObservacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {

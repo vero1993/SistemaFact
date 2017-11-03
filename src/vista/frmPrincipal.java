@@ -64,6 +64,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
 
@@ -175,6 +177,20 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuGenerar);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Application.png"))); // NOI18N
+        jMenu1.setText("CONFIGURACIÓN");
+
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/silabo_1428_seg_bd.jpg"))); // NOI18N
+        jMenuItem5.setText("RESPALDAR INFORMACIÓN");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu1);
+
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/salir.png"))); // NOI18N
         jMenu4.setText("SISTEMA");
 
@@ -251,6 +267,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,12 +284,14 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private vista.componentes.PanelImagen fondo;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
