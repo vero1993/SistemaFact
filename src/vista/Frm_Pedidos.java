@@ -74,6 +74,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.Limitar();
         this.btnFacturar.setEnabled(false);
         this.btnAbonar.setEnabled(false);
+        this.btnImprimir.setEnabled(false);
 
     }
 
@@ -93,6 +94,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.tpPedido.setEnabledAt(0, false);
         this.tpPedido.setEnabledAt(1, true);//para poder desbloquear la pestana
         this.tpPedido.setSelectedIndex(1);//para dirigirce hacia otra pestana
+        this.btnguardar.setText("GUARDAR");
 
     }
 
@@ -120,6 +122,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         txtBuscarPedido = new javax.swing.JTextField();
         chkFacturados = new javax.swing.JCheckBox();
         btnAbonar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -222,11 +226,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         tblPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPedidosMouseClicked(evt);
-            }
-        });
-        tblPedidos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblPedidosKeyReleased(evt);
             }
         });
         jScrollPane3.setViewportView(tblPedidos);
@@ -347,6 +346,19 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         });
         jPanel1.add(btnAbonar);
         btnAbonar.setBounds(130, 490, 120, 40);
+
+        jButton1.setText("btnBorrar");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(740, 290, 79, 23);
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir);
+        btnImprimir.setBounds(488, 490, 65, 40);
 
         tpPedido.addTab("LISTAR", jPanel1);
 
@@ -1119,7 +1131,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                         int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR PEDIDO", "IMPRIMIR PEDIDO", JOptionPane.YES_NO_OPTION);
                         if (showConfirmDialog == 0) {
                             System.out.println("llamado a imprimir");
-                            ReportePedido.reporteAbono(this.sPedido.getPedido());
+                            ReportePedido.reportePedido(this.sPedido.getPedido());
                         } else {
                             System.out.println("Usted escogio no imprimir");
                         }
@@ -1156,7 +1168,11 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                     int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR PEDIDO", "IMPRIMIR PEDIDO", JOptionPane.YES_NO_OPTION);
                     if (showConfirmDialog == 0) {
                         System.out.println("llamado a imprimir");
+<<<<<<< HEAD (0ef1360) - FORMUARIO PEDIDOS
                         ReportePedido.reporteAbono(this.sPedido.getPedido());
+=======
+                        ReportePedido.reportePedido(this.sPedido.getPedido());
+>>>>>>> origin/Gilmar (84be0a2) - revisar 02-11-
                     } else {
                         System.out.println("Usted escogio no imprimir");
                     }
@@ -1176,16 +1192,23 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnguardarActionPerformed
+<<<<<<< HEAD (0ef1360) - FORMUARIO PEDIDOS
 
     private void tblPedidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPedidosKeyReleased
         llenadodetalle();
 
     }//GEN-LAST:event_tblPedidosKeyReleased
+=======
+>>>>>>> origin/Gilmar (84be0a2) - revisar 02-11-
 
     private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidosMouseClicked
         llenadodetalle();
         this.btnFacturar.setEnabled(true);
         this.btnAbonar.setEnabled(true);
+<<<<<<< HEAD (0ef1360) - FORMUARIO PEDIDOS
+=======
+        this.btnImprimir.setEnabled(true);
+>>>>>>> origin/Gilmar (84be0a2) - revisar 02-11-
         if (this.chkFacturados.isSelected() == true) {
             this.btnAbonar.setEnabled(false);
             this.btnFacturar.setEnabled(false);
@@ -1207,6 +1230,11 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                 this.tpPedido.setTitleAt(1, "MODIFICAR");
                 this.IrNuevo();
                 this.cargarVista();
+<<<<<<< HEAD (0ef1360) - FORMUARIO PEDIDOS
+
+=======
+                this.btnguardar.setText("MODIFICAR");
+>>>>>>> origin/Gilmar (84be0a2) - revisar 02-11-
                 this.tblPedidos.clearSelection();
                 /*} else {
                         JOptionPane.showMessageDialog(this, "PEDIDO YA SE ENCUENTRA ASIGNADO NO SE PUEDE MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -1386,6 +1414,15 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         frmAbo.setVisible(true);
     }//GEN-LAST:event_btnAbonarActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        if(this.sPedido.getPedido() !=null){
+            ReportePedido.reportePedido(this.sPedido.getPedido());
+        }else{
+            JOptionPane.showMessageDialog(this, "NO EXISTE PEDIDO SELECCIONADO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+        }
+        this.btnImprimir.setEnabled(false);
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     public void cargarDatosCliente() {
         sCliente.nuevaInstancia();
         sCliente.fijarInstancia((Cliente) sCliente.obtenerPersonaCedula(txtCedulaCliente.getText()));
@@ -1494,6 +1531,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private javax.swing.JButton btnBuscaClientes;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFacturar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnagregarprod;
@@ -1505,6 +1543,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private javax.swing.JCheckBox chkFacturados;
     private com.toedter.calendar.JDateChooser dtFechaEntrega;
     private com.toedter.calendar.JDateChooser fecha;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

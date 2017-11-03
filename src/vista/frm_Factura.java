@@ -5,6 +5,8 @@
  */
 package vista;
 
+import controlador.Reportes.ReporteFactura;
+import controlador.Reportes.ReportePedido;
 import controlador.Servicios.ServicioCliente;
 import controlador.Servicios.ServicioCxC;
 import controlador.Servicios.ServicioDetalleFactura;
@@ -526,6 +528,7 @@ public class frm_Factura extends javax.swing.JDialog {
                 System.out.println(this.sFactura.getFactura().getNum_fac());
                 int showConfirmDialog = JOptionPane.showConfirmDialog(null, "DESEA IMPRIMIR ESTA FACTURA..??", "IMPRIMIR FACTURA", JOptionPane.YES_NO_OPTION);
                 if (showConfirmDialog == 0) {
+                    ReporteFactura.reporteFactura(this.sFactura.getFactura());
                     System.out.println("llamado a imprimir");
                 } else {
                     System.out.println("Usted escogio no imprimir");
