@@ -18,28 +18,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "usuario")
 public class Usuario extends Persona implements Serializable{
-    //private String cla_usu;
+  
     private String tip_usu;
      private String foto = "default.png";
 
-    /**
-     * @return the cla_usu
-     */
-   /* @Column(length = 10)
-    public String getCla_usu() {
-        return cla_usu;
-    }
-
-    /**
-     * @param cla_usu the cla_usu to set
-     *//*
-    public void setCla_usu(String cla_usu) {
-        this.cla_usu = cla_usu;
-    }/*
-
-    /**
-     * @return the tip_usu
-     */
      @Column(length = 1)
     public String getTip_usu() {
         return tip_usu;
