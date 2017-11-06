@@ -8,7 +8,15 @@ package vista;
 
 import controlador.Sesiones;
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -17,6 +25,7 @@ import javax.swing.UIManager;
  * @author Steven Y
  */
 public class frmPrincipal extends javax.swing.JFrame {
+    JFileChooser RealizarBackupMySQL = new JFileChooser();
 
     /**
      * Creates new form frmPrincipal
@@ -25,10 +34,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         initComponents();
         String usuario=(Sesiones.getCuenta().getUsu().getApe_per()+" "+Sesiones.getCuenta().getUsu().getNom_per());
         lblUsu.setText(usuario);
-        //(null);
-        //setResizable(false);
-       // setTitle("Principal");//sirve para poner nombre al Formulario
-        //setResizable(false);
+       
         this.setExtendedState(frmPrincipal.MAXIMIZED_BOTH);
         UIManager.put("jMenuBar1.opaque", false);
         jMenuBar1.setBackground(new Color(0f,0f,0f,0f));
@@ -64,6 +70,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
 
@@ -175,6 +183,20 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuGenerar);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Application.png"))); // NOI18N
+        jMenu1.setText("CONFIGURACIÓN");
+
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/silabo_1428_seg_bd.jpg"))); // NOI18N
+        jMenuItem5.setText("RESPALDAR INFORMACIÓN");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu1);
+
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/salir.png"))); // NOI18N
         jMenu4.setText("SISTEMA");
 
@@ -250,6 +272,44 @@ public class frmPrincipal extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+    public void RespaldoDataBase(){
+   int resp;
+        Calendar c = Calendar.getInstance();
+        String fecha = String.valueOf(c.get(Calendar.DATE));
+        fecha = fecha + "-" + String.valueOf(c.get(Calendar.MONTH) + 1);
+        fecha = fecha + "-" + String.valueOf(c.get(Calendar.YEAR));
+        RealizarBackupMySQL.setSelectedFile(new File("respaldo_" + fecha));
+
+        resp = RealizarBackupMySQL.showSaveDialog(this);//JFileChooser de nombre RealizarBackupMySQL
+        if (resp == JFileChooser.APPROVE_OPTION) {//Si el usuario presiona aceptar; se genera el Backup
+            try {
+                Runtime runtime = Runtime.getRuntime();
+                File backupFile = new File(String.valueOf(RealizarBackupMySQL.getSelectedFile().toString())
+                        + ".sql");
+                FileWriter fw = new FileWriter(backupFile);
+                Process child = runtime.exec("C:\\xampp\\mysql\\bin\\mysqldump --opt --password= --user=root "
+                        + " --databases dbfacturacion");
+                InputStreamReader irs = new InputStreamReader(child.getInputStream());
+                BufferedReader br = new BufferedReader(irs);
+
+                String line;
+                while ((line = br.readLine()) != null) {
+                    fw.write(line + "\n");
+                }
+                fw.close();
+                irs.close();
+                br.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error no se genero el archivo por el siguiente motivo: " + e.getMessage(), "Verificar", JOptionPane.ERROR_MESSAGE);
+            }
+            JOptionPane.showMessageDialog(null, "Se ha respaldado la información correctamente.", "RESPALDO", JOptionPane.INFORMATION_MESSAGE);
+        } else if (resp == JFileChooser.CANCEL_OPTION) {
+            JOptionPane.showMessageDialog(null, "Ha sido cancelada la generacion del Resplado");
+        }
+    }
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        this.RespaldoDataBase();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,12 +324,14 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private vista.componentes.PanelImagen fondo;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;

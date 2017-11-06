@@ -11,21 +11,9 @@ import vista.Utilidades.ValidacionIdentidad;
 import vista.modeloTabla.ModeloTablaCliente;
 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-    
-/**
- *
- * @author Steven Y
- */
 public class frm_Cliente extends javax.swing.JDialog {
 
-    /**
-     * Creates new form frm_Cliente
-     */
+    
       private ServicioPersona sp = new ServicioPersona();
       private ServicioCuenta sc = new ServicioCuenta();
       private ServicioCliente scli = new ServicioCliente();
@@ -68,8 +56,6 @@ public class frm_Cliente extends javax.swing.JDialog {
     
     private void cargarTabla()
     {
-       //this.modeloC.setLista(this.scli.listar()); //Alimentamos la lista 
-        // this.modeloCli.setLista(this.scli.listaPersonasClientes(""));
         this.modeloC.setLista(this.scli.listar());
         this.tblClientes.setModel(this.modeloC);
         this.tblClientes.updateUI();

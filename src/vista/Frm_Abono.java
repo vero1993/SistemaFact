@@ -156,7 +156,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         tplistar.add(cbxCriterioBuscar);
         cbxCriterioBuscar.setBounds(80, 20, 100, 25);
 
-        tblCreditos.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        tblCreditos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tblCreditos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -216,7 +216,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
         tpnuevo.setLayout(null);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, new java.awt.Color(153, 153, 153), null, null));
+        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153), null, null));
         jPanel4.setLayout(null);
 
         txtMontoPedido.setEditable(false);
@@ -227,7 +227,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         jPanel4.add(jLabel15);
         jLabel15.setBounds(360, 230, 50, 30);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DEL CLIENTE", 0, 0, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DEL CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
         jPanel2.setLayout(null);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -307,7 +307,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
         jLabel8.setText("Nº CUENTA POR COBRAR");
         tpnuevo.add(jLabel8);
-        jLabel8.setBounds(40, 10, 130, 20);
+        jLabel8.setBounds(30, 10, 150, 20);
 
         txtNumeroCredito.setEditable(false);
         txtNumeroCredito.setForeground(new java.awt.Color(255, 255, 255));
@@ -326,7 +326,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
         tpnuevo1.setLayout(null);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, new java.awt.Color(153, 153, 153), null, null));
+        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153), null, null));
         jPanel5.setLayout(null);
 
         jLabel7.setText("FECHA");
@@ -411,7 +411,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         tpnuevo1.add(jLabel4);
         jLabel4.setBounds(20, 20, 290, 24);
 
-        tblDetalleAbonos.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        tblDetalleAbonos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tblDetalleAbonos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -645,14 +645,8 @@ public class Frm_Abono extends javax.swing.JDialog {
         this.sCxC.modificar();
         this.sAbonos.getAbonos().setMonto(this.sCxC.getCxC().getSaldo() + this.sAbonos.getAbonos().getValor());
         if (this.sCxC.getCxC().getSaldo() == 0.00) {
-            //this.sc.fijarInstancia(this.scr.getCredito().getCliente());
-            //this.sd.fijarInstancia(this.scr.getCredito().getDespacho());
-            //this.sc.getCliente().setAsignado(false);
-            //this.sd.getDespacho().setEstado("DESACTIVO");
             this.sCxC.getCxC().setEstado("DESACTIVO");
-            this.sCxC.modificar();
-            //this.sc.modificar();
-            //this.sd.modificar();          
+            this.sCxC.modificar();          
         }
     }
     private void btnCancelarAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAbonoActionPerformed
@@ -746,9 +740,9 @@ public class Frm_Abono extends javax.swing.JDialog {
         if (cbxCriterioBuscar.getSelectedIndex() == 1 && this.chkDesactivadas.isSelected()==false) {
             this.modeloTablaCredito.setLista(this.sCxC.buscarCxCporPedido(this.txtBuscarCuenta.getText()));
         } else {
-            /*if (cbxBuscarPedido.getSelectedIndex() == 2) {
-                this.modeloPedido.setLista(this.sPedido.buscarPedidosporFecha(this.txtBuscarPedido.getText()));
-            }*/
+//            if (cbxCriterioBuscar.getSelectedIndex() == 2) {
+//                this.modeloTablaCredito.setLista(this.sPedido.buscarPedidosporFecha(this..getText()));
+//            }
         }
         this.tblCreditos.setModel(this.modeloTablaCredito);
         this.tblCreditos.updateUI();

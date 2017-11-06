@@ -17,9 +17,6 @@ import vista.modeloTabla.ModeloTablaCategorias;
  */
 public class frm_Categoria extends javax.swing.JDialog {
 
-    /**
-     * Creates new form frm_Categoria
-     */
      private ServicioCategoria sc = new ServicioCategoria();
     private ModeloTablaCategorias modelo = new ModeloTablaCategorias();
     public frm_Categoria(java.awt.Frame parent, boolean modal) {
@@ -38,17 +35,14 @@ public class frm_Categoria extends javax.swing.JDialog {
         jPanel2.setOpaque(false);
        
     }
-    private void cargarObjeto()
+    private void cargarObjeto() //Todos los objetos 
     {   
-        //Todos los objetos 
-      
-       // this.sp.getCategoria().setEst_cat("ACTIVO");
         this.sc.getCategoria().setNom_cat(txtNombre.getText());
         this.sc.getCategoria().setDes_cat(jTextArea1.getText());
         this.sc.getCategoria().setEst_cat("ACTIVO");
         
     }
-    private void limpiarCampos()
+    private void limpiarCampos()//limpiar cajas de texto
     {
         this.sc.nuevaInstancia();
         this.txtNombre.setText("");
@@ -468,7 +462,7 @@ public class frm_Categoria extends javax.swing.JDialog {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        // 
         this.irListar();
         this.limpiarCampos();
     }//GEN-LAST:event_btnSalirActionPerformed

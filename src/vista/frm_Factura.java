@@ -219,7 +219,7 @@ public class frm_Factura extends javax.swing.JDialog {
             }
         });
         panelImage2.add(btnGuardar);
-        btnGuardar.setBounds(40, 520, 130, 41);
+        btnGuardar.setBounds(40, 520, 140, 41);
 
         txtSubtotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSubtotal.setText("0.00");
@@ -265,7 +265,7 @@ public class frm_Factura extends javax.swing.JDialog {
             }
         });
         panelImage2.add(btnCancelar);
-        btnCancelar.setBounds(40, 570, 130, 40);
+        btnCancelar.setBounds(40, 570, 140, 40);
 
         labelMetric1.setBackground(new java.awt.Color(255, 255, 255));
         labelMetric1.setText("FACTURACIÓN \"Verarte\"");

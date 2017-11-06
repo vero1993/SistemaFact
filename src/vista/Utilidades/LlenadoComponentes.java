@@ -436,7 +436,7 @@ public class LlenadoComponentes {
         return id;
     }
     
-    //GENERAR EL NUMERO DE CREDITO
+    //GENERAR EL NUMERO DE CxC
     public static String GenerarNC() {
         String id = "";
         int nro = 0;

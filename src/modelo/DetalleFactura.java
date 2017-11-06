@@ -87,8 +87,5 @@ public class DetalleFactura implements Serializable{
 
     public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
-    }
-
-    
-    
+    } 
 }

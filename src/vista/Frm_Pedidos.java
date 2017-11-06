@@ -276,6 +276,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jPanel1.add(btnFacturar);
         btnFacturar.setBounds(10, 490, 101, 40);
 
+        btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/producto.png"))); // NOI18N
         btnmodificar.setText("MODIFICAR");
         btnmodificar.setBorder(null);
         btnmodificar.addActionListener(new java.awt.event.ActionListener() {
@@ -284,7 +285,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnmodificar);
-        btnmodificar.setBounds(670, 490, 100, 40);
+        btnmodificar.setBounds(680, 490, 100, 40);
 
         jScrollPane8.setViewportView(jTextPane1);
 
@@ -344,7 +345,33 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnAbonar);
-        btnAbonar.setBounds(130, 490, 110, 40);
+        btnAbonar.setBounds(130, 490, 120, 40);
+
+        jButton1.setText("btnBorrar");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(740, 290, 79, 23);
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir);
+        btnImprimir.setBounds(488, 490, 65, 40);
+
+        jButton1.setText("btnBorrar");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(740, 290, 79, 23);
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimir);
+        btnImprimir.setBounds(488, 490, 65, 40);
 
         jButton1.setText("btnBorrar");
         jPanel1.add(jButton1);
@@ -801,8 +828,10 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelImage1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(panelImage1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
+
+        getAccessibleContext().setAccessibleName("GENERAR PEDIDOS");
 
         setSize(new java.awt.Dimension(939, 639));
         setLocationRelativeTo(null);
@@ -1165,7 +1194,9 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                     int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR PEDIDO", "IMPRIMIR PEDIDO", JOptionPane.YES_NO_OPTION);
                     if (showConfirmDialog == 0) {
                         System.out.println("llamado a imprimir");
+
                         ReportePedido.reportePedido(this.sPedido.getPedido());
+
                     } else {
                         System.out.println("Usted escogio no imprimir");
                     }
@@ -1185,11 +1216,19 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnguardarActionPerformed
+    private void tblPedidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPedidosKeyReleased
+        llenadodetalle();
+
+    }//GEN-LAST:event_tblPedidosKeyReleased
+
 
     private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidosMouseClicked
         llenadodetalle();
         this.btnFacturar.setEnabled(true);
         this.btnAbonar.setEnabled(true);
+
+        this.btnImprimir.setEnabled(true);
+        this.btnImprimir.setEnabled(true);
         this.btnImprimir.setEnabled(true);
         if (this.chkFacturados.isSelected() == true) {
             this.btnAbonar.setEnabled(false);

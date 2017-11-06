@@ -331,7 +331,7 @@ public class ReportePedido {
             tablaFirmas.setWidths(medidasCeldasFirmas);
             //tablaFirmas.setHorizontalAlignment(Element.ALIGN_RIGHT);
             Paragraph cFirmaAut= new Paragraph("__________________________________\n"
-                    + "GILMAR ISRAEL CUEVA ALVARADO\n"
+                    + "VERONICA CONSUELO ABAD ABAD\n"
                     + "FIRMA AUTORIZADA", new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celFirmaAut = new PdfPCell(cFirmaAut);
             celFirmaAut.setHorizontalAlignment(Element.ALIGN_CENTER);

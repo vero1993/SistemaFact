@@ -49,13 +49,7 @@ public class ReporteFactura {
             logo.scalePercent(75);
             PdfWriter.getInstance(documento, salida);
             documento.open();
-            //float[] medidasCeldas = {2.50f, 0.65f, 0.65f};
-//            PdfPTable tabla = new PdfPTable(3);
-//            tabla.setWidthPercentage(100);
-//            tabla.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-//            tabla.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
-            //tabla.setWidths(medidasCeldas);
-            /*=============FORMATO PARA LAS CELDAS*/
+          
             
             Paragraph titulo = new Paragraph("FLORISTERIA VERARTE", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD, BaseColor.BLACK));
             titulo.setAlignment(Element.ALIGN_CENTER);
@@ -83,12 +77,7 @@ public class ReporteFactura {
                     + " Cel.: 0980924052 / 0999372331 Loja - Ecuador", new Font(Font.FontFamily.HELVETICA, 6, Font.BOLD, BaseColor.BLACK));
             direccionEmpresa.setAlignment(Element.ALIGN_CENTER);
             
-            /*Paragraph sinValidez = new Paragraph("DOCUMENTO SIN VALIDEZ TRIBUTARIA", new Font(Font.FontFamily.HELVETICA, 6, Font.BOLD, BaseColor.BLACK));
-            sinValidez.setAlignment(Element.ALIGN_CENTER);
             
-            //celInformacion.setRowspan(2);
-            celInformacion.setBorder(0);
-            celInformacion.setHorizontalAlignment(Element.ALIGN_CENTER);*/
             
             /*=======TABLA PARA SACAR LOS VALORES GENERALES*/
             float[] medidasCeldasTabla2 = {0.70f, 3.0f, 1.00f, 1.50f};
@@ -331,7 +320,7 @@ public class ReporteFactura {
             tablaFirmas.setWidths(medidasCeldasFirmas);
             //tablaFirmas.setHorizontalAlignment(Element.ALIGN_RIGHT);
             Paragraph cFirmaAut= new Paragraph("__________________________________\n"
-                    + "GILMAR ISRAEL CUEVA ALVARADO\n"
+                    + "VERONICA CONSUELO ABAD ABAD\n"
                     + "FIRMA AUTORIZADA", new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celFirmaAut = new PdfPCell(cFirmaAut);
             celFirmaAut.setHorizontalAlignment(Element.ALIGN_CENTER);
