@@ -26,12 +26,9 @@ import javax.swing.UIManager;
  */
 public class frmPrincipal extends javax.swing.JFrame {
     JFileChooser RealizarBackupMySQL = new JFileChooser();
-
-    /**
-     * Creates new form frmPrincipal
-     */
     public frmPrincipal() {
         initComponents();
+        this.permisos();
         String usuario=(Sesiones.getCuenta().getUsu().getApe_per()+" "+Sesiones.getCuenta().getUsu().getNom_per());
         lblUsu.setText(usuario);
        
@@ -41,7 +38,19 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.fondo.setImagen(new ImageIcon (getClass().getResource("/vista/imagenes/fondop.jpg")));
         
     }
-
+    //Se da los permisos al usuario
+    private void permisos() {
+        if (Sesiones.getCuenta().getUsu().getRol().getNom_rol().equals("ADMINISTRADOR")) {
+            this.menuAdministrar.setEnabled(true);
+            this.menuGenerar.setEnabled(true);
+            this.menuConfiguracion.setEnabled(true);
+        } else if (Sesiones.getCuenta().getUsu().getRol().getNom_rol().equals("USUARIO")) {
+            this.jMenuItem1.setVisible(false);
+            this.jMenuItem8.setVisible(false);
+            this.jMenuItem9.setVisible(false);
+            this.menuConfiguracion.setVisible(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,7 +79,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        menuConfiguracion = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -183,8 +192,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuGenerar);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Application.png"))); // NOI18N
-        jMenu1.setText("CONFIGURACIÓN");
+        menuConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Application.png"))); // NOI18N
+        menuConfiguracion.setText("CONFIGURACIÓN");
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/silabo_1428_seg_bd.jpg"))); // NOI18N
         jMenuItem5.setText("RESPALDAR INFORMACIÓN");
@@ -193,9 +202,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        menuConfiguracion.add(jMenuItem5);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuConfiguracion);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/salir.png"))); // NOI18N
         jMenu4.setText("SISTEMA");
@@ -324,7 +333,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private vista.componentes.PanelImagen fondo;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -345,6 +353,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric lblUsu;
     private javax.swing.JMenu menuAdministrar;
+    private javax.swing.JMenu menuConfiguracion;
     private javax.swing.JMenu menuGenerar;
     // End of variables declaration//GEN-END:variables
 }

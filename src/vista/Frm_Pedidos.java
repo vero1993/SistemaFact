@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
 
 import controlador.Reportes.ReportePedido;
@@ -25,15 +21,8 @@ import vista.modeloTabla.ModeloTablaProducto;
 import vista.Utilidades.LimitarCaracter;
 import vista.Utilidades.utilidades;
 
-/**
- *
- * @author Steven Y
- */
 public class Frm_Pedidos extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Frm_Materias
-     */
     ServicioPersona spe = new ServicioPersona();
     ServicioCliente sCliente = new ServicioCliente();
 
@@ -75,7 +64,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.btnFacturar.setEnabled(false);
         this.btnAbonar.setEnabled(false);
         this.btnImprimir.setEnabled(false);
-
     }
 
     public void Limitar() {
@@ -122,8 +110,9 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         txtBuscarPedido = new javax.swing.JTextField();
         chkFacturados = new javax.swing.JCheckBox();
         btnAbonar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
+        btnImprimir1 = new javax.swing.JButton();
+        btnImprimir2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -347,10 +336,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jPanel1.add(btnAbonar);
         btnAbonar.setBounds(130, 490, 120, 40);
 
-        jButton1.setText("btnBorrar");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(740, 290, 79, 23);
-
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,31 +345,23 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jPanel1.add(btnImprimir);
         btnImprimir.setBounds(488, 490, 65, 40);
 
-        jButton1.setText("btnBorrar");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(740, 290, 79, 23);
-
-        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
-        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+        btnImprimir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
+        btnImprimir1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnImprimir);
-        btnImprimir.setBounds(488, 490, 65, 40);
+        jPanel1.add(btnImprimir1);
+        btnImprimir1.setBounds(488, 490, 65, 40);
 
-        jButton1.setText("btnBorrar");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(740, 290, 79, 23);
-
-        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
-        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+        btnImprimir2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
+        btnImprimir2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnImprimir);
-        btnImprimir.setBounds(488, 490, 65, 40);
+        jPanel1.add(btnImprimir2);
+        btnImprimir2.setBounds(488, 490, 65, 40);
 
         tpPedido.addTab("LISTAR", jPanel1);
 
@@ -1235,9 +1212,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             this.btnFacturar.setEnabled(false);
         }
     }//GEN-LAST:event_tblPedidosMouseClicked
-
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
-        // carga en la vista nuevo el despacho seleccionado
+        // carga en la vista nuevo el pedido seleccionado
         m='1';
         int fila = this.tblPedidos.getSelectedRow();
         if (fila >= 0) {
@@ -1549,6 +1525,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFacturar;
     private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnImprimir1;
+    private javax.swing.JButton btnImprimir2;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnagregarprod;
@@ -1560,7 +1538,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private javax.swing.JCheckBox chkFacturados;
     private com.toedter.calendar.JDateChooser dtFechaEntrega;
     private com.toedter.calendar.JDateChooser fecha;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

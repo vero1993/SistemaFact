@@ -323,13 +323,13 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         });
         jPanel3.add(chbeliminados);
-        chbeliminados.setBounds(340, 60, 120, 24);
+        chbeliminados.setBounds(430, 60, 120, 24);
 
         label1.setFont(new java.awt.Font("TlwgTypewriter", 1, 15)); // NOI18N
         label1.setForeground(new java.awt.Color(0, 0, 0));
         label1.setText("LISTAR PRODUCTOS");
         jPanel3.add(label1);
-        label1.setBounds(160, 60, 160, 24);
+        label1.setBounds(270, 60, 160, 24);
 
         tpproducto.addTab("LISTAR", jPanel3);
 
