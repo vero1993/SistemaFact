@@ -59,8 +59,6 @@ public class frm_Factura extends javax.swing.JDialog {
         this.btnGuardar.setEnabled(false);
         txtTelefonoCliente1.setEditable(false);
         txtCedula.setEnabled(false);
-        //modeloPedidoFact.tablaModel(tblPedidos1);
-        //this.tblPedidos1.setModel(modeloDetallePedido);
         this.lblAbono.setVisible(false);
         this.lblSaldo.setVisible(false);
         this.txtAbono.setVisible(false);
@@ -72,11 +70,7 @@ public class frm_Factura extends javax.swing.JDialog {
     double pu;
 
     private void transparente() {
-        //jPanel3.setOpaque(false);
         jPanel1.setOpaque(false);
-        //btnBuscaClientes.setOpaque(false);
-        //tblDetalleFac.setOpaque(false);
-
     }
 
     private void cargarTabla() {
@@ -640,9 +634,6 @@ public class frm_Factura extends javax.swing.JDialog {
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
         this.limpiarTablas();
         Frm_Pedidos abrir = new Frm_Pedidos(null, true);
-        //abrir.txtCedula.setText(this.txtCedulaCliente.getText());
-        //abrir.txtApellidos.requestFocus();
-        //abrir.irNuevo();
         this.dispose();
         abrir.setVisible(true);
         this.limpiarTablas();
