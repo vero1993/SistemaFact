@@ -163,19 +163,7 @@ public class ProductoDao extends AdaptadorDao{
         }
         return lista;
     }
-    
-    /*public List<Producto> obtenerProductoPorCategoria(Long id_categoria) {
-        List<Producto> lista = new ArrayList<>();
-        String query = "SELECT PRODUCTO"
-                + " FROM Producto PRODUCTO"
-                + " INNER JOIN PRODUCTO.categoria CATEGORIA"
-                + " WHERE CATEGORIA.id_cat = ?";
-        Query q = this.getEntityManager().createQuery(query);
-        q.setParameter(1, id_categoria);
-        lista = q.getResultList();
-        return lista;
-    }*/
-    
+   
     public Number obtenerProductoCategoria(Long id_producto, Long id_categoria)
     {
         Number m = null;
@@ -232,10 +220,34 @@ public class ProductoDao extends AdaptadorDao{
         }
         return lista;
     }
+    public List<Producto> buscarTodosDesactivados(String variable){
+        List lista = new ArrayList();
+        try {
+            String query = "Select a from Producto a where a.est_pro='DESACTIVO' and a.nom_producto LIKE :nom_producto"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter("nom_producto", "%"+variable+"%");
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "buscarPedido");
+        }
+        return lista;
+    }
     public List<Producto> buscarProductosporcodigo(String variable){
         List lista = new ArrayList();
         try {
-            String query = "Select a from Producto a where a.cod_producto LIKE :cod_producto"; // 
+            String query = "Select a from Producto a where a.est_pro='ACTIVO' and a.cod_producto LIKE :cod_producto"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter("cod_producto", "%"+variable+"%");
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "buscarPedidoporPedido");
+        }
+        return lista;
+    }
+    public List<Producto> buscarProductosDesactivados(String variable){
+        List lista = new ArrayList();
+        try {
+            String query = "Select a from Producto a where a.est_pro='DESACTIVO' and a.cod_producto LIKE :cod_producto"; // 
             Query q = this.getEntityManager().createQuery(query);
             q.setParameter("cod_producto", "%"+variable+"%");
             lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido

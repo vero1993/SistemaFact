@@ -64,8 +64,7 @@ public class DetalleFacturaDao extends AdaptadorDao{
         {
             this.detallefactura = new DetalleFactura();
         }
-        return detallefactura;
-        
+        return detallefactura;   
     } 
     
     public List<DetalleFactura> listarFacturasparaReporte(Long id_factura) {//lista los detalles de acuerdo al id del depacho
@@ -79,5 +78,4 @@ public class DetalleFacturaDao extends AdaptadorDao{
         }
         return lista;
     }
-    
 }

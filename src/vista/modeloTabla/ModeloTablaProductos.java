@@ -6,11 +6,8 @@
 
 package vista.modeloTabla;
 
-import controlador.Utilidades;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 import modelo.Producto;
 
@@ -31,7 +28,7 @@ public class ModeloTablaProductos extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -55,7 +52,8 @@ public class ModeloTablaProductos extends AbstractTableModel {
                 return p.getCan_producto();
             case 3:
                 return p.getPre_venta();
-
+            case 4:
+                return p.getCategoria().getNom_cat();
             default:
                 return null;
 
@@ -75,6 +73,8 @@ public class ModeloTablaProductos extends AbstractTableModel {
                 return "CANTIDAD";
             case 3:
                 return "PRECIO";
+                case 4:
+                return "CATEGORIA";
             default:
                 return null;
         }

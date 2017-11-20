@@ -30,9 +30,9 @@ public class frm_Categoria extends javax.swing.JDialog {
         this.tpcategoria.setEnabledAt(1, false);
     }
     private void transparente (){
-        jPanel3.setOpaque(false); 
-        jPanel1.setOpaque(false);
-        jPanel2.setOpaque(false);
+        jPanel3.setOpaque(true); 
+        jPanel1.setOpaque(true);
+        jPanel2.setOpaque(true);
        
     }
     private void cargarObjeto() //Todos los objetos 
@@ -111,8 +111,8 @@ public class frm_Categoria extends javax.swing.JDialog {
         jButton5 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtBuscarCategoria = new javax.swing.JTextField();
-        chbeliminados = new java.awt.Checkbox();
         label1 = new java.awt.Label();
+        chkDesactivados = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -210,20 +210,17 @@ public class frm_Categoria extends javax.swing.JDialog {
             }
         });
 
-        chbeliminados.setBackground(new java.awt.Color(255, 255, 255));
-        chbeliminados.setFont(new java.awt.Font("TlwgTypewriter", 1, 15)); // NOI18N
-        chbeliminados.setForeground(java.awt.Color.black);
-        chbeliminados.setLabel("DESACTIVOS");
-        chbeliminados.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                chbeliminadosMousePressed(evt);
-            }
-        });
-
         label1.setBackground(new java.awt.Color(255, 255, 255));
         label1.setFont(new java.awt.Font("TlwgTypewriter", 1, 15)); // NOI18N
         label1.setForeground(new java.awt.Color(0, 0, 0));
         label1.setText("LISTAR CATEGORIAS");
+
+        chkDesactivados.setText("DESACTIVADOS");
+        chkDesactivados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkDesactivadosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -250,8 +247,8 @@ public class frm_Categoria extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(240, 240, 240)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chbeliminados, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(chkDesactivados, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -266,7 +263,7 @@ public class frm_Categoria extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chbeliminados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chkDesactivados, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -387,7 +384,6 @@ public class frm_Categoria extends javax.swing.JDialog {
 
         panelFondo.add(tpcategoria);
         tpcategoria.setBounds(10, 50, 600, 310);
-        tpcategoria.getAccessibleContext().setAccessibleParent(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -418,12 +414,12 @@ public class frm_Categoria extends javax.swing.JDialog {
             if(this.sc.getCategoria().getId_cat()==null){//Verificamos si ya tiene un id
               if (new ServicioCategoria().obtenerCategoriaNombre(txtNombre.getText()) == null) {
                 if(this.sc.guardar() == true){
-                    JOptionPane.showMessageDialog(this, "Se ha registrado correctamente!!", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "SE HA REGISTRADO CORRECTAMENTE", "Ok", JOptionPane.INFORMATION_MESSAGE);
                     this.limpiarCampos();
                     this.irListar(); //Regreso a la lista
                     //this.cargarTabla();
                 }else{
-                    JOptionPane.showMessageDialog(this, "No se ha podido registrar!!", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR", "Ok", JOptionPane.INFORMATION_MESSAGE);
                 } 
                 } else {
                         JOptionPane.showMessageDialog(this, "YA EXISTE CATEGORIA!!", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -432,15 +428,17 @@ public class frm_Categoria extends javax.swing.JDialog {
             }else{
                 if(this.sc.getCategoria().getId_cat()!= null){
                     if(this.sc.modificar()==true){
-                        JOptionPane.showMessageDialog(this, "Se ha Modificado correctamente!!", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "SE HA MODIFICADO CORRECTAMENTE", "Ok", JOptionPane.INFORMATION_MESSAGE);
                         this.irListar(); //Regreso a la lista
                         this.limpiarCampos();
                         this.cargarTabla();
                     }else{
-                        JOptionPane.showMessageDialog(this, "No se ha podido Modificar!!", "Ok", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "NO SE HA PODIDO MODIFICAR", "Ok", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
+        }else{
+            JOptionPane.showMessageDialog(this, "EXISTEN CAMPOS VACIOS", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -457,7 +455,7 @@ public class frm_Categoria extends javax.swing.JDialog {
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "Seleccione una fila de la tabla.!!!", "Error", JOptionPane.ERROR_MESSAGE); //Mensaje de error por no escoger una fila
+            JOptionPane.showMessageDialog(this, "SELECCIONE UN REGISTRO DE LA TABLA", "Error", JOptionPane.ERROR_MESSAGE); //Mensaje de error por no escoger una fila
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -483,7 +481,7 @@ public class frm_Categoria extends javax.swing.JDialog {
 
             this.sc.fijarInstancia(this.modelo.getLista().get(fila));
 
-            String aux = "Estas seguro de querer " + this.btnDesactivar.getText() + ":" + this.sc.getCategoria().getNom_cat();
+            String aux = "ESTA SEGURO DE QUERER " + this.btnDesactivar.getText() + ":" + this.sc.getCategoria().getNom_cat();
             int a = -1;
             if (this.sc.getCategoria().getEst_cat()== "ACTIVO") {
                 a = JOptionPane.showConfirmDialog(this, aux, "Confirmar", JOptionPane.OK_CANCEL_OPTION);
@@ -498,7 +496,7 @@ public class frm_Categoria extends javax.swing.JDialog {
                 }
                 this.sc.modificar();
                 this.limpiarCampos();
-                if (chbeliminados.getState() == true) {
+                if (chkDesactivados.isSelected()== true) {
                     this.CargarTablaDesactivos();
                 } else {
                     this.cargarTabla();
@@ -506,7 +504,7 @@ public class frm_Categoria extends javax.swing.JDialog {
                 this.tblCategoria.clearSelection();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Escoja una fila", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ESCOJA UN REGISTRO", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnDesactivarActionPerformed
 
@@ -529,7 +527,15 @@ public class frm_Categoria extends javax.swing.JDialog {
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtBuscarCategoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCategoriaKeyReleased
-        this.modelo.setLista(this.sc.buscarTodosCategorias(this.txtBuscarCategoria.getText()));
+       
+          
+            if(chkDesactivados.isSelected()==false){
+            this.modelo.setLista(this.sc.buscarTodosCategorias(this.txtBuscarCategoria.getText()));
+        } else {
+            this.modelo.setLista(this.sc.buscarCategoriasDesactivados(this.txtBuscarCategoria.getText()));
+            }
+        
+      //  this.modelo.setLista(this.sc.buscarTodosCategorias(this.txtBuscarCategoria.getText()));
         this.tblCategoria.setModel(this.modelo);
         this.tblCategoria.updateUI();
     }//GEN-LAST:event_txtBuscarCategoriaKeyReleased
@@ -539,18 +545,19 @@ public class frm_Categoria extends javax.swing.JDialog {
         Validacion.cambiarMayusculas(evt);
     }//GEN-LAST:event_txtBuscarCategoriaKeyTyped
 
-    private void chbeliminadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chbeliminadosMousePressed
-        // cargar los productos desactivados
-        if (chbeliminados.getState() == false) {
-            this.CargarTablaDesactivos();
-        } else {
-            this.cargarTabla();
-        }
-    }//GEN-LAST:event_chbeliminadosMousePressed
-
     private void txtBuscarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarCategoriaActionPerformed
+
+    private void chkDesactivadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDesactivadosActionPerformed
+        if((chkDesactivados.isSelected() == true)){
+            this.CargarTablaDesactivos();
+        }
+        else {
+            this.cargarTabla();
+
+        }
+    }//GEN-LAST:event_chkDesactivadosActionPerformed
 
 
     /**
@@ -578,7 +585,7 @@ public class frm_Categoria extends javax.swing.JDialog {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
-    private java.awt.Checkbox chbeliminados;
+    private javax.swing.JCheckBox chkDesactivados;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

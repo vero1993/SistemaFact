@@ -64,7 +64,15 @@ public class ServicioCxC {
      public List<CxC> buscarCxCporPedido(String variable){
          return this.cDao.buscarCxCporPedido(variable);
      }
-     
+     public List<CxC> buscarCxCporPedidoDesactivo(String variable){
+         return this.cDao.buscarCxCporPedidoDesactivo(variable);
+     }
+     public List<CxC> buscarCxCporClienteDe(String variable){
+         return this.cDao.buscarCxCporClienteDe(variable);
+     }
+     public List<CxC> buscarCxCporCliente(String variable){
+         return this.cDao.buscarCxCporCliente(variable);
+     }
      public CxC obtenerCxCparaFactura(String num_pedido) {
          return this.cDao.obtenerCxCparaFactura(num_pedido);
      }

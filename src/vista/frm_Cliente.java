@@ -63,7 +63,7 @@ public class frm_Cliente extends javax.swing.JDialog {
     public void verificarCedula() {
         if (!txtCedula.getText().isEmpty()) {
             if (ValidacionIdentidad.validarCedula(txtCedula.getText()) == false) {
-                JOptionPane.showMessageDialog(this, "La cedula es incorrecta!!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "LA CÉDULA ES INCORRECTA !!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     } 
@@ -167,7 +167,7 @@ public class frm_Cliente extends javax.swing.JDialog {
         panelReflect1.add(jLabel2);
         jLabel2.setBounds(10, 20, 90, 25);
 
-        cbxBuscarClientes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar Opcion", "Apellidos", "Cedula" }));
+        cbxBuscarClientes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar Opción", "Apellidos", "Cédula" }));
         cbxBuscarClientes.setName(""); // NOI18N
         cbxBuscarClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -468,12 +468,14 @@ public class frm_Cliente extends javax.swing.JDialog {
                         this.cargarTabla();
                         this.setSize(625, 337);
                     } else {
-                        JOptionPane.showMessageDialog(this, "No se ha podido modificado!!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "NOSE HA PODIDO MODIFICAR", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "La cedula es incorrecta!!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "LA CÉDULA ES INCORRECTA", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            }else{
+            JOptionPane.showMessageDialog(this, "EXISTEN CAMPOS VACIOS", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -490,7 +492,7 @@ public class frm_Cliente extends javax.swing.JDialog {
         }   
         else
         {
-            JOptionPane.showMessageDialog(this, "Escoja un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ESCOJA UN REGISTRO DE LA TABLA", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 

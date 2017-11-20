@@ -13,8 +13,13 @@ import controlador.Servicios.ServicioDetallePedido;
 import controlador.Servicios.ServicioPedidos;
 import controlador.Servicios.ServicioPersona;
 import controlador.Servicios.ServicioProducto;
+import controlador.Sesiones;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import vista.Utilidades.LlenadoComponentes;
@@ -75,7 +80,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.btnFacturar.setEnabled(false);
         this.btnAbonar.setEnabled(false);
         this.btnImprimir.setEnabled(false);
-
+        this.btnBuscar.setVisible(false);
     }
 
     public void Limitar() {
@@ -122,14 +127,16 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         txtBuscarPedido = new javax.swing.JTextField();
         chkFacturados = new javax.swing.JCheckBox();
         btnAbonar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
+        btnImprimir1 = new javax.swing.JButton();
+        btnImprimir2 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtNroPedido = new javax.swing.JTextField();
-        fecha = new com.toedter.calendar.JDateChooser();
+        dtFecha = new com.toedter.calendar.JDateChooser();
         btnCancelar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -347,10 +354,6 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jPanel1.add(btnAbonar);
         btnAbonar.setBounds(130, 490, 120, 40);
 
-        jButton1.setText("btnBorrar");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(740, 290, 79, 23);
-
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,31 +363,33 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         jPanel1.add(btnImprimir);
         btnImprimir.setBounds(488, 490, 65, 40);
 
-        jButton1.setText("btnBorrar");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(740, 290, 79, 23);
-
-        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
-        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+        btnImprimir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
+        btnImprimir1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnImprimir);
-        btnImprimir.setBounds(488, 490, 65, 40);
+        jPanel1.add(btnImprimir1);
+        btnImprimir1.setBounds(488, 490, 65, 40);
 
-        jButton1.setText("btnBorrar");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(740, 290, 79, 23);
-
-        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
-        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+        btnImprimir2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/print1.png"))); // NOI18N
+        btnImprimir2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnImprimir);
-        btnImprimir.setBounds(488, 490, 65, 40);
+        jPanel1.add(btnImprimir2);
+        btnImprimir2.setBounds(488, 490, 65, 40);
+
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Find.png"))); // NOI18N
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBuscar);
+        btnBuscar.setBounds(440, 10, 110, 30);
 
         tpPedido.addTab("LISTAR", jPanel1);
 
@@ -413,8 +418,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         });
         jPanel4.add(txtNroPedido);
         txtNroPedido.setBounds(70, 10, 110, 25);
-        jPanel4.add(fecha);
-        fecha.setBounds(620, 10, 180, 25);
+        jPanel4.add(dtFecha);
+        dtFecha.setBounds(630, 10, 160, 25);
 
         jPanel2.add(jPanel4);
         jPanel4.setBounds(30, 10, 810, 43);
@@ -428,7 +433,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnCancelar);
-        btnCancelar.setBounds(780, 480, 110, 40);
+        btnCancelar.setBounds(790, 480, 110, 40);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153), null, null));
         jPanel5.setLayout(null);
@@ -629,7 +634,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnguardar);
-        btnguardar.setBounds(640, 480, 130, 40);
+        btnguardar.setBounds(650, 480, 140, 40);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
         jPanel3.setLayout(null);
@@ -650,7 +655,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             }
         });
         jPanel3.add(btnBuscaClientes);
-        btnBuscaClientes.setBounds(690, 20, 70, 60);
+        btnBuscaClientes.setBounds(690, 20, 80, 60);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("CÉDULA:");
@@ -811,7 +816,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         tpPedido.addTab("NUEVO", jPanel2);
 
         panelImage1.add(tpPedido);
-        tpPedido.setBounds(10, 30, 900, 560);
+        tpPedido.setBounds(10, 30, 920, 560);
 
         labelMetric1.setBackground(new java.awt.Color(255, 255, 255));
         labelMetric1.setText("GENERACIÓN DE PEDIDOS");
@@ -824,7 +829,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelImage1, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
+            .addComponent(panelImage1, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -833,7 +838,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
 
         getAccessibleContext().setAccessibleName("GENERAR PEDIDOS");
 
-        setSize(new java.awt.Dimension(939, 639));
+        setSize(new java.awt.Dimension(952, 639));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -851,7 +856,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
 
     private void limpiarCampos() {// limpia las cajas de texto
         this.sPedido.nuevaInstancia();
-        //this.sDetallePedido.nuevaInstancia();
+       this.sDetallePedido.nuevaInstancia();
         this.sDestinatario.nuevaInstancia();
         this.sProducto.nuevaInstancia();
         this.sCliente.nuevaInstancia();
@@ -881,6 +886,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.txtNombreDestinatario.setText("");
         this.txtTelefonoDestinatario.setText("");
         this.txtDireccionDestinatario.setText("");
+        this.dtFecha.setDate(new Date());
         tblproducto.removeAll();
         cargarTablaProducto();
         tbldetalle.removeAll();
@@ -989,7 +995,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         this.sDetallePedido.getDetallePedido().setCant_productos(cantidadPro);
         if (this.sProducto.getProducto().getDescripcion_iva().equals("S")) {
             System.out.println("el producto tiene iva");
-            this.sDetallePedido.getDetallePedido().setTotal(Math.round(cantidadPro * this.sProducto.getProducto().getPrecioSinIva() * Math.pow(10, 2)) / Math.pow(10, 2));
+            this.sDetallePedido.getDetallePedido().setTotal(Math.round((cantidadPro * this.sProducto.getProducto().getPrecioSinIva()) * Math.pow(10, 2)) / Math.pow(10, 2));
             this.txtSubtotalDoce.setText(String.valueOf(Math.round((Double.parseDouble(txtSubtotalDoce.getText()) + this.sDetallePedido.getDetallePedido().getTotal()) * Math.pow(10, 2)) / Math.pow(10, 2)));
             double iva = cantidadPro * this.sProducto.getProducto().getIva12();
             this.txtIvaDoce.setText(String.valueOf(Math.round((Double.parseDouble(this.txtIvaDoce.getText()) + iva) * Math.pow(10, 2)) / Math.pow(10, 2)));
@@ -1157,9 +1163,12 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                         int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR PEDIDO", "IMPRIMIR PEDIDO", JOptionPane.YES_NO_OPTION);
                         if (showConfirmDialog == 0) {
                             System.out.println("llamado a imprimir");
-                            ReportePedido.reportePedido(this.sPedido.getPedido());
+                            String usuario = (Sesiones.getCuenta().getUsu().getApe_per() + " " + Sesiones.getCuenta().getUsu().getNom_per());
+                            ReportePedido.reportePedido(this.sPedido.getPedido(), usuario);
                         } else {
                             System.out.println("Usted escogio no imprimir");
+                            this.IrListar();
+                        this.limpiarCampos();
                         }
                         this.IrListar();
                         this.limpiarCampos();
@@ -1194,11 +1203,13 @@ public class Frm_Pedidos extends javax.swing.JDialog {
                     int showConfirmDialog = JOptionPane.showConfirmDialog(null, "IMPRIMIR PEDIDO", "IMPRIMIR PEDIDO", JOptionPane.YES_NO_OPTION);
                     if (showConfirmDialog == 0) {
                         System.out.println("llamado a imprimir");
-
-                        ReportePedido.reportePedido(this.sPedido.getPedido());
+                        String usuario = (Sesiones.getCuenta().getUsu().getApe_per() + " " + Sesiones.getCuenta().getUsu().getNom_per());
+                        ReportePedido.reportePedido(this.sPedido.getPedido(), usuario);
 
                     } else {
                         System.out.println("Usted escogio no imprimir");
+                        this.IrListar();
+                        this.limpiarCampos();
                     }
                     if(this.sPedido.getPedido().getCant_productos()==0){
                         this.sPedido.getPedido().setEstado("DESCATIVO");
@@ -1344,14 +1355,17 @@ public class Frm_Pedidos extends javax.swing.JDialog {
             txtBuscarPedido.setEditable(false);
             txtBuscarPedido.setEnabled(false);
             txtBuscarPedido.setText("");
+            this.btnBuscar.setVisible(false);
         } else {
             txtBuscarPedido.setEnabled(true);
             txtBuscarPedido.setEditable(true);
             txtBuscarPedido.requestFocus();
             txtBuscarPedido.setText("");
+            this.btnBuscar.setVisible(false);
             if (cbxBuscarPedido.getSelectedIndex() == 2) {
                 txtBuscarPedido.setEnabled(false);
                 txtBuscarPedido.setText("YYY-MM-DD");
+                this.btnBuscar.setVisible(true);
             }
         }
     }//GEN-LAST:event_cbxBuscarPedidoActionPerformed
@@ -1376,19 +1390,35 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private void txtBuscarPedidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPedidoKeyReleased
         Validacion.validarMayusculas(evt, txtBuscarPedido);
         //Buscar los pedidos
+        String criterio = "";
+        Date fechas = null;
+        String campo = "";
+        SimpleDateFormat formato = new SimpleDateFormat("yy-MM-ddd");
         if (cbxBuscarPedido.getSelectedIndex() == 1) {
-            this.modeloPedido.setLista(this.sPedido.buscarTodosPedidos(this.txtBuscarPedido.getText()));
+            if(chkFacturados.isSelected()==false){
+                this.modeloPedido.setLista(this.sPedido.buscarPedidosActivos(this.txtBuscarPedido.getText()));
+            }else{
+                this.modeloPedido.setLista(this.sPedido.buscarPedidosDesactivos(this.txtBuscarPedido.getText()));
+            }
+            
         } else {
             if (cbxBuscarPedido.getSelectedIndex() == 2) {
-                SimpleDateFormat formato = new SimpleDateFormat("yy-MM-ddd");
-                this.modeloPedido.setLista(this.sPedido.buscarPedidosporFecha(this.txtBuscarPedido.getText()));
+                /*criterio = "fecha";
+                campo = txtBuscarPedido.getText();
+                try {
+                    fechas = formato.parse(campo);
+                    System.out.println(fechas);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Frm_Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                }*/
+                //this.modeloPedido.setLista(this.sPedido.buscarPedidosporFecha(this.txtBuscarPedido.getText()));
             }
         }
-
         this.tblPedidos.setModel(this.modeloPedido);
         this.tblPedidos.updateUI();
     }//GEN-LAST:event_txtBuscarPedidoKeyReleased
 
+    
     private void txtBuscarPedidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPedidoKeyTyped
         // verifica el tipo de caracter a recibir
         if (cbxBuscarPedido.getSelectedIndex() == 1) {
@@ -1428,18 +1458,98 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private void btnAbonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonarActionPerformed
         Frm_Abono frmAbo = new Frm_Abono(null, true);
         this.dispose();
+        frmAbo.IrNuevo();
+        frmAbo.txtCedulaCliente.setText(String.valueOf(this.sPedido.getPedido().getCliente().getCed_per()));
+        frmAbo.txtNumeroCredito.setText(LlenadoComponentes.GenerarNC());
         frmAbo.setVisible(true);
     }//GEN-LAST:event_btnAbonarActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         if(this.sPedido.getPedido() !=null){
-            ReportePedido.reportePedido(this.sPedido.getPedido());
+            String usuario = (Sesiones.getCuenta().getUsu().getApe_per() + " " + Sesiones.getCuenta().getUsu().getNom_per());
+            ReportePedido.reportePedido(this.sPedido.getPedido(), usuario);
         }else{
             JOptionPane.showMessageDialog(this, "NO EXISTE PEDIDO SELECCIONADO", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
         this.btnImprimir.setEnabled(false);
     }//GEN-LAST:event_btnImprimirActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String criterio = "";
+        Date fechas = null;
+        String campo = "";
+        SimpleDateFormat formato = new SimpleDateFormat("yy-MM-ddd");
+        if (cbxBuscarPedido.getSelectedIndex() > 0 && txtBuscarPedido.getText().length() > 0) {
+            if (cbxBuscarPedido.getSelectedIndex() == 1) {
+                criterio = "num_despacho";
+            } else {
+                criterio = "fec_ped";
+                campo = txtBuscarPedido.getText();
+                try {
+                    fechas = formato.parse(campo);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Frm_Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(this.chkFacturados.isSelected()==false){
+                if ((LlenadoComponentes.cargarPedidoBuscado(criterio, txtBuscarPedido.getText() + "%").size() > 0) || (LlenadoComponentes.cargarPedidoFechaActivos(criterio, fechas).size() > 0)) {
+                cargarDespachoBuscado();
+                txtBuscarPedido.setText("");
+                txtBuscarPedido.setEditable(false);
+                cbxBuscarPedido.setSelectedIndex(0);
+            } else {
+                JOptionPane.showMessageDialog(this, "PEDIDO NO EXISTE", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                CargarTabla();
+                txtBuscarPedido.setText("");
+                txtBuscarPedido.setEditable(false);
+                cbxBuscarPedido.setSelectedIndex(0);
+            }
+            }else{
+                if ((LlenadoComponentes.cargarPedidoBuscado(criterio, txtBuscarPedido.getText() + "%").size() > 0) || (LlenadoComponentes.cargarPedidoFechaDesactivos(criterio, fechas).size() > 0)) {
+                cargarDespachoBuscado();
+                txtBuscarPedido.setText("");
+                txtBuscarPedido.setEditable(false);
+                cbxBuscarPedido.setSelectedIndex(0);
+            } else {
+                JOptionPane.showMessageDialog(this, "PEDIDO NO EXISTE", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                CargarTabla();
+                txtBuscarPedido.setText("");
+                txtBuscarPedido.setEditable(false);
+                cbxBuscarPedido.setSelectedIndex(0);
+            }
+            }
+            
+        } else {
+            CargarTabla();
+            txtBuscarPedido.setText("");
+            txtBuscarPedido.setEditable(false);
+            cbxBuscarPedido.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void cargarDespachoBuscado() {//cargar el despacho a buscar
+        String campo = txtBuscarPedido.getText().toString();
+        Date fechas = null;
+        SimpleDateFormat formato = new SimpleDateFormat("yy-MM-ddd");
+        if (cbxBuscarPedido.getSelectedIndex() == 1) {
+            this.modeloPedido.setLista(LlenadoComponentes.cargarPedidoBuscado("num_despacho", txtBuscarPedido.getText() + "%"));
+        } else {
+            try {
+                fechas = formato.parse(campo);
+                if(this.chkFacturados.isSelected()==false){
+                    this.modeloPedido.setLista(LlenadoComponentes.cargarPedidoFechaActivos("fec_ped", fechas));
+            }else{
+                   this.modeloPedido.setLista(LlenadoComponentes.cargarPedidoFechaDesactivos("fec_ped", fechas));
+                }
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(Frm_Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        this.tblPedidos.setModel(this.modeloPedido);
+        this.tblPedidos.updateUI();
+    }
+    
     public void cargarDatosCliente() {
         sCliente.nuevaInstancia();
         sCliente.fijarInstancia((Cliente) sCliente.obtenerPersonaCedula(txtCedulaCliente.getText()));
@@ -1458,7 +1568,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
 
     private void cargarVista() {//carga el despacho seleccionado para modificarlo 
         this.txtNroPedido.setText(this.sPedido.getPedido().getNum_pedido().trim());
-        this.fecha.setDate(this.sPedido.getPedido().getFec_ped());
+        this.dtFecha.setDate(this.sPedido.getPedido().getFec_ped());
         this.txtSubtotalDoce.setText(String.valueOf(this.sPedido.getPedido().getSubtotalDoce()));
         this.txttotalcant.setText(String.valueOf(this.sPedido.getPedido().getCant_productos()));
         this.CargarTablaDetalles(this.sPedido.getPedido().getId_ped());
@@ -1500,7 +1610,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
 
     private void CargarObjeto() {//carga el objeto a almacenar
         this.sPedido.getPedido().setNum_pedido(txtNroPedido.getText().trim());
-        this.sPedido.getPedido().setFec_ped(this.fecha.getDate());
+        this.sPedido.getPedido().setFec_ped(this.dtFecha.getDate());
         this.sPedido.getPedido().setMensaje(this.txtMensaje.getText());
         this.sPedido.getPedido().setSubtotalCero(Double.parseDouble(this.txtSubtotalCero.getText()));
         this.sPedido.getPedido().setSubtotalDoce(Double.parseDouble(this.txtSubtotalDoce.getText()));
@@ -1546,9 +1656,12 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbonar;
     private javax.swing.JButton btnBuscaClientes;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFacturar;
     private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnImprimir1;
+    private javax.swing.JButton btnImprimir2;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnagregarprod;
@@ -1558,9 +1671,8 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbxBuscarPedido;
     private java.awt.Checkbox chbproducto;
     private javax.swing.JCheckBox chkFacturados;
+    private com.toedter.calendar.JDateChooser dtFecha;
     private com.toedter.calendar.JDateChooser dtFechaEntrega;
-    private com.toedter.calendar.JDateChooser fecha;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

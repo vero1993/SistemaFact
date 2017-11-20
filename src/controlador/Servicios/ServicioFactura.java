@@ -50,4 +50,10 @@ public class ServicioFactura {
      public Number traeCodigo(){
         return this.cDao.traeCodigo();
     }
+     public List<Factura> buscarxNumFactura(String variable){
+         return this.cDao.buscarxNumFactura(variable);
+     }
+      public List<Factura> buscarporCedula(String variable){
+         return this.cDao.buscarporCedula(variable);
+     }
 }

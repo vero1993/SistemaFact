@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vista;
 
 import controlador.Sesiones;
@@ -12,8 +11,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -25,6 +22,7 @@ import javax.swing.UIManager;
  * @author Steven Y
  */
 public class frmPrincipal extends javax.swing.JFrame {
+
     JFileChooser RealizarBackupMySQL = new JFileChooser();
 
     /**
@@ -32,16 +30,29 @@ public class frmPrincipal extends javax.swing.JFrame {
      */
     public frmPrincipal() {
         initComponents();
-        String usuario=(Sesiones.getCuenta().getUsu().getApe_per()+" "+Sesiones.getCuenta().getUsu().getNom_per());
+        this.permisos();
+        String usuario = (Sesiones.getCuenta().getUsu().getApe_per() + " " + Sesiones.getCuenta().getUsu().getNom_per());
         lblUsu.setText(usuario);
-       
+
         this.setExtendedState(frmPrincipal.MAXIMIZED_BOTH);
         UIManager.put("jMenuBar1.opaque", false);
-        jMenuBar1.setBackground(new Color(0f,0f,0f,0f));
-        this.fondo.setImagen(new ImageIcon (getClass().getResource("/vista/imagenes/fondop.jpg")));
-        
-    }
+        jMenuBar1.setBackground(new Color(0f, 0f, 0f, 0f));
+        this.fondo.setImagen(new ImageIcon(getClass().getResource("/vista/imagenes/fondop.jpg")));
 
+    }
+    //Se da los permisos al usuario
+    private void permisos() {
+        if (Sesiones.getCuenta().getUsu().getRol().getNom_rol().equals("ADMINISTRADOR")) {
+            this.menuAdministrar.setEnabled(true);
+            this.menuGenerar.setEnabled(true);
+            this.menuConfiguracion.setEnabled(true);
+        } else if (Sesiones.getCuenta().getUsu().getRol().getNom_rol().equals("USUARIO")) {
+            this.jMenuItem1.setVisible(false);
+            this.jMenuItem8.setVisible(false);
+            this.jMenuItem9.setVisible(false);
+            this.menuConfiguracion.setVisible(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,7 +81,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        menuConfiguracion = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -180,11 +193,21 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         menuGenerar.add(jMenuItem2);
+        menuGenerar.add(jSeparator7);
+
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/factura.png"))); // NOI18N
+        jMenuItem10.setText("FACTURAS REALIZADAS");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        menuGenerar.add(jMenuItem10);
 
         jMenuBar1.add(menuGenerar);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Application.png"))); // NOI18N
-        jMenu1.setText("CONFIGURACIÓN");
+        menuConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/Application.png"))); // NOI18N
+        menuConfiguracion.setText("CONFIGURACIÓN");
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/silabo_1428_seg_bd.jpg"))); // NOI18N
         jMenuItem5.setText("RESPALDAR INFORMACIÓN");
@@ -193,9 +216,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        menuConfiguracion.add(jMenuItem5);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuConfiguracion);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/salir.png"))); // NOI18N
         jMenu4.setText("SISTEMA");
@@ -227,53 +250,54 @@ public class frmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        frm_Producto frmc= new frm_Producto(this, true);
-       frmc.setVisible(true);
+        frm_Producto frmc = new frm_Producto(this, true);
+        frmc.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-         frm_Usuario frmc=new frm_Usuario(this, true);
+        frm_Usuario frmc = new frm_Usuario(this, true);
         frmc.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-       frm_Cliente frmc= new frm_Cliente(this, true);
-       frmc.setVisible(true);
+        frm_Cliente frmc = new frm_Cliente(this, true);
+        frmc.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-        frm_Categoria frmc=new frm_Categoria(this, true);
+        frm_Categoria frmc = new frm_Categoria(this, true);
         frmc.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-          Frm_Abono frmc=new Frm_Abono(this, true);
-       frmc.setVisible(true);
+        Frm_Abono frmc = new Frm_Abono(this, true);
+        frmc.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-         Frm_Pedidos frmc=new Frm_Pedidos(this, true);
+        Frm_Pedidos frmc = new Frm_Pedidos(this, true);
         frmc.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        frm_Factura frmc=new frm_Factura(this, true);
-       frmc.setVisible(true);
+        frm_Factura frmc = new frm_Factura(this, true);
+        frmc.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-         int ax = JOptionPane.showConfirmDialog(null, "Seguro que desea salir?");
+        int ax = JOptionPane.showConfirmDialog(null, "SEGURO QUE DESEA SALIR");
         if (ax == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-    public void RespaldoDataBase(){
-   int resp;
+
+    public void RespaldoDataBase() {
+        int resp;
         Calendar c = Calendar.getInstance();
         String fecha = String.valueOf(c.get(Calendar.DATE));
         fecha = fecha + "-" + String.valueOf(c.get(Calendar.MONTH) + 1);
@@ -287,8 +311,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 File backupFile = new File(String.valueOf(RealizarBackupMySQL.getSelectedFile().toString())
                         + ".sql");
                 FileWriter fw = new FileWriter(backupFile);
-                Process child = runtime.exec("C:\\xampp\\mysql\\bin\\mysqldump --opt --password= --user=root "
-                        + " --databases dbfacturacion");
+                //Process child = runtime.exec("C:\\xampp\\mysql\\bin\\mysqldump --opt --password= --user=root "
+                //        + " --databases dbfacturacion");
+                Process child = runtime.exec("C:\\Archivos de programa\\MySQL\\MySQL Server 5.7\\bin\\mysqldump.exe --opt --password=root --user=root --databases bdfacturacion");
                 InputStreamReader irs = new InputStreamReader(child.getInputStream());
                 BufferedReader br = new BufferedReader(irs);
 
@@ -300,16 +325,56 @@ public class frmPrincipal extends javax.swing.JFrame {
                 irs.close();
                 br.close();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error no se genero el archivo por el siguiente motivo: " + e.getMessage(), "Verificar", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "EEROR NO SE GENERO EL ARCHIVO POR EL SIGUIENTE MOTIVO: " + e.getMessage(), "VERIFICAR", JOptionPane.ERROR_MESSAGE);
             }
-            JOptionPane.showMessageDialog(null, "Se ha respaldado la información correctamente.", "RESPALDO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "LA INFORMACION SE RESPALDO CONRRECTAMENTE.", "RESPALDO", JOptionPane.INFORMATION_MESSAGE);
         } else if (resp == JFileChooser.CANCEL_OPTION) {
-            JOptionPane.showMessageDialog(null, "Ha sido cancelada la generacion del Resplado");
+            JOptionPane.showMessageDialog(null, "LA GENERACION DEL RESPALDO HA SIDO CANCELADA");
         }
     }
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        this.RespaldoDataBase();
+        this.GenerarBackupMySQL();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        Frm_Facturas frmEfec = new Frm_Facturas(this, true);
+        frmEfec.setVisible(true);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    void GenerarBackupMySQL() {
+        int resp;
+        Calendar c = Calendar.getInstance();
+        String fecha = String.valueOf(c.get(Calendar.DATE));
+        fecha = fecha + "-" + String.valueOf(c.get(Calendar.MONTH));
+        fecha = fecha + "-" + String.valueOf(c.get(Calendar.YEAR));
+        resp = RealizarBackupMySQL.showSaveDialog(this);//JFileChooser de nombre RealizarBackupMySQL
+        if (resp == JFileChooser.APPROVE_OPTION) {//Si el usuario presiona aceptar; se genera el Backup
+            try {
+                Runtime runtime = Runtime.getRuntime();
+                File backupFile = new File(String.valueOf(RealizarBackupMySQL.getSelectedFile().toString())
+                        + "_" + fecha + ".sql");
+                FileWriter fw = new FileWriter(backupFile);
+                Process child = runtime.exec("C:\\Archivos de programa\\MySQL\\MySQL Server 5.7\\bin\\mysqldump --opt --password=root --user=root "
+                        + "--databases dbfacturacion -R");
+                InputStreamReader irs = new InputStreamReader(child.getInputStream());
+                BufferedReader br = new BufferedReader(irs);
+
+                String line;
+                while ((line = br.readLine()) != null) {
+                    fw.write(line + "\n");
+                }
+                fw.close();
+                irs.close();
+                br.close();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR NO SE GENERO EL ARCHIVO POR EL SIGUIENTE MOTIVO:" + e.getMessage(), "VERIFICAR", JOptionPane.ERROR_MESSAGE);
+            }
+            JOptionPane.showMessageDialog(null, "RESPALDO GENERADO EXITOSAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
+        } else if (resp == JFileChooser.CANCEL_OPTION) {
+            JOptionPane.showMessageDialog(null, "LA GENERACIÓN DEL RESPALDO DE BASE DE DATOS HA SIDO CANCELADA");
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -324,10 +389,10 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private vista.componentes.PanelImagen fondo;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -342,9 +407,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric lblUsu;
     private javax.swing.JMenu menuAdministrar;
+    private javax.swing.JMenu menuConfiguracion;
     private javax.swing.JMenu menuGenerar;
     // End of variables declaration//GEN-END:variables
 }

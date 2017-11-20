@@ -66,6 +66,8 @@ public class frm_Usuario extends javax.swing.JDialog {
 
         gruposexo = new javax.swing.ButtonGroup();
         grupotipo = new javax.swing.ButtonGroup();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         panelFondo = new org.edisoncor.gui.panel.PanelImage();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -481,7 +483,7 @@ public class frm_Usuario extends javax.swing.JDialog {
      public void verificarCedula() {
         if (!txtCedula.getText().isEmpty()) {
             if (ValidacionIdentidad.validarCedula(txtCedula.getText()) == false) {
-                JOptionPane.showMessageDialog(this, "La cedula es incorrecta!!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "LA CÉDULA ES INCORRECTA !!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -607,14 +609,14 @@ public class frm_Usuario extends javax.swing.JDialog {
                         if(this.txtClave1.getText().equals(this.txtClave2.getText())){
                             this.sc.getCuenta().setClave(this.txtClave2.getText());
                             if ((this.sc.guardar() == true)){ //toca guardar cuenta directamente no en candidato o persona
-                            JOptionPane.showMessageDialog(this, "Se ha registrado correctamente!!", "OK", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "SE HA REGISTRADO CORRECTAMENTE !!", "OK", JOptionPane.INFORMATION_MESSAGE);
                             this.limpiarCampos();
                             this.irListar();
                             this.cargarTabla();
                             this.txtClave1.setText("");
                             this.txtClave2.setText("");
                         } else {
-                            JOptionPane.showMessageDialog(this, "No se ha podido registrar!!", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR !!", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                         }else{
                             JOptionPane.showMessageDialog(this, "LAS CLAVES NO COINCIDEN", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -624,21 +626,21 @@ public class frm_Usuario extends javax.swing.JDialog {
                         
 
                     } else {
-                        JOptionPane.showMessageDialog(this, "ya existe la cedula!!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "CÉDULA YA EXISTE !!", "Error", JOptionPane.ERROR_MESSAGE);
                         this.limpiarCampos();
                     }
                 } else{//editar
                     Utilidades.escalarFotos(this.ruta, 100, 100, Utilidades.getRutaFotos() + File.separatorChar + this.foto);
                     if(this.txtClave1.getText().equals(this.txtClave2.getText())){
                         if ((this.su.modificar()== true)) {
-                        JOptionPane.showMessageDialog(this, "Se ha modificado correctamente!!", "OK", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "SE HA MODIFICADO CORRECTAMENTE !!", "OK", JOptionPane.INFORMATION_MESSAGE);
                         this.limpiarCampos();
                         this.irListar();
                         this.cargarTabla();
                         this.txtClave1.setText("");
                             this.txtClave2.setText("");
                     } else {
-                        JOptionPane.showMessageDialog(this, "No se ha podido modificado!!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "NO SE HA PODIDO MODIFICAR !!", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     }else{
                         JOptionPane.showMessageDialog(this, "LAS CLAVES NO COINCIDEN", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -649,7 +651,7 @@ public class frm_Usuario extends javax.swing.JDialog {
                 }
 
             } else {
-                JOptionPane.showMessageDialog(this, "La cedula es incorrecta!!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "LA CÉDULA ES INCORRECTA !!", "Error", JOptionPane.ERROR_MESSAGE);
 
             }
         }else{
@@ -674,7 +676,7 @@ public class frm_Usuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExaminarFotoActionPerformed
 
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
-        Validacion.ValidaLetrasNumerosEspacio(evt);
+        //Validacion.ValidaLetrasNumerosEspacio(evt);
         Validacion.cambiarMayusculas(evt);
     }//GEN-LAST:event_txtDireccionKeyTyped
 
@@ -731,7 +733,7 @@ public class frm_Usuario extends javax.swing.JDialog {
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "Escoja un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ESCOJA UN REGISTRO DE LA TABLA", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -808,6 +810,8 @@ public class frm_Usuario extends javax.swing.JDialog {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup gruposexo;
     private javax.swing.ButtonGroup grupotipo;
     private javax.swing.JLabel jLabel1;

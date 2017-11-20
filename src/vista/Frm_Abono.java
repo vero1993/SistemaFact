@@ -201,7 +201,7 @@ public class Frm_Abono extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("TlwgTypewriter", 1, 18)); // NOI18N
         jLabel5.setText("LISTA DE CUENTAS ACTIVAS");
         tplistar.add(jLabel5);
-        jLabel5.setBounds(20, 60, 290, 24);
+        jLabel5.setBounds(200, 60, 270, 24);
 
         chkDesactivadas.setText("CUENTAS DESACTIVADAS");
         chkDesactivadas.addActionListener(new java.awt.event.ActionListener() {
@@ -210,7 +210,7 @@ public class Frm_Abono extends javax.swing.JDialog {
             }
         });
         tplistar.add(chkDesactivadas);
-        chkDesactivadas.setBounds(442, 60, 180, 23);
+        chkDesactivadas.setBounds(470, 60, 150, 23);
 
         tpcredito.addTab("LISTAR", tplistar);
 
@@ -365,6 +365,11 @@ public class Frm_Abono extends javax.swing.JDialog {
         jLabel22.setBounds(10, 50, 50, 20);
 
         txtSaldo.setEditable(false);
+        txtSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSaldoActionPerformed(evt);
+            }
+        });
         txtSaldo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtSaldoKeyTyped(evt);
@@ -473,11 +478,12 @@ public class Frm_Abono extends javax.swing.JDialog {
         txtNumeroCredito.setText(LlenadoComponentes.GenerarNC());
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void IrNuevo()//activar la pestana nuevo y reutilizarla
+    public void IrNuevo()//activar la pestana nuevo y reutilizarla
     {
         this.tpcredito.setEnabledAt(0, false);
         this.tpcredito.setEnabledAt(1, true);//para poder desbloquear la pestana
         this.tpcredito.setEnabledAt(2, false);
+        this.txtCedulaCliente.requestFocus();
         this.tpcredito.setSelectedIndex(1);//para dirigirce hacia otra pestana
     }
     private void tbnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnsalirActionPerformed
@@ -504,7 +510,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
     private void cargarPagos() {//carga los pagos
         this.txtTotalPago.setText(String.valueOf(this.sCxC.getCxC().getMonto()));
-        this.txtSaldo.setText(String.valueOf(this.sCxC.getCxC().getSaldo()).trim());
+        this.txtSaldo.setText(String.valueOf(Math.round(this.sCxC.getCxC().getSaldo()* Math.pow(10, 2))/ Math.pow(10, 2)));
     }
     private void btnAbonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonarActionPerformed
 
@@ -522,6 +528,7 @@ public class Frm_Abono extends javax.swing.JDialog {
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         this.IrListar();
+        this.limpiarCampos();
     }//GEN-LAST:event_btncancelarActionPerformed
 
     private void btnGuardarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCuentaActionPerformed
@@ -737,16 +744,27 @@ public class Frm_Abono extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscarCuentaKeyTyped
 
     private void txtBuscarCuentaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCuentaKeyReleased
-        if (cbxCriterioBuscar.getSelectedIndex() == 1 && this.chkDesactivadas.isSelected()==false) {
+        if (cbxCriterioBuscar.getSelectedIndex() == 1) {
+            if(chkDesactivadas.isSelected()==false){
             this.modeloTablaCredito.setLista(this.sCxC.buscarCxCporPedido(this.txtBuscarCuenta.getText()));
         } else {
-//            if (cbxCriterioBuscar.getSelectedIndex() == 2) {
-//                this.modeloTablaCredito.setLista(this.sPedido.buscarPedidosporFecha(this..getText()));
-//            }
+            this.modeloTablaCredito.setLista(this.sCxC.buscarCxCporPedidoDesactivo(this.txtBuscarCuenta.getText()));
+            }
+        }else{ if (cbxCriterioBuscar.getSelectedIndex() == 2) {
+            if(chkDesactivadas.isSelected()==false){
+            this.modeloTablaCredito.setLista(this.sCxC.buscarCxCporCliente(this.txtBuscarCuenta.getText()));
+        } else {
+            this.modeloTablaCredito.setLista(this.sCxC.buscarCxCporClienteDe(this.txtBuscarCuenta.getText()));
+            }
+        } 
         }
         this.tblCreditos.setModel(this.modeloTablaCredito);
         this.tblCreditos.updateUI();
     }//GEN-LAST:event_txtBuscarCuentaKeyReleased
+
+    private void txtSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSaldoActionPerformed
     public void cargarDatosCliente() {
         sCliente.nuevaInstancia();
         sCliente.fijarInstancia((Cliente) sCliente.obtenerPersonaCedula(txtCedulaCliente.getText()));
@@ -842,16 +860,16 @@ public class Frm_Abono extends javax.swing.JDialog {
     private javax.swing.JTable tblDetalleAbonos;
     public static javax.swing.JTable tblPedidos;
     private javax.swing.JButton tbnsalir;
-    private javax.swing.JTabbedPane tpcredito;
+    public static javax.swing.JTabbedPane tpcredito;
     private javax.swing.JPanel tplistar;
     private javax.swing.JPanel tpnuevo;
     private javax.swing.JPanel tpnuevo1;
     private javax.swing.JTextField txtAbono;
     private javax.swing.JTextField txtApellidosNombres;
     private javax.swing.JTextField txtBuscarCuenta;
-    private javax.swing.JTextField txtCedulaCliente;
+    public static javax.swing.JTextField txtCedulaCliente;
     private javax.swing.JTextField txtMontoPedido;
-    private javax.swing.JTextField txtNumeroCredito;
+    public static javax.swing.JTextField txtNumeroCredito;
     private javax.swing.JTextField txtObservacion;
     private javax.swing.JTextField txtSaldo;
     private javax.swing.JTextField txtTotalPago;

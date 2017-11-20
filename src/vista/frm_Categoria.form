@@ -117,8 +117,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="240" max="-2" attributes="0"/>
                           <Component id="label1" min="-2" pref="160" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="chbeliminados" min="-2" pref="120" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="chkDesactivados" min="-2" pref="127" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -137,7 +137,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="label1" min="-2" max="-2" attributes="0"/>
-                              <Component id="chbeliminados" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkDesactivados" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -254,23 +254,6 @@
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarCategoriaKeyTyped"/>
                   </Events>
                 </Component>
-                <Component class="java.awt.Checkbox" name="chbeliminados">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="TlwgTypewriter" size="15" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
-                    </Property>
-                    <Property name="label" type="java.lang.String" value="DESACTIVOS"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="chbeliminadosMousePressed"/>
-                  </Events>
-                </Component>
                 <Component class="java.awt.Label" name="label1">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -284,6 +267,14 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="LISTAR CATEGORIAS"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkDesactivados">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="DESACTIVADOS"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkDesactivadosActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

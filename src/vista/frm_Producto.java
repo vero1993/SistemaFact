@@ -55,7 +55,8 @@ public class frm_Producto extends javax.swing.JDialog {
             }
         }
         this.txtPrecioVenta.setText(String.valueOf(this.sp.getProducto().getPre_venta()).trim());
-        this.cargarComboCategoria();
+        //this.cargarComboCategoria();
+        this.cbxCategoria.setSelectedIndex(LlenadoComponentes.obtenerIndexComboCategoria(cbxCategoria, this.sp.getProducto().getCategoria()));
     }
 
     private void cargarTabla() {//cargar los elementos en la tabla
@@ -148,6 +149,9 @@ public class frm_Producto extends javax.swing.JDialog {
 
         jLabel9 = new javax.swing.JLabel();
         giva = new javax.swing.ButtonGroup();
+        jPanel4 = new javax.swing.JPanel();
+        rdbGerente = new javax.swing.JRadioButton();
+        rdbEmpleado = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         panelImage1 = new org.edisoncor.gui.panel.PanelImage();
         tpproducto = new javax.swing.JTabbedPane();
@@ -161,8 +165,8 @@ public class frm_Producto extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         cbxBuscarProducto = new javax.swing.JComboBox<>();
         txtBuscarProducto = new javax.swing.JTextField();
-        chbeliminados = new java.awt.Checkbox();
         label1 = new java.awt.Label();
+        chkDesactivados = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -191,6 +195,40 @@ public class frm_Producto extends javax.swing.JDialog {
         btncancelar = new javax.swing.JButton();
 
         jLabel9.setText("jLabel9");
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 10))); // NOI18N
+        jPanel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        rdbGerente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rdbGerente.setText("GERENTE");
+
+        rdbEmpleado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rdbEmpleado.setText("EMPLEADO");
+        rdbEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbEmpleadoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rdbGerente)
+                    .addComponent(rdbEmpleado))
+                .addGap(0, 13, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rdbGerente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdbEmpleado)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -314,22 +352,20 @@ public class frm_Producto extends javax.swing.JDialog {
         jPanel3.add(txtBuscarProducto);
         txtBuscarProducto.setBounds(270, 20, 190, 25);
 
-        chbeliminados.setFont(new java.awt.Font("TlwgTypewriter", 1, 15)); // NOI18N
-        chbeliminados.setForeground(new java.awt.Color(0, 0, 0));
-        chbeliminados.setLabel("DESACTIVOS");
-        chbeliminados.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                chbeliminadosMousePressed(evt);
-            }
-        });
-        jPanel3.add(chbeliminados);
-        chbeliminados.setBounds(340, 60, 120, 24);
-
         label1.setFont(new java.awt.Font("TlwgTypewriter", 1, 15)); // NOI18N
         label1.setForeground(new java.awt.Color(0, 0, 0));
         label1.setText("LISTAR PRODUCTOS");
         jPanel3.add(label1);
-        label1.setBounds(160, 60, 160, 24);
+        label1.setBounds(280, 60, 160, 24);
+
+        chkDesactivados.setText("DESACTIVADOS");
+        chkDesactivados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkDesactivadosActionPerformed(evt);
+            }
+        });
+        jPanel3.add(chkDesactivados);
+        chkDesactivados.setBounds(450, 60, 130, 30);
 
         tpproducto.addTab("LISTAR", jPanel3);
 
@@ -474,6 +510,7 @@ public class frm_Producto extends javax.swing.JDialog {
         jPanel2.add(txtPrecioVenta);
         txtPrecioVenta.setBounds(100, 240, 80, 27);
 
+        giva.add(rdbIvaNo);
         rdbIvaNo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         rdbIvaNo.setText("NO");
         rdbIvaNo.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -484,6 +521,7 @@ public class frm_Producto extends javax.swing.JDialog {
         jPanel2.add(rdbIvaNo);
         rdbIvaNo.setBounds(320, 210, 40, 23);
 
+        giva.add(rdbIvaSi);
         rdbIvaSi.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         rdbIvaSi.setText("SI");
         rdbIvaSi.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -594,7 +632,7 @@ public class frm_Producto extends javax.swing.JDialog {
             this.cargarVista();
             this.tblTabla.clearSelection();
         } else {
-            JOptionPane.showMessageDialog(this, "Escoja una fila", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ESCOJA UN REGISTRO DE LA TABLA", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnModifcarActionPerformed
 
@@ -612,7 +650,7 @@ public class frm_Producto extends javax.swing.JDialog {
         if (fila >= 0) {
 
             this.sp.fijarInstancia(this.modelo.getLista().get(fila));
-            String aux = "Estas seguro de querer " + this.btndesactivar.getText() + ":" + this.sp.getProducto().getNom_producto();
+            String aux = "ESTA SEGURO DE QUERER " + this.btndesactivar.getText() + ":" + this.sp.getProducto().getNom_producto();
             int a = -1;
             if (this.sp.getProducto().getEst_pro()== "ACTIVO") {
                 a = JOptionPane.showConfirmDialog(this, aux, "Confirmar", JOptionPane.OK_CANCEL_OPTION);
@@ -627,7 +665,7 @@ public class frm_Producto extends javax.swing.JDialog {
                 }
                 this.sp.modificar();
                 this.limpiarCampos();
-                if (chbeliminados.getState() == true) {
+                if (chkDesactivados.isSelected()== true) {
                     this.CargarTablaDesactivos();
                 } else {
                     this.cargarTabla();
@@ -635,7 +673,7 @@ public class frm_Producto extends javax.swing.JDialog {
                 this.tblTabla.clearSelection();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Escoja una fila", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ESCOJA UN REGISTRO DE LA TABLA", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btndesactivarActionPerformed
 
@@ -697,6 +735,8 @@ public class frm_Producto extends javax.swing.JDialog {
                     }
                 }
             }
+        }else{
+            JOptionPane.showMessageDialog(this, "EXISTEN CAMPOS VACIOS", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -769,16 +809,22 @@ public class frm_Producto extends javax.swing.JDialog {
         Validacion.validarMayusculas(evt, txtBuscarProducto);
         //Buscar los pedidos
         if (cbxBuscarProducto.getSelectedIndex() == 1) {
+            if(chkDesactivados.isSelected()==false){
             this.modelo.setLista(this.sp.buscarTodosProductos(this.txtBuscarProducto.getText()));
         } else {
-            if (cbxBuscarProducto.getSelectedIndex() == 2) {
-
-                this.modelo.setLista(this.sp.buscarProductosporcodigo(this.txtBuscarProducto.getText()));
+            this.modelo.setLista(this.sp.buscarTodosDesactivados(this.txtBuscarProducto.getText()));
             }
+        }else{ if (cbxBuscarProducto.getSelectedIndex() == 2) {
+            if(chkDesactivados.isSelected()==false){
+            this.modelo.setLista(this.sp.buscarProductosporcodigo(this.txtBuscarProducto.getText()));
+        } else {
+            this.modelo.setLista(this.sp.buscarProductosDesactivados(this.txtBuscarProducto.getText()));
+            }
+        } 
         }
-
         this.tblTabla.setModel(this.modelo);
         this.tblTabla.updateUI();
+        
     }//GEN-LAST:event_txtBuscarProductoKeyReleased
 
     private void txtBuscarProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProductoKeyTyped
@@ -793,7 +839,8 @@ public class frm_Producto extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscarProductoKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        Validacion.ValidaLetrasNumerosEspacio(evt);
+        //Validacion.ValidaLetrasNumerosEspacio(evt);
+        //Validacion.
         Validacion.cambiarMayusculas(evt);
     }//GEN-LAST:event_txtNombreKeyTyped
 
@@ -819,21 +866,32 @@ public class frm_Producto extends javax.swing.JDialog {
     }//GEN-LAST:event_chkHabilitarPrecioItemStateChanged
 
     private void calculoPrecio2() {
-        float ganancia = 0, precioSIva0, iva = 0;
-        float precioSinIva;
+        float ganancia = 0, precioSIva0, iva = 0, precioCosto, precioCosto1;
+        float precioSinIva, diferencia;
         if (this.txtPrecioVenta.getText().isEmpty() == true) {
             this.txtGanancia.setText("0.00");
             this.txtPrecioSinIva.setText("0.00");
             precioSinIva = 0 / 1.12f;
+            
         } else {
             if (this.rdbIvaSi.isSelected() == true) {
+                precioCosto = (Float.parseFloat(this.txtPrecioCosto.getText()));
                 precioSinIva = Float.parseFloat(this.txtPrecioVenta.getText()) / 1.12f;
                 iva = (Float.parseFloat(this.txtPrecioVenta.getText()) - Float.parseFloat(this.txtPrecioSinIva.getText()));
-                ganancia = ((Float.parseFloat(this.txtPrecioSinIva.getText())*100) / (Float.parseFloat(this.txtPrecioCosto.getText())));
+                diferencia = precioSinIva - precioCosto;
+                System.out.println(diferencia);
+                float mul = diferencia * 100;
+                System.out.println(mul);
+                ganancia = mul / precioCosto;
+                //ganancia = ((Float.parseFloat(this.txtPrecioSinIva.getText())*100) / (Float.parseFloat(this.txtPrecioCosto.getText())));
             }else{
                 iva =0;
+                precioCosto1 = (Float.parseFloat(this.txtPrecioCosto.getText()));
                 precioSinIva = Float.parseFloat(this.txtPrecioVenta.getText());
-                ganancia = ((Float.parseFloat(this.txtPrecioSinIva.getText())*100) / (Float.parseFloat(this.txtPrecioCosto.getText())));
+                diferencia = precioSinIva - precioCosto1;
+                float mul = diferencia * 100;
+                ganancia = mul / precioCosto1;
+                //ganancia = ((Float.parseFloat(this.txtPrecioSinIva.getText())*100) / (Float.parseFloat(this.txtPrecioCosto.getText())));
             }
         }
         this.txtGanancia.setText(String.valueOf(Math.round(ganancia * Math.pow(10, 2))/ Math.pow(10, 2)));
@@ -871,14 +929,19 @@ public class frm_Producto extends javax.swing.JDialog {
         Validacion.numerosDecimales(evt, txtPrecioCosto);
     }//GEN-LAST:event_txtPrecioCostoKeyTyped
 
-    private void chbeliminadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chbeliminadosMousePressed
-        // cargar los productos desactivados
-        if (chbeliminados.getState() == false) {
-            this.CargarTablaDesactivos();
-        } else {
+    private void chkDesactivadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDesactivadosActionPerformed
+      if((chkDesactivados.isSelected() == true)){
+          this.CargarTablaDesactivos();
+      }
+      else {
             this.cargarTabla();
-        }
-    }//GEN-LAST:event_chbeliminadosMousePressed
+            
+      }
+    }//GEN-LAST:event_chkDesactivadosActionPerformed
+
+    private void rdbEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbEmpleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdbEmpleadoActionPerformed
 
     private void calculoPrecio() {
         float ganancia = 0, precioSIva = 0;
@@ -962,7 +1025,7 @@ public class frm_Producto extends javax.swing.JDialog {
     private javax.swing.JButton btnsalir;
     private javax.swing.JComboBox<String> cbxBuscarProducto;
     private javax.swing.JComboBox cbxCategoria;
-    private java.awt.Checkbox chbeliminados;
+    private javax.swing.JCheckBox chkDesactivados;
     private javax.swing.JCheckBox chkHabilitarPrecio;
     private javax.swing.ButtonGroup giva;
     private javax.swing.JLabel jLabel1;
@@ -981,9 +1044,12 @@ public class frm_Producto extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     private org.edisoncor.gui.panel.PanelImage panelImage1;
+    private javax.swing.JRadioButton rdbEmpleado;
+    private javax.swing.JRadioButton rdbGerente;
     private javax.swing.JRadioButton rdbIvaNo;
     private javax.swing.JRadioButton rdbIvaSi;
     private javax.swing.JTable tblTabla;

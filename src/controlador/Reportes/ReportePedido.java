@@ -34,7 +34,7 @@ import modelo.Pedido;
  */
 public class ReportePedido {
 
-    public static void reportePedido(Pedido pedido) {
+    public static void reportePedido(Pedido pedido, String usuario) {
         Document documento = new Document(PageSize.A5, 20, 20, 15, 10);
         DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
         simbolos.setDecimalSeparator('.');
@@ -331,7 +331,7 @@ public class ReportePedido {
             tablaFirmas.setWidths(medidasCeldasFirmas);
             //tablaFirmas.setHorizontalAlignment(Element.ALIGN_RIGHT);
             Paragraph cFirmaAut= new Paragraph("__________________________________\n"
-                    + "VERONICA CONSUELO ABAD ABAD\n"
+                    + usuario+"\n"
                     + "FIRMA AUTORIZADA", new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celFirmaAut = new PdfPCell(cFirmaAut);
             celFirmaAut.setHorizontalAlignment(Element.ALIGN_CENTER);

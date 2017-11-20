@@ -60,23 +60,13 @@ public class ServicioPedidos {
         return this.cDao.listarPedidoEstado("ACTIVO", false);
     }
 
-    public List<Pedido> listarDPedidos(String criterio, String campo) {
-        return this.cDao.listarPedido(criterio, campo);
-    }
-
-    public List<Pedido> listarPedidos(String criterio, Date campo) {
-        return this.cDao.listarPedido(criterio, campo);
-    }
-
     public Pedido listarPedido(Long id) {
         return this.cDao.listarPedido(id);
     }
     public List<Pedido> buscarTodosPedidos(String variable){
          return this.cDao.buscarPedidos(variable);
      }
-    public List<Pedido> buscarPedidosporFecha(String variable){
-        return this.cDao.buscarPedidosporFecha(variable);
-    }
+    
     public List<Pedido> buscarPedidosparaFactura(String cedula){
         return this.cDao.buscarPedidosparaFactura(cedula);
     }
@@ -84,4 +74,24 @@ public class ServicioPedidos {
     public List<Pedido> buscarPedidosparaCredito(String cedula){
         return this.cDao.buscarPedidosparaCredito(cedula);
     }
+    
+    public List<Pedido> listarPedidos(String criterio, String campo) {
+        return this.cDao.listarPedidos(criterio, campo);
+    }
+    
+     public List<Pedido> listarPedidosActivos(String criterio, Date nombre) {
+         return this.cDao.listarPedidosActivos(criterio, nombre);
+     }
+     
+     public List<Pedido> listarPedidosDesactivos(String criterio, Date nombre) {
+         return this.cDao.listarPedidosDesactivos(criterio, nombre);
+     }
+     
+     public List<Pedido> buscarPedidosActivos(String variable){
+         return this.cDao.buscarPedidosActivos(variable);
+     }
+     
+     public List<Pedido> buscarPedidosDesactivos(String variable){
+         return this.cDao.buscarPedidosDesactivos(variable);
+     }
 }

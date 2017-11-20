@@ -6,8 +6,11 @@
 
 package controlador.Dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Query;
 import modelo.Factura;
+import modelo.Producto;
 
 /**
  *
@@ -81,6 +84,29 @@ public class FacturaDao extends AdaptadorDao{
         }
         return r;
     }
- 
+     public List<Factura> buscarxNumFactura(String variable){
+        List lista = new ArrayList();
+        try {
+            String query = "Select a from Factura a where a.num_fac LIKE :num_fac"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter("num_fac", "%"+variable+"%");
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "buscarFactura");
+        }
+        return lista;
+    }
     
+      public List<Factura> buscarporCedula(String variable){
+        List lista = new ArrayList();
+        try {
+            String query = "Select c from Factura c where c.cliente.ape_per LIKE :ape_per"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter("ape_per", "%"+variable+"%");
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "buscarPedido");
+        }
+        return lista;
+    }
 }

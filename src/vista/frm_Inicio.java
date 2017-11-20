@@ -203,7 +203,7 @@ public class frm_Inicio extends javax.swing.JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(this,"No esta registrado en el sistema o su usuario y clave son incorrectas","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,"NO ESTA REGISTRADO EN EL SISTEMA O SU USUARIO Y CLAVE SON INCORRECTAS","Error", JOptionPane.ERROR_MESSAGE);
                 this.errorIniciar();
             }
             

@@ -92,11 +92,18 @@ public class ServicioProducto {
     public List<Producto> buscarTodosProductos(String variable){
          return this.cDao.buscarProductos(variable);
      }
+     public List<Producto> buscarTodosDesactivados(String variable){
+         return this.cDao.buscarTodosDesactivados(variable);
+     }
     public List<Producto> buscarProductosporcodigo(String variable){
         return this.cDao.buscarProductosporcodigo(variable);
+    }
+    public List<Producto>buscarProductosDesactivados(String variable){
+        return this.cDao.buscarProductosDesactivados(variable);
     }
     
     public Producto obterProductoporCodigoFactura(String codigo){
         return this.cDao.obterProductoporCodigoFactura(codigo);
     }
+    
 }

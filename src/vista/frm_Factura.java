@@ -14,6 +14,7 @@ import controlador.Servicios.ServicioDetallePedido;
 import controlador.Servicios.ServicioFactura;
 import controlador.Servicios.ServicioPedidos;
 import controlador.Servicios.ServicioProducto;
+import controlador.Sesiones;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -212,7 +213,7 @@ public class frm_Factura extends javax.swing.JDialog {
         jLabel10.setBounds(440, 490, 70, 24);
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/save.png"))); // NOI18N
-        btnGuardar.setText("GUARDAR");
+        btnGuardar.setText("FACTURAR");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -524,17 +525,18 @@ public class frm_Factura extends javax.swing.JDialog {
             }
 
             if (this.sFactura.guardar() == true) {
-                JOptionPane.showMessageDialog(this, "SE HA REGISTRADO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "LA FACTURA SE HA REGISTRADO CORRECTAMENTE", "OK", JOptionPane.INFORMATION_MESSAGE);
                 System.out.println(this.sFactura.getFactura().getNum_fac());
-                int showConfirmDialog = JOptionPane.showConfirmDialog(null, "DESEA IMPRIMIR ESTA FACTURA..??", "IMPRIMIR FACTURA", JOptionPane.YES_NO_OPTION);
+                int showConfirmDialog = JOptionPane.showConfirmDialog(null, "DESEA IMPRIMIR ESTA FACTURA", "IMPRIMIR FACTURA", JOptionPane.YES_NO_OPTION);
                 if (showConfirmDialog == 0) {
-                    ReporteFactura.reporteFactura(this.sFactura.getFactura());
+                    String usuario = (Sesiones.getCuenta().getUsu().getApe_per() + " " + Sesiones.getCuenta().getUsu().getNom_per());
+                    ReporteFactura.reporteFactura(this.sFactura.getFactura(), usuario);
                     System.out.println("llamado a imprimir");
                 } else {
                     System.out.println("Usted escogio no imprimir");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "NO SE H APODIDO REGISTRAR", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "NO SE HA PODIDO REGISTRAR", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "NO EXISTE NÚMERO DE FACTURA", "ERROR", JOptionPane.ERROR_MESSAGE);

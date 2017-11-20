@@ -119,7 +119,43 @@ public class CxCDao extends AdaptadorDao{
         }
         return lista;
     }
-    
+    public List<CxC> buscarCxCporPedidoDesactivo(String variable){
+        List lista = new ArrayList();
+        try {
+            String query = "Select c from CxC c where c.estado='DESACTIVO' and c.pedido.num_pedido LIKE :num_pedido"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter("num_pedido", "%"+variable+"%");
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "buscarPedido");
+        }
+        return lista;
+    }
+     public List<CxC> buscarCxCporCliente(String variable){
+        List lista = new ArrayList();
+        try {
+            String query = "Select c from CxC c where c.estado='ACTIVO' and c.cliente.ape_per LIKE :ape_per"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter("ape_per", "%"+variable+"%");
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "buscarPedido");
+        }
+        return lista;
+    }
+     
+     public List<CxC> buscarCxCporClienteDe(String variable){
+        List lista = new ArrayList();
+        try {
+            String query = "Select c from CxC c where c.estado='DESACTIVO' and c.cliente.ape_per LIKE :ape_per"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter("ape_per", "%"+variable+"%");
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "buscarPedido");
+        }
+        return lista;
+    }
     public CxC obtenerCxCparaFactura(String num_pedido) {//lista un despacho por su id
         CxC lista = null;
         try {

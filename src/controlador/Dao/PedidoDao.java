@@ -120,29 +120,6 @@ public class PedidoDao extends AdaptadorDao {
         return lista;
     }
 
-    public List<Pedido> listarPedido(String criterio, String nombre) {//es para listar despachos por su criterio
-        List<Pedido> lista = new ArrayList<Pedido>();
-        try {
-            String query = "Select p from Pedido p where p." + criterio + " like ?"; // 
-            Query q = this.getEntityManager().createQuery(query);
-            q.setParameter(1, nombre);
-            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de despacho
-        } catch (Exception e) {
-        }
-        return lista;
-    }
-
-    public List<Pedido> listarPedido(String criterio, Date nombre) {//es para listar despachos por fecha
-        List<Pedido> lista = new ArrayList<Pedido>();
-        try {
-            String query = "Select p from Pedido p where p." + criterio + "=?"; // 
-            Query q = this.getEntityManager().createQuery(query);
-            q.setParameter(1, nombre);
-            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de despacho
-        } catch (Exception e) {
-        }
-        return lista;
-    }
 
     public Pedido listarPedido(Long id_despacho) {//lista un despacho por su id
         Pedido lista = null;
@@ -168,15 +145,29 @@ public class PedidoDao extends AdaptadorDao {
         }
         return lista;
     }
-    public List<Pedido> buscarPedidosporFecha(String variable){
+    
+    public List<Pedido> buscarPedidosActivos(String variable){
         List lista = new ArrayList();
         try {
-            String query = "Select a from Pedido a where a.fec_ped LIKE :fec_ped"; // 
+            String query = "Select a from Pedido a where a.facturado='N' AND a.estado='ACTIVO' AND a.num_pedido LIKE :num_pedido"; // 
             Query q = this.getEntityManager().createQuery(query);
-            q.setParameter("fec_ped", "%"+variable+"%");
+            q.setParameter("num_pedido", "%"+variable+"%");
             lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
         } catch (Exception e) {
-            System.out.println("ERROR: " + e.getMessage() + "buscarPedidoporPedido");
+            System.out.println("ERROR: " + e.getMessage() + "buscarPedido");
+        }
+        return lista;
+    }
+    
+    public List<Pedido> buscarPedidosDesactivos(String variable){
+        List lista = new ArrayList();
+        try {
+            String query = "Select a from Pedido a where a.facturado='S' AND a.estado='DESACTIVO' AND a.num_pedido LIKE :num_pedido"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter("num_pedido", "%"+variable+"%");
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "buscarPedido");
         }
         return lista;
     }
@@ -203,6 +194,41 @@ public class PedidoDao extends AdaptadorDao {
             lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage() + "buscarPedido");
+        }
+        return lista;
+    }
+    
+    public List<Pedido> listarPedidos(String criterio, String nombre) {//es para listar despachos por su criterio
+        List<Pedido> lista = new ArrayList<Pedido>();
+        try {
+            String query = "Select p from Pedido p where p." + criterio + " like ?"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter(1, nombre);
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de despacho
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+    
+    public List<Pedido> listarPedidosActivos(String criterio, Date nombre) {//es para listar despachos por fecha
+        List<Pedido> lista = new ArrayList<Pedido>();
+        try {
+            String query = "Select p from Pedido p where p." + criterio + "=? AND p.facturado='N' AND p.estado='ACTIVO'"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter(1, nombre);
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de despacho
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+    public List<Pedido> listarPedidosDesactivos(String criterio, Date nombre) {//es para listar despachos por fecha
+        List<Pedido> lista = new ArrayList<Pedido>();
+        try {
+            String query = "Select p from Pedido p where p." + criterio + "=? AND p.facturado='S' AND p.estado='DESACTIVO'"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter(1, nombre);
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de despacho
+        } catch (Exception e) {
         }
         return lista;
     }

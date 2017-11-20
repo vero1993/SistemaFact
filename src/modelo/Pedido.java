@@ -58,7 +58,7 @@ public class Pedido implements Serializable{
     @JoinColumn(name = "id_cliente", nullable = true, referencedColumnName = "id_persona")//se crea la columna con referencia al id de cliente
     private Cliente cliente;
     
-    @OneToMany(mappedBy = "pedido", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)//permite mapear con DetalleDespacho de 1 a muchos
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)//permite mapear con DetalleDespacho de 1 a muchos
     private List<DetallePedido> listaDetalle = new ArrayList<DetallePedido>();
     
       @ManyToOne(cascade = {CascadeType.ALL})  //Muchos a uno, se utiliza las cascadas para borras // fetch busca directamente lazy = recargado peresoso                                                                       //early carga todo al instante

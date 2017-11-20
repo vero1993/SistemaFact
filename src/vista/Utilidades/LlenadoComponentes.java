@@ -13,9 +13,10 @@ import controlador.Servicios.ServicioCxC;
 import controlador.Servicios.ServicioCuenta;
 import controlador.Servicios.ServicioDetallePedido;
 import controlador.Servicios.ServicioFactura;
-import controlador.Servicios.ServicioPedido;
+import controlador.Servicios.ServicioPedidos;
 import controlador.Servicios.ServicioProducto;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -33,12 +34,12 @@ public class LlenadoComponentes {
     private static ServicioCxC sCredito = new ServicioCxC();
     private static ServicioCuenta scu = new ServicioCuenta();
     private static ServicioCliente scl = new ServicioCliente();
-    private static ServicioPedido sPedido = new ServicioPedido();
     private static List<Producto> prod = new ArrayList<Producto>();
     private static List<DetallePedido> cod = new ArrayList<DetallePedido>();
     private static List<Producto> pro = new ArrayList<Producto>();
     private static ServicioDetallePedido sDetallePedido = new ServicioDetallePedido();
     private static ServicioFactura sFactura = new ServicioFactura();
+    private static ServicioPedidos sPedidos = new ServicioPedidos();
     
    public static JComboBox<Categoria> cargarComboCategoria(JComboBox combo)
     {
@@ -177,10 +178,10 @@ public class LlenadoComponentes {
     public static String GenerarND() {//despacho es similar a realizar el codigo ahora sin recibir txt
         String id = "";
         int nro = 0;
-        if (sPedido.listar().size() == 0) {
+        if (sPedidos.listar().size() == 0) {
             nro = 1;
         } else {
-            nro = sPedido.listar().size() + 1;
+            nro = sPedidos.listar().size() + 1;
 
         }
 
@@ -279,8 +280,8 @@ public class LlenadoComponentes {
         if (f == true) {
 
             dd.setCant_productos(dd.getCant_productos()- cant);
-            dd.setTotal(dd.getTotal() - (cant * dd.getProducto().getPrecioSinIva()));
-
+            dd.setTotal(Math.round((dd.getTotal() - (cant * dd.getProducto().getPrecioSinIva()))* Math.pow(10, 2))/ Math.pow(10, 2));
+ 
             if (dd.getCant_productos()== 0) {
                 cod.remove(ss);
             } else {
@@ -289,7 +290,7 @@ public class LlenadoComponentes {
             }
 
         }
-
+        
         return cod;
     }
     
@@ -464,5 +465,38 @@ public class LlenadoComponentes {
         }
 
         return id;
+    }
+    
+    public static List<Pedido> cargarPedidoBuscado(String criterio, String campo) {//cargar una producto x su codigo
+        List<Pedido> cpp = new ArrayList<Pedido>();
+
+        for (Pedido d : sPedidos.listarPedidos(criterio, campo)) //foreach es el for de objetos iteraciones con cualquier elemento de la lista de objetos
+        {
+            cpp.add(d); // llenamos el combo
+
+        }
+        return cpp;
+    }
+    
+    public static List<Pedido> cargarPedidoFechaActivos(String criterio, Date campo) {//cargar una producto x su codigo
+        List<Pedido> cpp = new ArrayList<Pedido>();
+
+        for (Pedido d : sPedidos.listarPedidosActivos(criterio, campo)) //foreach es el for de objetos iteraciones con cualquier elemento de la lista de objetos
+        {
+            cpp.add(d); // llenamos el combo
+
+        }
+        return cpp;
+    }
+    
+    public static List<Pedido> cargarPedidoFechaDesactivos(String criterio, Date campo) {//cargar una producto x su codigo
+        List<Pedido> cpp = new ArrayList<Pedido>();
+
+        for (Pedido d : sPedidos.listarPedidosDesactivos(criterio, campo)) //foreach es el for de objetos iteraciones con cualquier elemento de la lista de objetos
+        {
+            cpp.add(d); // llenamos el combo
+
+        }
+        return cpp;
     }
 }

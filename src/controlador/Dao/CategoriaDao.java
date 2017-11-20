@@ -124,7 +124,7 @@ public class CategoriaDao extends AdaptadorDao{
     public List<Categoria> buscarTodosCategorias(String nombres){
         List lista = new ArrayList();
         try {
-            String query = "select a from Categoria a where a.nom_cat LIKE :nom_cat"; // 
+            String query = "Select a from Categoria a where a.est_cat='ACTIVO' and a.nom_cat LIKE :nom_cat"; // 
             Query q = this.getEntityManager().createQuery(query);
             q.setParameter("nom_cat", "%"+nombres+"%");
             lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
@@ -133,6 +133,17 @@ public class CategoriaDao extends AdaptadorDao{
         }
         return lista;
     }
-
+  public List<Categoria> buscarCategoriasDesactivados(String nombres){
+        List lista = new ArrayList();
+        try {
+            String query = "Select a from Categoria a where a.est_cat='DESACTIVO' and a.nom_cat LIKE :nom_cat"; // 
+            Query q = this.getEntityManager().createQuery(query);
+            q.setParameter("nom_cat", "%"+nombres+"%");
+            lista = q.getResultList(); // obtener todos los objetos que esten guardados en la tabla de la base de datos de partido
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "buscarCategoria");
+        }
+        return lista;
+    }
     
   }

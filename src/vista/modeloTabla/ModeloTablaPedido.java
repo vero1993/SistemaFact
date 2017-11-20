@@ -49,7 +49,7 @@ public class ModeloTablaPedido extends AbstractTableModel{
         {
             case 0: return m.getNum_pedido();
             case 1: return m.getCliente().getApe_per() + " "+ m.getCliente().getNom_per();
-            case 2: return m.getFec_ped();
+            case 2: return m.getFec_ped().toString();
             case 3: return m.getCant_productos();
             case 4: return m.getTot_ped(); // es una operacion ternaria si la condicion se cumple es true caso contrario des
             default: return null;

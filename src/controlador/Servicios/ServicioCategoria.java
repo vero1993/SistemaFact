@@ -68,4 +68,7 @@ public class ServicioCategoria {
     public List<Categoria> buscarTodosCategorias(String nombres){
         return this.cDao.buscarTodosCategorias(nombres);
     }
+     public List<Categoria>buscarCategoriasDesactivados(String variable){
+        return this.cDao.buscarCategoriasDesactivados(variable);
+    }
 }

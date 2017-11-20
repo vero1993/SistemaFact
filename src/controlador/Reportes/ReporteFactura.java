@@ -34,7 +34,7 @@ import modelo.Factura;
  */
 public class ReporteFactura {
 
-    public static void reporteFactura(Factura factura) {
+    public static void reporteFactura(Factura factura, String usuario) {
         Document documento = new Document(PageSize.A5, 20, 20, 15, 10);
         DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
         simbolos.setDecimalSeparator('.');
@@ -320,7 +320,7 @@ public class ReporteFactura {
             tablaFirmas.setWidths(medidasCeldasFirmas);
             //tablaFirmas.setHorizontalAlignment(Element.ALIGN_RIGHT);
             Paragraph cFirmaAut= new Paragraph("__________________________________\n"
-                    + "VERONICA CONSUELO ABAD ABAD\n"
+                    + usuario+"\n"
                     + "FIRMA AUTORIZADA", new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL, BaseColor.BLACK));
             PdfPCell celFirmaAut = new PdfPCell(cFirmaAut);
             celFirmaAut.setHorizontalAlignment(Element.ALIGN_CENTER);
