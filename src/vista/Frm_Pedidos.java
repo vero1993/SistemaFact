@@ -131,6 +131,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         btnImprimir1 = new javax.swing.JButton();
         btnImprimir2 = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -390,6 +391,10 @@ public class Frm_Pedidos extends javax.swing.JDialog {
         });
         jPanel1.add(btnBuscar);
         btnBuscar.setBounds(440, 10, 110, 30);
+
+        jButton1.setText("jButton1");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(760, 290, 73, 23);
 
         tpPedido.addTab("LISTAR", jPanel1);
 
@@ -1673,6 +1678,7 @@ public class Frm_Pedidos extends javax.swing.JDialog {
     private javax.swing.JCheckBox chkFacturados;
     private com.toedter.calendar.JDateChooser dtFecha;
     private com.toedter.calendar.JDateChooser dtFechaEntrega;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
