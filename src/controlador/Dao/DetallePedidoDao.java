@@ -22,6 +22,7 @@ public class DetallePedidoDao extends AdaptadorDao{
       super (DetallePedido .class, new Conexion().getEm());//es un metodo de todas las clases q uno esta creando permite llamar al contructor de la clase padre
 
     }
+    
     public boolean guardar()
     {
         boolean band = false;
